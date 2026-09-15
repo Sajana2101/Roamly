@@ -1,4 +1,5 @@
-package com.example.roamly.ui.holiday
+package com.example.roamly.ui.documents
+
 import androidx.fragment.app.Fragment
 import com.example.roamly.R
 

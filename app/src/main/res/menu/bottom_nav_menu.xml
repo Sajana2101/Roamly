@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@android:drawable/ic_menu_view"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/nav_itinerary"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/itinerary" />
+
+    <item
+        android:id="@+id/nav_add_holiday"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="@string/add_holiday" />
+
+    <item
+        android:id="@+id/nav_packing"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/packing" />
+
+    <item
+        android:id="@+id/nav_documents"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="@string/documents" />
+
+</menu>
