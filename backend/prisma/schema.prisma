@@ -1,0 +1,186 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlserver"
+}
+
+model User {
+  userId         String        @id @default(uuid()) @db.UniqueIdentifier
+  name           String
+  email          String        @unique
+  ssoProvider    String
+  providerUserId String        @unique
+  createdAt      DateTime      @default(now()) @db.DateTime2
+  updatedAt      DateTime      @updatedAt @db.DateTime2
+  settings       UserSettings?
+  holidays       Holiday[]
+  packingLists   PackingList[]
+  checklists     Checklist[]
+  travelDocuments TravelDocument[]
+  reminders       Reminder[]
+}
+
+model UserSettings {
+  settingsId           String   @id @default(uuid()) @db.UniqueIdentifier
+  userId               String   @unique @db.UniqueIdentifier
+  homeCurrency         String
+  languageCode         String
+  notificationsEnabled Boolean
+  updatedAt            DateTime @updatedAt @db.DateTime2
+  user                 User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+}
+
+model Holiday {
+  holidayId     String         @id @default(uuid()) @db.UniqueIdentifier
+  userId        String         @db.UniqueIdentifier
+  title         String
+  tripType      String
+  country       String
+  city          String
+  startDate     DateTime       @db.Date
+  endDate       DateTime       @db.Date
+  imageUrl      String?
+  createdAt     DateTime       @default(now()) @db.DateTime2
+  updatedAt     DateTime       @updatedAt @db.DateTime2
+  user          User           @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  accommodation Accommodation?
+  flights       Flight[]
+  itinerary     Itinerary?
+  reminders Reminder[]
+}
+
+model Accommodation {
+  accommodationId  String   @id @default(uuid()) @db.UniqueIdentifier
+  holidayId        String   @unique @db.UniqueIdentifier
+  name             String
+  type             String
+  address          String
+  checkInDate      DateTime @db.Date
+  checkInTime      DateTime @db.Time
+  checkOutDate     DateTime @db.Date
+  checkOutTime     DateTime @db.Time
+  bookingReference String?
+  notes            String?
+  holiday          Holiday  @relation(fields: [holidayId], references: [holidayId], onDelete: Cascade)
+}
+
+model Flight {
+  flightId         String    @id @default(uuid()) @db.UniqueIdentifier
+  holidayId        String    @db.UniqueIdentifier
+  flightType       String
+  airline          String
+  flightNumber     String
+  departureAirport String
+  arrivalAirport   String
+  flightDate       DateTime  @db.Date
+  boardingTime     DateTime? @db.Time
+  departureTime    DateTime  @db.Time
+  arrivalTime      DateTime  @db.Time
+  terminal         String?
+  gate             String?
+  holiday          Holiday   @relation(fields: [holidayId], references: [holidayId], onDelete: Cascade)
+}
+
+model Itinerary {
+  itineraryId String         @id @default(uuid()) @db.UniqueIdentifier
+  holidayId   String         @unique @db.UniqueIdentifier
+  name        String
+  createdAt   DateTime       @default(now()) @db.DateTime2
+  updatedAt   DateTime       @updatedAt @db.DateTime2
+  holiday     Holiday        @relation(fields: [holidayId], references: [holidayId], onDelete: Cascade)
+  days        ItineraryDay[]
+}
+
+model ItineraryDay {
+  itineraryDayId String              @id @default(uuid()) @db.UniqueIdentifier
+  itineraryId    String              @db.UniqueIdentifier
+  dayNumber      Int
+  date           DateTime            @db.Date
+  itinerary      Itinerary           @relation(fields: [itineraryId], references: [itineraryId], onDelete: Cascade)
+  activities     ItineraryActivity[]
+}
+
+model ItineraryActivity {
+  activityId     String       @id @default(uuid()) @db.UniqueIdentifier
+  itineraryDayId String       @db.UniqueIdentifier
+  title          String
+  startTime      DateTime     @db.Time
+  endTime        DateTime?    @db.Time
+  location       String?
+  notes          String?
+  createdAt      DateTime     @default(now()) @db.DateTime2
+  updatedAt      DateTime     @updatedAt @db.DateTime2
+  itineraryDay   ItineraryDay @relation(fields: [itineraryDayId], references: [itineraryDayId], onDelete: Cascade)
+}
+
+model PackingList {
+  packingListId String        @id @default(uuid()) @db.UniqueIdentifier
+  userId        String        @db.UniqueIdentifier
+  name          String
+  description   String?
+  createdAt     DateTime      @default(now()) @db.DateTime2
+  updatedAt     DateTime      @updatedAt @db.DateTime2
+  user          User          @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  items         PackingItem[]
+}
+
+model PackingItem {
+  packingItemId String      @id @default(uuid()) @db.UniqueIdentifier
+  packingListId String      @db.UniqueIdentifier
+  name          String
+  isPacked      Boolean     @default(false)
+  createdAt     DateTime    @default(now()) @db.DateTime2
+  updatedAt     DateTime    @updatedAt @db.DateTime2
+  packingList   PackingList @relation(fields: [packingListId], references: [packingListId], onDelete: Cascade)
+}
+
+model Checklist {
+  checklistId String          @id @default(uuid()) @db.UniqueIdentifier
+  userId      String          @db.UniqueIdentifier
+  name        String
+  createdAt   DateTime        @default(now()) @db.DateTime2
+  updatedAt   DateTime        @updatedAt @db.DateTime2
+  user        User            @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  items       ChecklistItem[]
+}
+
+model ChecklistItem {
+  checklistItemId String    @id @default(uuid()) @db.UniqueIdentifier
+  checklistId     String    @db.UniqueIdentifier
+  title           String
+  isCompleted     Boolean   @default(false)
+  createdAt       DateTime  @default(now()) @db.DateTime2
+  updatedAt       DateTime  @updatedAt @db.DateTime2
+  checklist       Checklist @relation(fields: [checklistId], references: [checklistId], onDelete: Cascade)
+}
+
+model TravelDocument {
+  documentId   String    @id @default(uuid()) @db.UniqueIdentifier
+  userId       String    @db.UniqueIdentifier
+  name         String
+  documentType String
+  expiryDate   DateTime? @db.Date
+  fileName     String
+  fileUrl      String
+  fileSizeBytes BigInt
+  notes        String?
+  uploadedAt   DateTime  @default(now()) @db.DateTime2
+  user         User      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+}
+
+model Reminder {
+  reminderId   String    @id @default(uuid()) @db.UniqueIdentifier
+  userId       String    @db.UniqueIdentifier
+  holidayId    String?   @db.UniqueIdentifier
+  title        String
+  reminderDate DateTime  @db.Date
+  reminderTime DateTime  @db.Time
+  isEnabled    Boolean   @default(true)
+  createdAt    DateTime  @default(now()) @db.DateTime2
+  updatedAt    DateTime  @updatedAt @db.DateTime2
+  user         User      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  holiday      Holiday?  @relation(fields: [holidayId], references: [holidayId], onDelete: NoAction, onUpdate: NoAction)
+}
