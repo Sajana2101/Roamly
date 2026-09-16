@@ -6,4 +6,6 @@
     <string name="prepare_everything_you_need_for_your_trip">Prepare everything you need for your trip.</string>
     <string name="add_packing_list">Add Packing List</string>
     <string name="your_packing_lists_will_appear_here">Your packing lists will appear here.</string>
+    <string name="packing_list_name">Packing List Name</string>
+    <string name="description">Description</string>
 </resources>
