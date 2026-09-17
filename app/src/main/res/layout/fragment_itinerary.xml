@@ -24,7 +24,7 @@
             android:id="@+id/tvYourPlans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="YOUR PLANS"
+            android:text="@string/your_plans"
             android:textColor="#5E8FC2"
             android:textSize="11sp"
             android:textStyle="bold"
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="My Itineraries"
+            android:text="@string/my_itineraries"
             android:textColor="#172B3A"
             android:textSize="26sp"
             android:textStyle="bold" />
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="Keep every day of your trip organised."
+            android:text="@string/keep_every_day_of_your_trip_organised"
             android:textColor="#8A96A3"
             android:textSize="13sp" />
 
@@ -101,7 +101,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Honeymoon"
+                                android:text="@string/honeymoon"
                                 android:textColor="#172B3A"
                                 android:textSize="13sp"
                                 android:textStyle="bold" />
@@ -110,7 +110,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
-                                android:text="Greece"
+                                android:text="@string/greece"
                                 android:textColor="#7B8794"
                                 android:textSize="11sp" />
 
@@ -155,7 +155,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Business Trip"
+                                android:text="@string/business_trip"
                                 android:textColor="#172B3A"
                                 android:textSize="13sp"
                                 android:textStyle="bold" />
@@ -164,7 +164,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
-                                android:text="Cape Town"
+                                android:text="@string/cape_town"
                                 android:textColor="#7B8794"
                                 android:textSize="11sp" />
 
@@ -208,7 +208,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Family Vacation"
+                                android:text="@string/family_vacation"
                                 android:textColor="#172B3A"
                                 android:textSize="13sp"
                                 android:textStyle="bold" />
@@ -217,7 +217,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
-                                android:text="Durban"
+                                android:text="@string/durban"
                                 android:textColor="#7B8794"
                                 android:textSize="11sp" />
 
@@ -238,7 +238,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:text="SELECTED TRIP"
+            android:text="@string/selected_trip"
             android:textColor="#5E8FC2"
             android:textSize="11sp"
             android:textStyle="bold"
@@ -261,7 +261,7 @@
                     android:id="@+id/tvSelectedTripName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Honeymoon"
+                    android:text="@string/honeymoon2"
                     android:textColor="#172B3A"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -271,7 +271,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="12 Sep – 20 Sep 2026"
+                    android:text="@string/_12_sep_20_sep_2026"
                     android:textColor="#7B8794"
                     android:textSize="12sp" />
 
@@ -281,8 +281,8 @@
                 android:id="@+id/btnDeleteItinerary"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:contentDescription="Delete itinerary"
-                android:text="×"
+                android:contentDescription="@string/delete_itinerary"
+                android:text="@string/x"
                 android:textColor="#D95C5C"
                 android:textSize="20sp"
                 app:backgroundTint="#FDECEC"
@@ -297,7 +297,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="DAILY PLAN"
+            android:text="@string/daily_plan"
             android:textColor="#5E8FC2"
             android:textSize="11sp"
             android:textStyle="bold"
@@ -315,7 +315,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Select a day"
+                android:text="@string/select_a_day"
                 android:textColor="#172B3A"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -325,7 +325,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginEnd="7dp"
-                android:text="Edit"
+                android:text="@string/edit"
                 android:textAllCaps="false"
                 android:textColor="#266FAD"
                 android:textSize="12sp"
@@ -338,7 +338,7 @@
                 android:id="@+id/btnAddDay"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:text="+ Day"
+                android:text="@string/day"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
@@ -359,200 +359,25 @@
             android:scrollbars="none">
 
             <LinearLayout
+                android:id="@+id/daysContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="4dp">
-
-                <!-- Day 1 - selected -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardDay1"
-                    android:layout_width="76dp"
-                    android:layout_height="72dp"
-                    android:layout_marginEnd="8dp"
-                    app:cardBackgroundColor="#2F8FD8"
-                    app:cardCornerRadius="13dp"
-                    app:cardElevation="0dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Day 1"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="12 Sep"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sat"
-                            android:textColor="#E4F2FC"
-                            android:textSize="10sp" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Day 2 -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardDay2"
-                    android:layout_width="76dp"
-                    android:layout_height="72dp"
-                    android:layout_marginEnd="8dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="13dp"
-                    app:cardElevation="0dp"
-                    app:strokeColor="#E1E7EC"
-                    app:strokeWidth="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Day 2"
-                            android:textColor="#7B8794"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="13 Sep"
-                            android:textColor="#172B3A"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sun"
-                            android:textColor="#7B8794"
-                            android:textSize="10sp" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Day 3 -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardDay3"
-                    android:layout_width="76dp"
-                    android:layout_height="72dp"
-                    android:layout_marginEnd="8dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="13dp"
-                    app:cardElevation="0dp"
-                    app:strokeColor="#E1E7EC"
-                    app:strokeWidth="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Day 3"
-                            android:textColor="#7B8794"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="14 Sep"
-                            android:textColor="#172B3A"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Mon"
-                            android:textColor="#7B8794"
-                            android:textSize="10sp" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Day 4 -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardDay4"
-                    android:layout_width="76dp"
-                    android:layout_height="72dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="13dp"
-                    app:cardElevation="0dp"
-                    app:strokeColor="#E1E7EC"
-                    app:strokeWidth="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Day 4"
-                            android:textColor="#7B8794"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="15 Sep"
-                            android:textColor="#172B3A"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tue"
-                            android:textColor="#7B8794"
-                            android:textSize="10sp" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
 
         </HorizontalScrollView>
 
         <!-- Activities timeline -->
+
         <!-- Day heading -->
         <TextView
             android:id="@+id/tvDayLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:text="DAY"
+            android:text="@string/dayitinerary"
             android:textColor="#5E8FC2"
             android:textSize="11sp"
             android:textStyle="bold"
@@ -570,7 +395,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Saturday, 12 September"
+                android:text="@string/saturday_12_september"
                 android:textColor="#172B3A"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -579,8 +404,8 @@
                 android:id="@+id/btnDeleteDay"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:contentDescription="Delete selected day"
-                android:text="×"
+                android:contentDescription="@string/delete_selected_day"
+                android:text="@string/xx"
                 android:textColor="#D95C5C"
                 android:textSize="20sp"
                 app:backgroundTint="#FDECEC"
@@ -591,8 +416,8 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
-                android:contentDescription="Add activity"
-                android:text="+"
+                android:contentDescription="@string/add_activity"
+                android:text="@string/plus"
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -613,7 +438,7 @@
                 android:layout_width="52dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="08:30"
+                android:text="@string/_08_30"
                 android:textColor="#6D7A86"
                 android:textSize="11sp"
                 android:textStyle="bold" />
@@ -630,7 +455,7 @@
                     android:layout_height="28dp"
                     android:gravity="center"
                     android:background="#DCEEFE"
-                    android:text="✈"
+                    android:text="@string/planearrowlogo"
                     android:textColor="#2F8FD8"
                     android:textSize="14sp" />
 
@@ -662,7 +487,7 @@
                         android:id="@+id/tvFlightTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Flight to Athens"
+                        android:text="@string/flight_to_athens"
                         android:textColor="#172B3A"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -671,7 +496,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="JNB → ATH"
+                        android:text="@string/jnb_ath"
                         android:textColor="#7B8794"
                         android:textSize="11sp" />
 
@@ -687,7 +512,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
-                            android:text="Edit"
+                            android:text="@string/edititenary"
                             android:textColor="#2F8FD8"
                             android:textSize="11sp" />
 
@@ -697,7 +522,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:padding="6dp"
-                            android:text="Delete"
+                            android:text="@string/deleteflight"
                             android:textColor="#D95C5C"
                             android:textSize="11sp" />
 
@@ -721,7 +546,7 @@
                 android:layout_width="52dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="19:30"
+                android:text="@string/_19_30"
                 android:textColor="#6D7A86"
                 android:textSize="11sp"
                 android:textStyle="bold" />
@@ -738,7 +563,7 @@
                     android:layout_height="28dp"
                     android:gravity="center"
                     android:background="#DFF4EA"
-                    android:text="⌂"
+                    android:text="@string/timelinelogo"
                     android:textColor="#3AA67A"
                     android:textSize="14sp" />
 
@@ -765,7 +590,7 @@
                         android:id="@+id/tvHotelTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hotel Check-in"
+                        android:text="@string/hotel_check_in"
                         android:textColor="#172B3A"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -774,7 +599,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Andronis Boutique Hotel"
+                        android:text="@string/andronis_boutique_hotel"
                         android:textColor="#7B8794"
                         android:textSize="11sp" />
 
@@ -782,7 +607,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="19:30 – 20:00"
+                        android:text="@string/_19_30_20_00"
                         android:textColor="#7B8794"
                         android:textSize="11sp" />
 
@@ -798,7 +623,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
-                            android:text="Edit"
+                            android:text="@string/editdestination"
                             android:textColor="#2F8FD8"
                             android:textSize="11sp" />
 
@@ -808,7 +633,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:padding="6dp"
-                            android:text="Delete"
+                            android:text="@string/deletedestination"
                             android:textColor="#D95C5C"
                             android:textSize="11sp" />
 
