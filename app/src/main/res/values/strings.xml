@@ -8,4 +8,7 @@
     <string name="your_packing_lists_will_appear_here">Your packing lists will appear here.</string>
     <string name="packing_list_name">Packing List Name</string>
     <string name="description">Description</string>
+    <string name="edit_packing_list">Edit packing list</string>
+    <string name="packing_list_description">Packing List Description</string>
+    <string name="delete_packing_list">Delete packing list</string>
 </resources>
