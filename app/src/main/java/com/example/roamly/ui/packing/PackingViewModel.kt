@@ -3,391 +3,219 @@ package com.example.roamly.ui.packing
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.roamly.data.api.RetrofitClient
 import com.example.roamly.data.model.PackingItem
 import com.example.roamly.data.model.PackingItemRequest
 import com.example.roamly.data.model.PackingList
 import com.example.roamly.data.model.PackingListRequest
-import com.example.roamly.data.repository.PackingRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class PackingViewModel : ViewModel() {
 
-    // DELETE THESE 2 LINES BEFORE SUBMISSION!!!
-    // Temporary test mode while the backend is being developed
-    private val useTestData = true
+    // LOCAL TESTING
+    // This ViewModel currently uses local test data only.
+    // The backend/API connection will be added later
+    // When the API is connected, these local data sections can be
+    // replaced with repository/API calls.
 
-    // Repository used to communicate with the backend API
-    private val repository = PackingRepository(RetrofitClient.apiService)
 
-    // Stores all packing lists
+
+    // PACKING LISTS - Stores all packing lists currently displayed in the app.
     private val _packingLists = MutableStateFlow<List<PackingList>>(emptyList())
 
     val packingLists: StateFlow<List<PackingList>> = _packingLists
 
-    // Stores the items for the currently selected packing list
-    private val _packingItems = MutableStateFlow<List<PackingItem>>(emptyList())
+
+
+    // PACKING ITEMS
+    private val _packingItems =  MutableStateFlow<List<PackingItem>>(emptyList())
 
     val packingItems: StateFlow<List<PackingItem>> =  _packingItems
 
-    // Stores packing progress for each packing list
-    // Pair = packed items, total items
+
+
+    // PACKING PROGRESS
+    // Stores the number of packed items and total items for each packing list.
+
     private val _packingProgress = MutableStateFlow<Map<String, Pair<Int, Int>>>(emptyMap())
 
-    val packingProgress: StateFlow<Map<String, Pair<Int, Int>>> = _packingProgress
+    val packingProgress: StateFlow<Map<String, Pair<Int, Int>>> =  _packingProgress
 
-    // Local test items used while the backend is unavailable
+
+
+    // LOCAL TEST ITEMS -  Temporary in-memory storage for packing items.
+    // These items only exist while the app is running.
+    // They are not saved to a database or backend.
     private val testPackingItems = mutableListOf<PackingItem>()
 
-    // Stores whether data is currently loading
-    private val _isLoading =  MutableStateFlow(false)
 
-    val isLoading: StateFlow<Boolean> = _isLoading
 
-    // Stores error messages
+    // LOADING STATE  - Used by PackingFragment to control the ProgressBar.
+    // Kept even though the current version uses local data,
+    // so the progress bars load properly
+    private val _isLoading = MutableStateFlow(false)
+
+    val isLoading: StateFlow<Boolean> =_isLoading
+
+
+    // ERROR STATE  - Stores an error message that can be displayed by the UI.
+    // Kept so the Fragment can continue handling errors when API functionality is added later.
     private val _errorMessage = MutableStateFlow<String?>(null)
 
-    val errorMessage: StateFlow<String?> =_errorMessage
+    val errorMessage: StateFlow<String?> = _errorMessage
 
 
-    // GET ALL PACKING LISTS
+
+    // GET ALL PACKING LISTS-  Currently there is no API call.
+    // Packing lists are stored locally in _packingLists.
+    // This method is kept so the Fragment can still call getPackingLists() when the screen opens.
     fun getPackingLists() {
-
-        // DELETE THESE LINES BEFORE SUBMISSION!!
-        // Use local test data while the backend is unavailable
-        if (useTestData) {
-            return
-        }
-
-        viewModelScope.launch {
-            _isLoading.value = true
-            _errorMessage.value = null
-
-            try {
-
-                val lists = repository.getPackingLists()
-
-                _packingLists.value = lists
-
-            } catch (e: Exception) {
-
-                _errorMessage.value =
-                    e.message ?: "Could not get packing lists"
-
-            }
-
-            _isLoading.value = false
-        }
+        // No API call currently.
+        // Local packing lists are already stored in _packingLists.
     }
 
 
-    // CREATE A PACKING LIST
-    fun createPackingList(request: PackingListRequest) {
 
-        // Use local test data while the backend is unavailable
-        if (useTestData) {
-
-            val newList = PackingList(
-                packingListId =
-                    "test-${System.currentTimeMillis()}",
-                userId = "test-user",
-                name = request.name,
-                description = request.description,
-                createdAt = "2026-09-16",
-                updatedAt = "2026-09-16"
-            )
-
-            _packingLists.value =
-                _packingLists.value + newList
-
-            return
-        }
-
-        viewModelScope.launch {
-            try {
-
-                repository.createPackingList(request)
-
-                // Refresh the lists after creating a new one
-                getPackingLists()
-
-            } catch (e: Exception) {
-
-                _errorMessage.value =
-                    e.message ?: "Could not create packing list"
-            }
-        }
-    }
-
-
-    // UPDATE A PACKING LIST
-    fun updatePackingList(
-        packingListId: String,
+    // CREATE A PACKING LIST - Creates a packing list locally for testing.
+    fun createPackingList(
         request: PackingListRequest
     ) {
 
-        // Use local test data while the backend is unavailable
-        if (useTestData) {
+        val newList = PackingList(
+            packingListId = "test-${System.currentTimeMillis()}",
+            userId = "test-user",
+            name = request.name,
+            description = request.description,
+            createdAt = "2026-09-16",
+            updatedAt = "2026-09-16"
+        )
 
-            val index =
-                _packingLists.value.indexOfFirst {
-                    it.packingListId == packingListId
-                }
+        _packingLists.value =  _packingLists.value + newList
+    }
 
-            if (index != -1) {
 
-                val oldList =
-                    _packingLists.value[index]
 
-                val updatedList =
-                    oldList.copy(
-                        name = request.name,
-                        description = request.description
-                    )
+    // UPDATE A PACKING LIST -  Updates a packing list in the local test data.
+    fun updatePackingList(packingListId: String,request: PackingListRequest) {
 
-                val updatedLists =
-                    _packingLists.value.toMutableList()
-
-                updatedLists[index] = updatedList
-
-                _packingLists.value =
-                    updatedLists
+        val index = _packingLists.value.indexOfFirst {
+                it.packingListId == packingListId
             }
 
-            return
-        }
+        if (index != -1) {
+            val oldList =
+                _packingLists.value[index]
 
-        viewModelScope.launch {
-            try {
-
-                repository.updatePackingList(
-                    packingListId,
-                    request
+            val updatedList = oldList.copy(
+                    name = request.name,
+                    description = request.description
                 )
 
-                // Refresh the lists after updating one
-                getPackingLists()
+            val updatedLists = _packingLists.value.toMutableList()
 
-            } catch (e: Exception) {
+            updatedLists[index] =updatedList
 
-                _errorMessage.value =
-                    e.message ?: "Could not update packing list"
-            }
+            _packingLists.value = updatedLists
         }
     }
 
 
-    // DELETE A PACKING LIST
+
+    // DELETE A PACKING LIST - Deletes a packing list from the local test data.
     fun deletePackingList(packingListId: String) {
 
-        // Use local test data while the backend is unavailable
-        if (useTestData) {
+        _packingLists.value =
+            _packingLists.value.filter {
+                it.packingListId != packingListId
+            }
 
-            _packingLists.value =
-                _packingLists.value.filter {
-                    it.packingListId != packingListId
+        // Remove progress belonging to the deleted list.
+        _packingProgress.value =
+            _packingProgress.value
+                .toMutableMap()
+                .apply {
+                    remove(packingListId)
                 }
 
-            // Remove the progress for the deleted list
-            _packingProgress.value =
-                _packingProgress.value
-                    .toMutableMap()
-                    .apply {
-                        remove(packingListId)
-                    }
-
-            return
-        }
-
-        viewModelScope.launch {
-            try {
-
-                repository.deletePackingList(
-                    packingListId
-                )
-
-                // Refresh the lists after deleting one
-                getPackingLists()
-
-            } catch (e: Exception) {
-
-                _errorMessage.value =
-                    e.message ?: "Could not delete packing list"
-            }
+        // Remove any local items belonging to the deleted list.
+        testPackingItems.removeAll {
+            it.packingListId == packingListId
         }
     }
 
 
-    // GET ITEMS FROM A PACKING LIST
+
+    // GET ITEMS FROM A PACKING LIST - Gets packing items from the local test list.
     fun getPackingItems(packingListId: String) {
 
-        // DELETE THESE LINES BEFORE SUBMISSION!!
-        // Use local test data while the backend is unavailable
-        if (useTestData) {
-
-            val items =
-                testPackingItems.filter {
-                    it.packingListId == packingListId
-                }
-
-            _packingItems.value = items
-
-            // Update the progress for this packing list
-            updatePackingProgress(
-                packingListId,
-                items
-            )
-
-            return
-        }
-
-        viewModelScope.launch {
-            _isLoading.value = true
-            _errorMessage.value = null
-
-            try {
-
-                val items =
-                    repository.getPackingListItems(
-                        packingListId
-                    )
-
-                _packingItems.value = items
-
-                // Update the progress for this packing list
-                updatePackingProgress(
-                    packingListId,
-                    items
-                )
-
-            } catch (e: Exception) {
-
-                _errorMessage.value =
-                    e.message ?: "Could not get packing items"
-
+        val items = testPackingItems.filter {
+                it.packingListId == packingListId
             }
 
-            _isLoading.value = false
-        }
+        _packingItems.value = items
+
+        // Recalculate the progress for this packing list.
+        updatePackingProgress(packingListId,items
+        )
     }
 
 
-    // ADD AN ITEM TO A PACKING LIST
-    fun addPackingItem(
-        packingListId: String,
-        request: PackingItemRequest
-    ) {
 
-        // DELETE THESE LINES BEFORE SUBMISSION!!
-        // Use local test data while the backend is unavailable
-        if (useTestData) {
+    // ADD AN ITEM TO A PACKING LIST -  Adds an item to the local test data.
+    fun addPackingItem(packingListId: String,request: PackingItemRequest) {
 
-            val newItem = PackingItem(
-                packingItemId =
-                    "test-item-${System.currentTimeMillis()}",
-                packingListId = packingListId,
-                name = request.name,
-                isPacked = request.isPacked,
-                createdAt = "2026-09-17",
-                updatedAt = "2026-09-17"
-            )
+        val newItem = PackingItem(
+            packingItemId ="test-item-${System.currentTimeMillis()}",
+            packingListId = packingListId,
+            name = request.name,
+            isPacked = request.isPacked,
+            createdAt = "2026-09-17",
+            updatedAt = "2026-09-17"
+        )
 
-            testPackingItems.add(newItem)
+        testPackingItems.add(newItem)
 
-            // Refresh items and progress
-            getPackingItems(packingListId)
-
-            return
-        }
-
-        viewModelScope.launch {
-            try {
-
-                repository.addPackingItem(
-                    packingListId,
-                    request
-                )
-
-                // Refresh the list after adding an item
-                getPackingItems(packingListId)
-
-            } catch (e: Exception) {
-
-                _errorMessage.value =
-                    e.message ?: "Could not add packing item"
-            }
-        }
+        // Refresh the displayed items and progress.
+        getPackingItems(packingListId)
     }
 
 
-    // UPDATE AN ITEM IN A PACKING LIST
-    fun updatePackingItem(
-        itemId: String,
-        request: PackingItemRequest
-    ) {
+    // UPDATE AN ITEM - Updates an item in the local test data.
+    fun updatePackingItem(itemId: String,request: PackingItemRequest) {
 
-        // Use local test data while the backend is unavailable
-        if (useTestData) {
-
-            val index =
-                testPackingItems.indexOfFirst {
-                    it.packingItemId == itemId
-                }
-
-            if (index != -1) {
-
-                val oldItem =
-                    testPackingItems[index]
-
-                testPackingItems[index] =
-                    oldItem.copy(
-                        name = request.name,
-                        isPacked = request.isPacked
-                    )
-
-                // Refresh items and progress
-                getPackingItems(
-                    oldItem.packingListId
-                )
+        val index =
+            testPackingItems.indexOfFirst {
+                it.packingItemId == itemId
             }
 
-            return
-        }
+        if (index != -1) {
+            val oldItem = testPackingItems[index]
 
-        viewModelScope.launch {
-            try {
-
-                repository.updatePackingItem(
-                    itemId,
-                    request
+            testPackingItems[index] = oldItem.copy(
+                    name = request.name,
+                    isPacked = request.isPacked
                 )
 
-            } catch (e: Exception) {
-
-                _errorMessage.value =
-                    e.message ?: "Could not update packing item"
-            }
+            // Refresh the displayed items and progress.
+            getPackingItems(
+                oldItem.packingListId
+            )
         }
     }
 
 
     // CALCULATE PACKING PROGRESS
-    // Stores packed items and total items for each list
-    private fun updatePackingProgress(
-        packingListId: String,
-        items: List<PackingItem>
-    ) {
+    // Counts how many items are packed and how many items exist in total for a particular packing list.
+    private fun updatePackingProgress(packingListId: String, items: List<PackingItem>) {
 
-        val packedItems =
-            items.count { it.isPacked }
+        val packedItems = items.count {
+                it.isPacked
+            }
 
-        val totalItems =
-            items.size
+        val totalItems = items.size
 
-        _packingProgress.value =
-            _packingProgress.value
+        _packingProgress.value = _packingProgress.value
                 .toMutableMap()
                 .apply {
 
@@ -400,48 +228,21 @@ class PackingViewModel : ViewModel() {
     }
 
 
-    // DELETE AN ITEM FROM A PACKING LIST
-    fun deletePackingItem(
-        itemId: String,
-        packingListId: String
-    ) {
 
-        // Use local test data while the backend is unavailable
-        if (useTestData) {
+    // DELETE AN ITEM - Deletes an item from the local test data.
+    fun deletePackingItem(itemId: String,packingListId: String) {
 
-            testPackingItems.removeAll {
-                it.packingItemId == itemId
-            }
-
-            // Refresh items and progress
-            getPackingItems(packingListId)
-
-            Log.d(
-                "PackingViewModel",
-                "Items after delete: ${_packingItems.value}"
-            )
-
-            return
+        testPackingItems.removeAll {
+            it.packingItemId == itemId
         }
 
-        viewModelScope.launch {
-            try {
-
-                repository.deletePackingItem(itemId)
-
-                // Refresh the list after deleting an item
-                getPackingItems(packingListId)
-
-            } catch (e: Exception) {
-
-                _errorMessage.value =
-                    e.message ?: "Could not delete packing item"
-            }
-        }
+        // Refresh the displayed items and progress.
+        getPackingItems(packingListId)
     }
 
 
-    // CLEAR ERROR MESSAGE
+
+    // CLEAR ERROR MESSAGE -  Clears the current error after it has been displayed.
     fun clearErrorMessage() {
         _errorMessage.value = null
     }
