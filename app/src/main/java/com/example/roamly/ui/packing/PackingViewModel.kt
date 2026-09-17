@@ -15,14 +15,20 @@ import kotlinx.coroutines.launch
 
 class PackingViewModel: ViewModel() {
 
-    private val repository = PackingRepository(RetrofitClient.apiService)
+    // DELETE THESE 2 LINES BEFORE SUBMISSION!!!
+    // Temporary test mode while the backend is being developed
+    private val useTestData = true
 
+    private val repository = PackingRepository(RetrofitClient.apiService)
 
     private val _packingLists = MutableStateFlow<List<PackingList>>(emptyList())
     val packingLists: StateFlow<List<PackingList>> = _packingLists
 
     private val _packingItems = MutableStateFlow<List<PackingItem>>(emptyList())
     val packingItems: StateFlow<List<PackingItem>> = _packingItems
+
+    //to ensure items are displayed properly for every packing list
+    private val testPackingItems = mutableListOf<PackingItem>()
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
@@ -32,14 +38,20 @@ class PackingViewModel: ViewModel() {
 
     // get all packing lists
     fun getPackingLists() {
-        viewModelScope.launch {
 
+        // DELETE THESE 2 LINES BEFORE SUBMISSION!!
+        // Use local test data while the backend is unavailable
+        if (useTestData) {
+            return
+        }
+
+        viewModelScope.launch {
             _isLoading.value = true
             _errorMessage.value = null
 
             try {
                 val lists = repository.getPackingLists()
-                _packingLists.value = lists
+                  _packingLists.value = lists
             } catch (e: Exception) {
                 _errorMessage.value = e.message ?: "Could not get packing lists"
 
@@ -50,13 +62,27 @@ class PackingViewModel: ViewModel() {
 
     // create a packing list
     fun createPackingList(request: PackingListRequest) {
+
+        // Use local test data while the backend is unavailable
+        if (useTestData) {
+            val newList = PackingList(
+                packingListId = "test-${System.currentTimeMillis()}",
+                userId = "test-user",
+                name = request.name,
+                description = request.description,
+                createdAt = "2026-09-16",
+                updatedAt = "2026-09-16"
+            )
+            _packingLists.value = _packingLists.value + newList
+            return
+        }
+
+
         viewModelScope.launch {
             try {
                 repository.createPackingList(request)
-
                 //refresh the lists are creating a new one
                 getPackingLists()
-
             } catch (e: Exception) {
                 _errorMessage.value = e.message ?: "Could not create packing list"
             }
@@ -95,6 +121,17 @@ class PackingViewModel: ViewModel() {
 
     // get items from the list
     fun getPackingItems(packingListId: String) {
+
+        // DELETE THE IF-STATEMENT BELOW THESE LINES BEFORE SUBMISSION!!
+        // Use local test data while the backend is unavailable
+        if (useTestData) {
+            _packingItems.value =
+                testPackingItems.filter {
+                    it.packingListId == packingListId
+                }
+            return
+        }
+
         viewModelScope.launch {
             _isLoading.value = true
             _errorMessage.value = null
@@ -111,6 +148,24 @@ class PackingViewModel: ViewModel() {
 
     // add item to a list
     fun addPackingItem(packingListId: String, request: PackingItemRequest) {
+
+        // DELETE THE IS-STATEMENT LINES BEFORE SUBMISSION!!
+        // Use local test data while the backend is unavailable
+        if (useTestData) {
+            val newItem = PackingItem(
+                packingItemId = "test-item-${System.currentTimeMillis()}",
+                packingListId = packingListId,
+                name = request.name,
+                isPacked = request.isPacked,
+                createdAt = "2026-09-17",
+                updatedAt = "2026-09-17"
+            )
+            testPackingItems.add(newItem)
+            getPackingItems(packingListId)
+            return
+        }
+
+
         viewModelScope.launch {
             try {
                 repository.addPackingItem(packingListId, request)
@@ -124,6 +179,25 @@ class PackingViewModel: ViewModel() {
 
     // update an item in a list
     fun updatePackingItem(itemId: String, request: PackingItemRequest) {
+
+        if (useTestData) {
+            val index = testPackingItems.indexOfFirst {
+                it.packingItemId == itemId
+            }
+
+            if (index != -1) {
+                val oldItem = testPackingItems[index]
+                testPackingItems[index] = oldItem.copy(
+                    name = request.name,
+                    isPacked = request.isPacked
+                )
+                getPackingItems(oldItem.packingListId)
+            }
+            return
+        }
+
+
+
         viewModelScope.launch {
             try {
                 repository.updatePackingItem(itemId, request)
