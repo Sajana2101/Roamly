@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Back to all lists -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&lt; All Lists"
+        android:textColor="#3F51B5"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.1"
+        android:layout_marginBottom="9dp"
+        tools:ignore="HardcodedText,SmallSp" />
+
+    <!-- Small page label -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PACKING LIST"
+        android:textColor="#3F51B5"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.1"
+        android:layout_marginBottom="4dp"
+        tools:ignore="HardcodedText" />
+
+    <!-- Packing list title and buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Packing list name -->
+        <TextView
+            android:id="@+id/txtPackingListTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Packing List Name"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+
+        <!-- Edit packing list -->
+        <ImageButton
+            android:id="@+id/btnEditPackingList"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/edit_packing_list"
+            android:scaleType="centerInside"
+            android:src="@drawable/imgedit" />
+
+        <!-- Delete packing list -->
+        <ImageButton
+            android:id="@+id/btnDeletePackingList"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/delete_packing_list"
+            android:scaleType="centerInside"
+            android:src="@drawable/imgdelete" />
+
+        <!-- Add packing item -->
+        <ImageButton
+            android:id="@+id/btnAddPackingItem"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/imgplus"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <!-- Packing list description -->
+    <TextView
+        android:id="@+id/packingListDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/packing_list_description"
+        android:textSize="16sp" />
+
+    <!-- Progress bar and progress text -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/packingProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:progressDrawable="@drawable/packing_progress"
+            android:layout_height="12dp"
+            android:layout_weight="1"
+            android:max="100"
+            android:progress="0" />
+
+        <!-- Packing progress text -->
+        <TextView
+            android:id="@+id/txtPackingProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="0 of 0 packed"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+
+
+    <!-- Packing items -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerPackingItems"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
