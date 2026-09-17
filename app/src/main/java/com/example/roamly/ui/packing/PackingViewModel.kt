@@ -1,5 +1,6 @@
 package com.example.roamly.ui.packing
 
+import android.util.Log
 import androidx.annotation.Nullable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -211,6 +212,17 @@ class PackingViewModel: ViewModel() {
 
     // delete an item from a list
     fun deletePackingItem(itemId: String, packingListId: String) {
+
+        if (useTestData) {
+            testPackingItems.removeAll {
+                it.packingItemId == itemId
+            }
+            getPackingItems(packingListId)
+            Log.d(  "PackingViewModel","Items after delete: ${_packingItems.value}"
+            )
+            return
+        }
+
         viewModelScope.launch {
             try {
                 repository.deletePackingItem(itemId)
