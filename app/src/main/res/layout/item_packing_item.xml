@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="12dp"
+    android:background="@drawable/card_design"
+    android:layout_marginBottom="8dp">
+
+    <!-- Packed checkbox -->
+    <CheckBox
+        android:id="@+id/checkPacked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Packing item name -->
+    <TextView
+        android:id="@+id/txtPackingItemName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:text="Packing item"
+        android:textSize="16sp" />
+
+    <!-- Edit button -->
+    <ImageButton
+        android:id="@+id/btnEditItem"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Edit item"
+        android:scaleType="centerInside"
+        android:src="@drawable/imgedit"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <!-- Delete button -->
+    <ImageButton
+        android:id="@+id/btnDeleteItem"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Delete item"
+        android:scaleType="centerInside"
+        android:src="@drawable/imgdelete"
+        tools:ignore="TouchTargetSizeCheck" />
+
+</LinearLayout>
