@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal">
+
+    <!-- Displays the start time next to each activity -->
+    <TextView
+        android:id="@+id/tvActivityItemTime"
+        android:layout_width="52dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="08:30"
+        android:textColor="#6D7A86"
+        android:textSize="11sp"
+        android:textStyle="bold" />
+
+    <!-- Simple timeline marker -->
+    <LinearLayout
+        android:layout_width="34dp"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="#DCEEFE"
+            android:gravity="center"
+            android:text="•"
+            android:textColor="#2F8FD8"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="48dp"
+            android:background="#D9E4EC" />
+
+    </LinearLayout>
+
+    <!-- Main activity information card -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="2dp"
+        app:strokeColor="#E5EBF0"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="14dp">
+
+            <TextView
+                android:id="@+id/tvActivityItemTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Activity"
+                android:textColor="#172B3A"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnEditActivityItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:text="Edit"
+                    android:textColor="#2F8FD8"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/btnDeleteActivityItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:padding="6dp"
+                    android:text="Delete"
+                    android:textColor="#D95C5C"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

@@ -19,17 +19,37 @@ import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import android.app.TimePickerDialog
+import com.example.roamly.data.model.ItineraryActivity
 
 class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
     private lateinit var daysContainer: LinearLayout
     private lateinit var tvSelectedDayDate: TextView
 
+    private lateinit var activitiesContainer: LinearLayout
+
     private val itineraryDays = mutableListOf(
         ItineraryDay(1, "2026/09/12"),
         ItineraryDay(2, "2026/09/13"),
         ItineraryDay(3, "2026/09/14"),
         ItineraryDay(4, "2026/09/15")
+    )
+
+    // Stores sample activity data locally until the REST API is connected
+    private val itineraryActivities = mutableListOf(
+        ItineraryActivity(
+            activityId = 1,
+            dayNumber = 1,
+            title = "Flight to Athens",
+            startTime = "08:30"
+        ),
+        ItineraryActivity(
+            activityId = 2,
+            dayNumber = 1,
+            title = "Hotel Check-in",
+            startTime = "19:30"
+        )
     )
 
     private var selectedDayNumber = 1
@@ -39,6 +59,8 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
         daysContainer = view.findViewById(R.id.daysContainer)
         tvSelectedDayDate = view.findViewById(R.id.tvSelectedDayDate)
+        activitiesContainer =
+            view.findViewById(R.id.activitiesContainer)
 
         val btnAddDay = view.findViewById<MaterialButton>(R.id.btnAddDay)
 
@@ -60,7 +82,16 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             showDeleteDayDialog()
         }
 
+        val btnAddActivity =
+            view.findViewById<MaterialButton>(R.id.btnAddActivity)
+
+// Opens the activity form for the currently selected itinerary day
+        btnAddActivity.setOnClickListener {
+            showAddActivityDialog()
+        }
+
         renderDayCards()
+        renderActivities()
     }
 
     private fun renderDayCards() {
@@ -125,7 +156,9 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
                     updateSelectedDayHeading(day)
 
+// Refreshes both the selected day styling and its activity list
                     renderDayCards()
+                    renderActivities()
                 }
 
                 daysContainer.addView(dayView)
@@ -140,6 +173,84 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         // Shows an empty state when all itinerary days have been deleted
         if (itineraryDays.isEmpty()) {
             tvSelectedDayDate.text = "No day selected"
+        }
+    }
+
+    private fun renderActivities() {
+
+        // Clears the old activity views before displaying the selected day's data
+        activitiesContainer.removeAllViews()
+
+        val selectedActivities = itineraryActivities
+            .filter { it.dayNumber == selectedDayNumber }
+            .sortedBy { it.startTime }
+
+        if (selectedActivities.isEmpty()) {
+
+            // Shows a simple message when the selected day has no activities yet
+            val emptyMessage = TextView(requireContext()).apply {
+                text = "No activities added for this day."
+                textSize = 13f
+                setTextColor(Color.parseColor("#7B8794"))
+                setPadding(
+                    0,
+                    dpToPx(18),
+                    0,
+                    dpToPx(18)
+                )
+            }
+
+            activitiesContainer.addView(emptyMessage)
+            return
+        }
+
+        selectedActivities.forEach { activity ->
+
+            val activityView =
+                LayoutInflater.from(requireContext())
+                    .inflate(
+                        R.layout.item_itinerary_activity,
+                        activitiesContainer,
+                        false
+                    )
+
+            val tvTime =
+                activityView.findViewById<TextView>(
+                    R.id.tvActivityItemTime
+                )
+
+            val tvTitle =
+                activityView.findViewById<TextView>(
+                    R.id.tvActivityItemTitle
+                )
+
+            val btnEdit =
+                activityView.findViewById<TextView>(
+                    R.id.btnEditActivityItem
+                )
+
+            val btnDelete =
+                activityView.findViewById<TextView>(
+                    R.id.btnDeleteActivityItem
+                )
+
+            tvTime.text = activity.startTime
+            tvTitle.text = activity.title
+
+            // Edit and delete behaviour will be connected in the next steps
+            btnEdit.setOnClickListener {
+
+                // Opens the edit form for the selected activity
+                showEditActivityDialog(activity)
+            }
+
+            btnDelete.setOnClickListener {
+
+                // Opens a confirmation dialog before removing the selected activity
+                showDeleteActivityDialog(activity)
+            }
+
+            activitiesContainer.addView(activityView)
         }
     }
 
@@ -355,7 +466,9 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
                 selectedDayNumber = newDay.dayNumber
 
+// Refreshes the day cards and shows the empty activity state for the new day
                 renderDayCards()
+                renderActivities()
 
                 Toast.makeText(
                     requireContext(),
@@ -557,15 +670,34 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
                 if (index != -1) {
 
+                    // Keeps the old day number so linked activities can be updated as well
+                    val oldDayNumber = selectedDay.dayNumber
+
                     itineraryDays[index] =
                         ItineraryDay(
                             dayNumber = newDayNumber,
                             date = dateText
                         )
 
+                    // Moves existing activities to the updated day number
+                    for (activityIndex in itineraryActivities.indices) {
+
+                        val activity = itineraryActivities[activityIndex]
+
+                        if (activity.dayNumber == oldDayNumber) {
+
+                            itineraryActivities[activityIndex] =
+                                activity.copy(
+                                    dayNumber = newDayNumber
+                                )
+                        }
+                    }
+
                     selectedDayNumber = newDayNumber
 
+                    // Refreshes both the day selector and the activities linked to this day
                     renderDayCards()
+                    renderActivities()
 
                     Toast.makeText(
                         requireContext(),
@@ -643,6 +775,11 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 it.dayNumber == selectedDay.dayNumber
             }
 
+            // Removes all activities that belonged to the deleted day
+            itineraryActivities.removeAll {
+                it.dayNumber == selectedDay.dayNumber
+            }
+
             if (itineraryDays.isNotEmpty()) {
 
                 // Selects the first remaining day so the screen always has a valid selection
@@ -660,12 +797,446 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                     "No day selected"
             }
 
-            // Redraws the day cards after the selected day has been removed
+            // Redraws the remaining days and their activity list
             renderDayCards()
+            renderActivities()
 
             Toast.makeText(
                 requireContext(),
                 "Day ${selectedDay.dayNumber} deleted.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    private fun showAddActivityDialog() {
+
+        // Finds the currently selected day so the activity can be linked to it
+        val selectedDay = itineraryDays.find {
+            it.dayNumber == selectedDayNumber
+        }
+
+        // An activity cannot be added if the itinerary has no selected day
+        if (selectedDay == null) {
+            Toast.makeText(
+                requireContext(),
+                "Please select a day before adding an activity.",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_add_activity, null)
+
+        val layoutTime =
+            dialogView.findViewById<TextInputLayout>(
+                R.id.layoutActivityTime
+            )
+
+        val layoutTitle =
+            dialogView.findViewById<TextInputLayout>(
+                R.id.layoutActivityTitle
+            )
+
+        val etDay =
+            dialogView.findViewById<TextInputEditText>(
+                R.id.etActivityDay
+            )
+
+        val etTime =
+            dialogView.findViewById<TextInputEditText>(
+                R.id.etActivityTime
+            )
+
+        val etTitle =
+            dialogView.findViewById<TextInputEditText>(
+                R.id.etActivityTitle
+            )
+
+        val btnCancel =
+            dialogView.findViewById<MaterialButton>(
+                R.id.btnCancelActivity
+            )
+
+        val btnAdd =
+            dialogView.findViewById<MaterialButton>(
+                R.id.btnConfirmActivity
+            )
+
+        // Displays the selected itinerary day without allowing it to be manually changed
+        val parsedDayDate = parseDate(selectedDay.date)
+
+        val formattedDay =
+            if (parsedDayDate != null) {
+
+                SimpleDateFormat(
+                    "dd MMM",
+                    Locale.getDefault()
+                ).format(parsedDayDate)
+
+            } else {
+                selectedDay.date
+            }
+
+        etDay.setText(
+            "Day ${selectedDay.dayNumber} - $formattedDay"
+        )
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        etTime.setOnClickListener {
+
+            val calendar = Calendar.getInstance()
+
+            val timePicker = TimePickerDialog(
+                requireContext(),
+                { _, hourOfDay, minute ->
+
+                    // Stores the time in 24-hour format so activities can be sorted correctly later
+                    val selectedTime = String.format(
+                        Locale.getDefault(),
+                        "%02d:%02d",
+                        hourOfDay,
+                        minute
+                    )
+
+                    etTime.setText(selectedTime)
+                    layoutTime.error = null
+                },
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                true
+            )
+
+            timePicker.show()
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnAdd.setOnClickListener {
+
+            // Clears old validation messages before checking the current values
+            layoutTime.error = null
+            layoutTitle.error = null
+
+            val timeText =
+                etTime.text
+                    ?.toString()
+                    ?.trim()
+                    .orEmpty()
+
+            val titleText =
+                etTitle.text
+                    ?.toString()
+                    ?.trim()
+                    .orEmpty()
+
+            var isValid = true
+
+            if (timeText.isEmpty()) {
+                layoutTime.error =
+                    "Please select an activity time."
+                isValid = false
+            }
+
+            if (titleText.isEmpty()) {
+                layoutTitle.error =
+                    "Please enter an activity title."
+                isValid = false
+            }
+
+            if (isValid) {
+
+                // Generates a temporary local ID until activity IDs come from the backend
+                val nextActivityId =
+                    (itineraryActivities.maxOfOrNull { it.activityId } ?: 0) + 1
+
+                val newActivity = ItineraryActivity(
+                    activityId = nextActivityId,
+                    dayNumber = selectedDay.dayNumber,
+                    title = titleText,
+                    startTime = timeText
+                )
+
+                itineraryActivities.add(newActivity)
+
+                // Refreshes the list so the new activity appears in chronological order
+                renderActivities()
+
+                Toast.makeText(
+                    requireContext(),
+                    "$titleText added.",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                dialog.dismiss()
+            }
+        }
+
+        dialog.show()
+    }
+
+    private fun showEditActivityDialog(activity: ItineraryActivity) {
+
+        // Opens the existing activity form with the selected activity's current values
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_add_activity, null)
+
+        val tvTitle =
+            dialogView.findViewById<TextView>(
+                R.id.tvActivityDialogTitle
+            )
+
+        val tvSubtitle =
+            dialogView.findViewById<TextView>(
+                R.id.tvActivityDialogSubtitle
+            )
+
+        val layoutTime =
+            dialogView.findViewById<TextInputLayout>(
+                R.id.layoutActivityTime
+            )
+
+        val layoutTitle =
+            dialogView.findViewById<TextInputLayout>(
+                R.id.layoutActivityTitle
+            )
+
+        val etDay =
+            dialogView.findViewById<TextInputEditText>(
+                R.id.etActivityDay
+            )
+
+        val etTime =
+            dialogView.findViewById<TextInputEditText>(
+                R.id.etActivityTime
+            )
+
+        val etTitle =
+            dialogView.findViewById<TextInputEditText>(
+                R.id.etActivityTitle
+            )
+
+        val btnCancel =
+            dialogView.findViewById<MaterialButton>(
+                R.id.btnCancelActivity
+            )
+
+        val btnSave =
+            dialogView.findViewById<MaterialButton>(
+                R.id.btnConfirmActivity
+            )
+
+        // Changes the Add Activity dialog into Edit Activity mode
+        tvTitle.text = "Edit Activity"
+        tvSubtitle.text = "Update this activity in your itinerary."
+        btnSave.text = "Save Changes"
+
+        val selectedDay = itineraryDays.find {
+            it.dayNumber == activity.dayNumber
+        }
+
+        val formattedDay =
+            selectedDay?.let { day ->
+
+                val parsedDate = parseDate(day.date)
+
+                if (parsedDate != null) {
+                    SimpleDateFormat(
+                        "dd MMM",
+                        Locale.getDefault()
+                    ).format(parsedDate)
+                } else {
+                    day.date
+                }
+
+            } ?: ""
+
+        etDay.setText(
+            "Day ${activity.dayNumber} - $formattedDay"
+        )
+
+        // Pre-fills the activity information so the user can edit it
+        etTime.setText(activity.startTime)
+        etTitle.setText(activity.title)
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        etTime.setOnClickListener {
+
+            val calendar = Calendar.getInstance()
+
+            val timeParts = activity.startTime.split(":")
+
+            if (timeParts.size == 2) {
+                calendar.set(
+                    Calendar.HOUR_OF_DAY,
+                    timeParts[0].toIntOrNull()
+                        ?: calendar.get(Calendar.HOUR_OF_DAY)
+                )
+
+                calendar.set(
+                    Calendar.MINUTE,
+                    timeParts[1].toIntOrNull()
+                        ?: calendar.get(Calendar.MINUTE)
+                )
+            }
+
+            val timePicker = TimePickerDialog(
+                requireContext(),
+                { _, hourOfDay, minute ->
+
+                    val selectedTime = String.format(
+                        Locale.getDefault(),
+                        "%02d:%02d",
+                        hourOfDay,
+                        minute
+                    )
+
+                    etTime.setText(selectedTime)
+                    layoutTime.error = null
+                },
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                true
+            )
+
+            timePicker.show()
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnSave.setOnClickListener {
+
+            // Clears previous validation errors before checking the edited values
+            layoutTime.error = null
+            layoutTitle.error = null
+
+            val newTime =
+                etTime.text
+                    ?.toString()
+                    ?.trim()
+                    .orEmpty()
+
+            val newTitle =
+                etTitle.text
+                    ?.toString()
+                    ?.trim()
+                    .orEmpty()
+
+            var isValid = true
+
+            if (newTime.isEmpty()) {
+                layoutTime.error =
+                    "Please select an activity time."
+                isValid = false
+            }
+
+            if (newTitle.isEmpty()) {
+                layoutTitle.error =
+                    "Please enter an activity title."
+                isValid = false
+            }
+
+            if (isValid) {
+
+                val index =
+                    itineraryActivities.indexOfFirst {
+                        it.activityId == activity.activityId
+                    }
+
+                if (index != -1) {
+
+                    // Replaces the old activity with the user's updated values
+                    itineraryActivities[index] =
+                        activity.copy(
+                            title = newTitle,
+                            startTime = newTime
+                        )
+
+                    // Redraws the activities so any changed time is re-sorted correctly
+                    renderActivities()
+
+                    Toast.makeText(
+                        requireContext(),
+                        "Activity updated successfully.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    dialog.dismiss()
+                }
+            }
+        }
+
+        dialog.show()
+    }
+
+    private fun showDeleteActivityDialog(activity: ItineraryActivity) {
+
+        // Uses the same confirmation layout as Delete Day to keep dialogs consistent
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_confirm_delete, null)
+
+        val tvTitle =
+            dialogView.findViewById<TextView>(
+                R.id.tvDeleteTitle
+            )
+
+        val tvMessage =
+            dialogView.findViewById<TextView>(
+                R.id.tvDeleteMessage
+            )
+
+        val btnCancel =
+            dialogView.findViewById<MaterialButton>(
+                R.id.btnCancelDelete
+            )
+
+        val btnDelete =
+            dialogView.findViewById<MaterialButton>(
+                R.id.btnConfirmDelete
+            )
+
+        // Shows the activity name so the user knows exactly what will be removed
+        tvTitle.text = "Delete Activity?"
+
+        tvMessage.text =
+            "Are you sure you want to delete \"${activity.title}\"?"
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnDelete.setOnClickListener {
+
+            // Removes the activity using its unique local ID
+            itineraryActivities.removeAll {
+                it.activityId == activity.activityId
+            }
+
+            // Refreshes the selected day's activities immediately after deletion
+            renderActivities()
+
+            Toast.makeText(
+                requireContext(),
+                "${activity.title} deleted.",
                 Toast.LENGTH_SHORT
             ).show()
 
