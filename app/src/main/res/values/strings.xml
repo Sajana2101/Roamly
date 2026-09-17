@@ -124,5 +124,9 @@
     <string name="edit_packing_list">Edit packing list</string>
     <string name="packing_list_description">Packing List Description</string>
     <string name="delete_packing_list">Delete packing list</string>
+    <string name="delete_itinerary_activity">Delete</string>
+    <string name="edit_activity">Edit</string>
+    <string name="activity_title">Activity</string>
+    <string name="_08_30_am">08:30</string>
 
 </resources>

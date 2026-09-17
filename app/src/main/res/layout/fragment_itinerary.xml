@@ -84,10 +84,13 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
-                        <View
+                        <!-- Displays the image linked to the Honeymoon holiday -->
+                        <ImageView
                             android:layout_width="62dp"
                             android:layout_height="match_parent"
-                            android:background="#BFDDF4" />
+                            android:contentDescription="@null"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/holiday_greece" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -138,10 +141,13 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
-                        <View
+                        <!-- Displays the image linked to the Business Trip holiday -->
+                        <ImageView
                             android:layout_width="62dp"
                             android:layout_height="match_parent"
-                            android:background="#CDE7DA" />
+                            android:contentDescription="@null"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/holiday_cape_town" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -191,10 +197,13 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
-                        <View
+                        <!-- Displays the image linked to the Family Vacation holiday -->
+                        <ImageView
                             android:layout_width="62dp"
                             android:layout_height="match_parent"
-                            android:background="#E5D5BE" />
+                            android:contentDescription="@null"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/holiday_durban" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -277,18 +286,33 @@
 
             </LinearLayout>
 
+            <!-- Deletes the itinerary belonging to the selected holiday -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDeleteItinerary"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:contentDescription="@string/delete_itinerary"
-                android:text="@string/x"
-                android:textColor="#D95C5C"
-                android:textSize="20sp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="0dp"
+                android:text=""
                 app:backgroundTint="#FDECEC"
-                app:cornerRadius="14dp" />
+                app:cornerRadius="21dp"
+                app:icon="@drawable/ic_delete"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconSize="17dp"
+                app:iconTint="#D95C5C"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
+
+        <!-- Separates the selected trip information from the daily plan -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="18dp"
+            android:background="#E5EBF0" />
 
         <!-- Day selector  -->
         <!-- Daily plan heading -->
@@ -296,7 +320,7 @@
             android:id="@+id/tvDailyPlanLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:text="@string/daily_plan"
             android:textColor="#5E8FC2"
             android:textSize="11sp"
@@ -320,6 +344,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <!-- Opens the form for editing the selected itinerary day -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEditDay"
                 android:layout_width="wrap_content"
@@ -331,6 +356,11 @@
                 android:textSize="12sp"
                 app:backgroundTint="#FFFFFF"
                 app:cornerRadius="12dp"
+                app:icon="@drawable/ic_edit"
+                app:iconGravity="textStart"
+                app:iconPadding="3dp"
+                app:iconSize="14dp"
+                app:iconTint="#266FAD"
                 app:strokeColor="#D9E4EC"
                 app:strokeWidth="1dp" />
 
@@ -400,29 +430,44 @@
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
+            <!-- Deletes the currently selected itinerary day -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDeleteDay"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:contentDescription="@string/delete_selected_day"
-                android:text="@string/xx"
-                android:textColor="#D95C5C"
-                android:textSize="20sp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="0dp"
+                android:text=""
                 app:backgroundTint="#FDECEC"
-                app:cornerRadius="14dp" />
+                app:cornerRadius="21dp"
+                app:icon="@drawable/ic_delete"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconSize="17dp"
+                app:iconTint="#D95C5C"
+                tools:ignore="TouchTargetSizeCheck" />
 
+            <!-- Opens the form for adding an activity to the selected day -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddActivity"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:layout_marginStart="8dp"
                 android:contentDescription="@string/add_activity"
-                android:text="@string/plus"
-                android:textColor="#FFFFFF"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="0dp"
+                android:text=""
                 app:backgroundTint="#2F8FD8"
-                app:cornerRadius="24dp" />
+                app:cornerRadius="21dp"
+                app:icon="@drawable/ic_add"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconSize="19dp"
+                app:iconTint="#FFFFFF"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
 

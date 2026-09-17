@@ -2,6 +2,8 @@ package com.example.roamly.ui.itinerary
 
 import android.app.DatePickerDialog
 import android.graphics.Color
+import android.content.res.ColorStateList
+import android.widget.ImageView
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -423,17 +425,35 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 )
 
             val btnEdit =
-                activityView.findViewById<TextView>(
+                activityView.findViewById<MaterialButton>(
                     R.id.btnEditActivityItem
                 )
 
             val btnDelete =
-                activityView.findViewById<TextView>(
+                activityView.findViewById<MaterialButton>(
                     R.id.btnDeleteActivityItem
+                )
+
+// References the timeline icon so each type of activity can use a suitable symbol
+            val activityIcon =
+                activityView.findViewById<ImageView>(
+                    R.id.imgActivityTypeIcon
+                )
+
+            val activityIconCard =
+                activityView.findViewById<MaterialCardView>(
+                    R.id.cardActivityTypeIcon
                 )
 
             tvTime.text = activity.startTime
             tvTitle.text = activity.title
+
+            // Applies an icon and colour based on the activity being displayed
+            applyActivityIconStyle(
+                activity.title,
+                activityIcon,
+                activityIconCard
+            )
 
             // Edit and delete behaviour will be connected in the next steps
             btnEdit.setOnClickListener {
@@ -449,6 +469,94 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             }
 
             activitiesContainer.addView(activityView)
+        }
+    }
+
+    private fun applyActivityIconStyle(
+        title: String,
+        iconView: ImageView,
+        iconCard: MaterialCardView
+    ) {
+
+        // Uses the activity name to choose a suitable visual icon for the timeline
+        val activityTitle =
+            title.lowercase(Locale.getDefault())
+
+        when {
+
+            activityTitle.contains("flight") ||
+                    activityTitle.contains("airport") -> {
+
+                iconView.setImageResource(
+                    R.drawable.ic_flight_takeoff
+                )
+
+                iconView.imageTintList =
+                    ColorStateList.valueOf(
+                        Color.parseColor("#2F8FD8")
+                    )
+
+                iconCard.setCardBackgroundColor(
+                    Color.parseColor("#E5F2FD")
+                )
+            }
+
+            activityTitle.contains("hotel") ||
+                    activityTitle.contains("check-in") ||
+                    activityTitle.contains("check in") -> {
+
+                iconView.setImageResource(
+                    R.drawable.ic_hotel
+                )
+
+                iconView.imageTintList =
+                    ColorStateList.valueOf(
+                        Color.parseColor("#3E9B7C")
+                    )
+
+                iconCard.setCardBackgroundColor(
+                    Color.parseColor("#E5F5EF")
+                )
+            }
+
+            activityTitle.contains("breakfast") ||
+                    activityTitle.contains("lunch") ||
+                    activityTitle.contains("dinner") ||
+                    activityTitle.contains("restaurant") ||
+                    activityTitle.contains("food") ||
+                    activityTitle.contains("cafe") ||
+                    activityTitle.contains("coffee") -> {
+
+                iconView.setImageResource(
+                    R.drawable.ic_restaurant
+                )
+
+                iconView.imageTintList =
+                    ColorStateList.valueOf(
+                        Color.parseColor("#D99032")
+                    )
+
+                iconCard.setCardBackgroundColor(
+                    Color.parseColor("#FFF2DF")
+                )
+            }
+
+            else -> {
+
+                // Uses a general location icon when no specific activity type is recognised
+                iconView.setImageResource(
+                    R.drawable.ic_place
+                )
+
+                iconView.imageTintList =
+                    ColorStateList.valueOf(
+                        Color.parseColor("#7867B8")
+                    )
+
+                iconCard.setCardBackgroundColor(
+                    Color.parseColor("#EEEAF8")
+                )
+            }
         }
     }
 
