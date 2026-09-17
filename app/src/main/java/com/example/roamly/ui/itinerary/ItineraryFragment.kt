@@ -21,6 +21,7 @@ import java.util.Calendar
 import java.util.Locale
 import android.app.TimePickerDialog
 import com.example.roamly.data.model.ItineraryActivity
+import com.example.roamly.data.model.Holiday
 
 class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
@@ -29,28 +30,84 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
     private lateinit var activitiesContainer: LinearLayout
 
-    private val itineraryDays = mutableListOf(
-        ItineraryDay(1, "2026/09/12"),
-        ItineraryDay(2, "2026/09/13"),
-        ItineraryDay(3, "2026/09/14"),
-        ItineraryDay(4, "2026/09/15")
-    )
+    // Displays the name and date range of the holiday currently selected
+    private lateinit var tvSelectedTripName: TextView
+    private lateinit var tvSelectedTripDates: TextView
 
-    // Stores sample activity data locally until the REST API is connected
-    private val itineraryActivities = mutableListOf(
-        ItineraryActivity(
-            activityId = 1,
-            dayNumber = 1,
-            title = "Flight to Athens",
-            startTime = "08:30"
+    // References the three holiday cards so the selected card can be highlighted
+    private lateinit var cardHoneymoon: MaterialCardView
+    private lateinit var cardBusinessTrip: MaterialCardView
+    private lateinit var cardFamilyVacation: MaterialCardView
+
+    // Stores the holidays available on the itinerary screen.
+// These values are temporary local data until Holidays are loaded from the API.
+    private val holidays = listOf(
+        Holiday(
+            holidayId = 1,
+            name = "Honeymoon",
+            location = "Greece",
+            startDate = "2026/09/12",
+            endDate = "2026/09/20"
         ),
-        ItineraryActivity(
-            activityId = 2,
-            dayNumber = 1,
-            title = "Hotel Check-in",
-            startTime = "19:30"
+        Holiday(
+            holidayId = 2,
+            name = "Business Trip",
+            location = "Cape Town",
+            startDate = "2026/10/03",
+            endDate = "2026/10/08"
+        ),
+        Holiday(
+            holidayId = 3,
+            name = "Family Vacation",
+            location = "Durban",
+            startDate = "2026/12/15",
+            endDate = "2026/12/22"
         )
     )
+
+    // Honeymoon is selected when the itinerary screen first opens
+    private var selectedHolidayId = 1
+
+    // Keeps each holiday's itinerary days separate from the other holidays
+    private val itineraryDaysByHoliday =
+        mutableMapOf<Int, MutableList<ItineraryDay>>(
+            1 to mutableListOf(
+                ItineraryDay(1, "2026/09/12"),
+                ItineraryDay(2, "2026/09/13"),
+                ItineraryDay(3, "2026/09/14"),
+                ItineraryDay(4, "2026/09/15")
+            ),
+            2 to mutableListOf(),
+            3 to mutableListOf()
+        )
+
+    // Keeps each holiday's activities separate so they only appear under the correct trip
+    private val activitiesByHoliday =
+        mutableMapOf<Int, MutableList<ItineraryActivity>>(
+            1 to mutableListOf(
+                ItineraryActivity(
+                    activityId = 1,
+                    dayNumber = 1,
+                    title = "Flight to Athens",
+                    startTime = "08:30"
+                ),
+                ItineraryActivity(
+                    activityId = 2,
+                    dayNumber = 1,
+                    title = "Hotel Check-in",
+                    startTime = "19:30"
+                )
+            ),
+            2 to mutableListOf(),
+            3 to mutableListOf()
+        )
+
+    // These lists are changed whenever another holiday is selected
+    private var itineraryDays =
+        itineraryDaysByHoliday[selectedHolidayId]!!
+
+    private var itineraryActivities =
+        activitiesByHoliday[selectedHolidayId]!!
 
     private var selectedDayNumber = 1
 
@@ -61,6 +118,23 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         tvSelectedDayDate = view.findViewById(R.id.tvSelectedDayDate)
         activitiesContainer =
             view.findViewById(R.id.activitiesContainer)
+
+        // Connects the selected-trip information shown beneath the holiday cards
+        tvSelectedTripName =
+            view.findViewById(R.id.tvSelectedTripName)
+
+        tvSelectedTripDates =
+            view.findViewById(R.id.tvSelectedTripDates)
+
+// Connects each holiday card so the user can switch between trips
+        cardHoneymoon =
+            view.findViewById(R.id.cardHoneymoon)
+
+        cardBusinessTrip =
+            view.findViewById(R.id.cardBusinessTrip)
+
+        cardFamilyVacation =
+            view.findViewById(R.id.cardFamilyVacation)
 
         val btnAddDay = view.findViewById<MaterialButton>(R.id.btnAddDay)
 
@@ -90,8 +164,132 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             showAddActivityDialog()
         }
 
+        // Loads the Honeymoon itinerary when its card is selected
+        cardHoneymoon.setOnClickListener {
+            selectHoliday(1)
+        }
+
+// Loads the Business Trip itinerary when its card is selected
+        cardBusinessTrip.setOnClickListener {
+            selectHoliday(2)
+        }
+
+// Loads the Family Vacation itinerary when its card is selected
+        cardFamilyVacation.setOnClickListener {
+            selectHoliday(3)
+        }
+
+        val btnDeleteItinerary =
+            view.findViewById<MaterialButton>(R.id.btnDeleteItinerary)
+
+// Opens confirmation before clearing the selected holiday's itinerary
+        btnDeleteItinerary.setOnClickListener {
+            showDeleteItineraryDialog()
+        }
+
+        // Loads the default holiday and all itinerary information linked to it
+        selectHoliday(selectedHolidayId)
+    }
+
+    private fun selectHoliday(holidayId: Int) {
+
+        // Finds the holiday that matches the card selected by the user
+        val selectedHoliday = holidays.find {
+            it.holidayId == holidayId
+        } ?: return
+
+        selectedHolidayId = holidayId
+
+        // Loads only the days belonging to the selected holiday
+        itineraryDays =
+            itineraryDaysByHoliday.getOrPut(holidayId) {
+                mutableListOf()
+            }
+
+        // Loads only the activities belonging to the selected holiday
+        itineraryActivities =
+            activitiesByHoliday.getOrPut(holidayId) {
+                mutableListOf()
+            }
+
+        // Selects the first available day when switching holidays
+        selectedDayNumber =
+            itineraryDays
+                .minByOrNull { it.dayNumber }
+                ?.dayNumber ?: -1
+
+        // Updates the holiday heading and selected-card styling
+        updateSelectedHolidayDetails(selectedHoliday)
+        updateHolidayCardStyles()
+
+        // Refreshes both the day selector and activity timeline
         renderDayCards()
         renderActivities()
+    }
+
+    private fun updateSelectedHolidayDetails(holiday: Holiday) {
+
+        // Shows the name of whichever holiday is currently selected
+        tvSelectedTripName.text = holiday.name
+
+        val startDate = parseDate(holiday.startDate)
+        val endDate = parseDate(holiday.endDate)
+
+        if (startDate != null && endDate != null) {
+
+            val startFormat =
+                SimpleDateFormat(
+                    "dd MMM",
+                    Locale.getDefault()
+                )
+
+            val endFormat =
+                SimpleDateFormat(
+                    "dd MMM yyyy",
+                    Locale.getDefault()
+                )
+
+            // Formats the dates to match the design, e.g. 12 Sep – 20 Sep 2026
+            tvSelectedTripDates.text =
+                "${startFormat.format(startDate)} – ${endFormat.format(endDate)}"
+
+        } else {
+
+            // Falls back to the stored dates if formatting fails
+            tvSelectedTripDates.text =
+                "${holiday.startDate} – ${holiday.endDate}"
+        }
+    }
+
+    private fun updateHolidayCardStyles() {
+
+        val holidayCards = listOf(
+            1 to cardHoneymoon,
+            2 to cardBusinessTrip,
+            3 to cardFamilyVacation
+        )
+
+        holidayCards.forEach { (holidayId, card) ->
+
+            if (holidayId == selectedHolidayId) {
+
+                // Gives the selected holiday the blue outline shown in the design
+                card.strokeColor =
+                    Color.parseColor("#3D9BE9")
+
+                card.strokeWidth =
+                    dpToPx(2)
+
+            } else {
+
+                // Returns the other holiday cards to their normal grey outline
+                card.strokeColor =
+                    Color.parseColor("#E0E6EC")
+
+                card.strokeWidth =
+                    dpToPx(1)
+            }
+        }
     }
 
     private fun renderDayCards() {
@@ -1246,19 +1444,94 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         dialog.show()
     }
 
+    private fun showDeleteItineraryDialog() {
+
+        // Finds the selected holiday so its name can be shown in the confirmation message
+        val selectedHoliday = holidays.find {
+            it.holidayId == selectedHolidayId
+        } ?: return
+
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_confirm_delete, null)
+
+        val tvTitle =
+            dialogView.findViewById<TextView>(
+                R.id.tvDeleteTitle
+            )
+
+        val tvMessage =
+            dialogView.findViewById<TextView>(
+                R.id.tvDeleteMessage
+            )
+
+        val btnCancel =
+            dialogView.findViewById<MaterialButton>(
+                R.id.btnCancelDelete
+            )
+
+        val btnDelete =
+            dialogView.findViewById<MaterialButton>(
+                R.id.btnConfirmDelete
+            )
+
+        tvTitle.text = "Delete Itinerary?"
+
+        tvMessage.text =
+            "Are you sure you want to delete the ${selectedHoliday.name} itinerary? " +
+                    "All days and activities in this itinerary will be removed."
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnDelete.setOnClickListener {
+
+            // Clears only the itinerary data for the selected holiday
+            itineraryDays.clear()
+            itineraryActivities.clear()
+
+            // No day remains selected once the itinerary has been cleared
+            selectedDayNumber = -1
+
+            // Refreshes the screen to show the empty itinerary state
+            renderDayCards()
+            renderActivities()
+
+            Toast.makeText(
+                requireContext(),
+                "${selectedHoliday.name} itinerary deleted.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
     private fun isDateWithinHoliday(
         dateText: String
     ): Boolean {
+
+        // Gets the start and end dates from the holiday currently selected
+        val selectedHoliday = holidays.find {
+            it.holidayId == selectedHolidayId
+        } ?: return false
 
         val selectedDate =
             parseDate(dateText) ?: return false
 
         val holidayStart =
-            parseDate("2026/09/12") ?: return false
+            parseDate(selectedHoliday.startDate) ?: return false
 
         val holidayEnd =
-            parseDate("2026/09/20") ?: return false
+            parseDate(selectedHoliday.endDate) ?: return false
 
+        // A new itinerary day must fall inside the selected holiday's date range
         return !selectedDate.before(holidayStart) &&
                 !selectedDate.after(holidayEnd)
     }
