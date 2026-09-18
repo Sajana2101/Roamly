@@ -2,4 +2,16 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="roamly_navy">#173F5F</color>
+    <color name="roamly_blue">#4A90E2</color>
+    <color name="roamly_light_blue">#EAF4FF</color>
+
+    <color name="roamly_green">#2FA36B</color>
+    <color name="roamly_red">#D9534F</color>
+
+    <color name="roamly_background">#F7F9FC</color>
+    <color name="roamly_white">#FFFFFF</color>
+
+    <color name="roamly_text_primary">#1E293B</color>
+    <color name="roamly_text_secondary">#64748B</color>
 </resources>
