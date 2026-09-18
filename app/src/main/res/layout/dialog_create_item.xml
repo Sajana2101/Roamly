@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#FFFFFF">
+
+    <!-- Section label -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PACKING ITEM"
+        android:textColor="#5E8FC2"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.12" />
+
+    <!-- Dialog title -->
+    <TextView
+        android:id="@+id/tvCreateItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="Add Packing Item"
+        android:textColor="#172B3A"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <!-- Subtitle -->
+    <TextView
+        android:id="@+id/tvCreateItemSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="Add an item to your packing list"
+        android:textColor="#7B8794"
+        android:textSize="12sp" />
+
+    <!-- Item name label -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="ITEM NAME"
+        android:textColor="#344554"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <!-- Item name input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutCreateItemName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etCreateItemName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="e.g. Sunglasses"
+            android:inputType="textCapSentences" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:orientation="horizontal">
+
+        <!-- Cancel -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancelCreateItem"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="#344554"
+            app:backgroundTint="#F4F6F8"
+            app:cornerRadius="10dp" />
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="1dp" />
+
+        <!-- Add Item -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfirmCreateItem"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text=" + Add Item"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:backgroundTint="#184D76"
+            app:cornerRadius="10dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
