@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roamly.R
 import com.example.roamly.data.model.PackingListRequest
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 
 
@@ -79,51 +80,67 @@ class PackingFragment : Fragment(R.layout.fragment_packing) {
 
         recyclerView.adapter = adapter
 
-
         // Add packing list button
         addPackingListButton.setOnClickListener {
 
-            val nameInput = EditText(requireContext())
-            nameInput.hint = "e.g Electronics"
+            // Load the custom XML layout
+            val dialogView = layoutInflater.inflate(
+                R.layout.dialog_create_list,
+                null
+            )
 
-            val descriptionInput = EditText(requireContext())
-            descriptionInput.hint = "e.g. Chargers and Devices"
+            // Get the views from the XML
+            val nameInput = dialogView.findViewById<EditText>(R.id.etCreateListName)
 
+            val descriptionInput = dialogView.findViewById<EditText>(R.id.etCreateListDescription )
 
-            val layout = LinearLayout(requireContext())
-            layout.orientation = LinearLayout.VERTICAL
-            layout.setPadding(48, 0, 48, 0)
+            val cancelButton =  dialogView.findViewById<MaterialButton>(R.id.btnCancelCreateList)
 
-            layout.addView(nameInput)
-            layout.addView(descriptionInput)
+            val createButton = dialogView.findViewById<MaterialButton>( R.id.btnConfirmCreateList)
 
+            // Create dialog
+            val dialog = AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .create()
 
-            // Show create dialog
-            AlertDialog.Builder(requireContext())
-                .setTitle("Create List")
-                .setView(layout)
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("+ Create List") { _, _ ->
+            dialog.show()
 
-                    val name =
-                        nameInput.text.toString().trim()
+            // Make the default dialog background transparent
+            dialog.window?.setBackgroundDrawableResource( android.R.color.transparent)
 
-                    val description =
-                        descriptionInput.text.toString().trim()
+            // Cancel
+            cancelButton.setOnClickListener {
+                dialog.dismiss()
+            }
 
+            // Create list
+            createButton.setOnClickListener {
 
-                    if (name.isNotEmpty()) {
+                val name = nameInput.text.toString().trim()
 
-                        val request = PackingListRequest(
-                            name = name,
-                            description = description
-                        )
+                val description = descriptionInput.text.toString().trim()
 
-                        viewModel.createPackingList(request)
-                    }
+                // Make sure a list name was entered
+                if (name.isEmpty()) {
+
+                    nameInput.error = "Please enter a list name"
+                    return@setOnClickListener
                 }
-                .show()
+
+                // Create the request
+                val request = PackingListRequest(
+                    name = name,
+                    description = description
+                )
+
+                // Add the list
+                viewModel.createPackingList(request)
+
+                // Close dialog
+                dialog.dismiss()
+            }
         }
+
 
 
         // Observe packing lists

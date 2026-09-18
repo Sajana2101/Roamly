@@ -36,11 +36,13 @@
         <!-- Add new packing list -->
         <Button
             android:id="@+id/btnAddPackingList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
             android:text="+ New List"
             android:backgroundTint="#3F51B5"
-            android:textColor="#FFFFFF" />
+            android:layout_weight="1"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"  />
 
     </LinearLayout>
 

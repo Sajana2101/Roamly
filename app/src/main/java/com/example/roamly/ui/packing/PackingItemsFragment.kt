@@ -19,6 +19,7 @@ import com.example.roamly.R
 import com.example.roamly.data.model.PackingItem
 import com.example.roamly.data.model.PackingItemRequest
 import com.example.roamly.data.model.PackingListRequest
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 
 
@@ -96,45 +97,64 @@ class PackingItemsFragment : Fragment(R.layout.fragment_packing_items) {
 
         recyclerView.adapter = adapter
 
-
         // Add packing item
         addItemButton.setOnClickListener {
 
-            val itemInput = EditText(requireContext())
-            itemInput.hint = "e.g. Sunglasses"
+            // Load the custom XML layout
+            val dialogView = layoutInflater.inflate(
+                R.layout.dialog_create_item,
+                null
+            )
 
-            val layout = LinearLayout(requireContext())
-            layout.orientation = LinearLayout.VERTICAL
-            layout.setPadding(48, 0, 48, 0)
+            // Get the views from the XML
+            val itemInput =  dialogView.findViewById<EditText>(R.id.etCreateItemName  )
 
-            layout.addView(itemInput)
+            val cancelButton =  dialogView.findViewById<MaterialButton>( R.id.btnCancelCreateItem )
 
+            val addButton = dialogView.findViewById<MaterialButton>(R.id.btnConfirmCreateItem )
 
-            // Show add item dialog
-            AlertDialog.Builder(requireContext())
-                .setTitle("Add Packing Item")
-                .setView(layout)
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("+ Add Item") { _, _ ->
+            // Create dialog
+            val dialog = AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .create()
 
-                    val itemName =
-                        itemInput.text.toString().trim()
+            dialog.show()
 
-                    if (itemName.isNotEmpty()) {
+            // Make the default dialog background transparent
+            dialog.window?.setBackgroundDrawableResource( android.R.color.transparent)
 
-                        val request = PackingItemRequest(
-                            name = itemName,
-                            isPacked = false
-                        )
+            // Cancel
+            cancelButton.setOnClickListener {
+                dialog.dismiss()
+            }
 
-                        viewModel.addPackingItem(
-                            packingListId,
-                            request
-                        )
-                    }
+            // Add item
+            addButton.setOnClickListener {
+
+                val itemName =itemInput.text.toString().trim()
+
+                // Make sure an item name was entered
+                if (itemName.isEmpty()) {
+
+                    itemInput.error = "Please enter an item name"
+                    return@setOnClickListener
                 }
-                .show()
+
+                // Create the request
+                val request = PackingItemRequest(
+                    name = itemName,
+                    isPacked = false
+                )
+
+                // Add the item
+                viewModel.addPackingItem(packingListId, request  )
+
+                // Close dialog
+                dialog.dismiss()
+            }
         }
+
+
 
 
         // Observe packing items
@@ -174,88 +194,95 @@ class PackingItemsFragment : Fragment(R.layout.fragment_packing_items) {
 
 
     // PACKING LIST EDIT
-    private fun showEditPackingListDialog(packingListId: String,title: TextView, description: TextView) {
+    private fun showEditPackingListDialog( packingListId: String, title: TextView, description: TextView ) {
 
-        val nameInput = EditText(requireContext())
+        // Load the custom XML layout
+        val dialogView = layoutInflater.inflate(R.layout.dialog_edit_list, null )
+
+        // Get the views from the XML
+        val nameInput =dialogView.findViewById<EditText>(R.id.etListName)
+        val descriptionInput = dialogView.findViewById<EditText>(R.id.etListDescription)
+        val cancelButton = dialogView.findViewById<MaterialButton>(R.id.btnCancelEditList )
+        val saveButton = dialogView.findViewById<MaterialButton>(R.id.btnConfirmEditList )
+
+        // Display current values
         nameInput.setText(title.text.toString())
-        nameInput.hint = "List name"
-
-        val descriptionInput = EditText(requireContext())
         descriptionInput.setText(description.text.toString())
-        descriptionInput.hint = "Description"
 
-        val layout = LinearLayout(requireContext())
-        layout.orientation = LinearLayout.VERTICAL
-        layout.setPadding(48, 0, 48, 0)
-
-        layout.addView(nameInput)
-        layout.addView(descriptionInput)
-
-
+        // Create dialog
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Edit List")
-            .setView(layout)
-            .setNegativeButton("Cancel", null)
-            .setPositiveButton("Save Changes", null)
+            .setView(dialogView)
             .create()
 
         dialog.show()
 
-        dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_background)
+        // Make the default dialog background transparent
+        dialog.window?.setBackgroundDrawableResource( android.R.color.transparent)
 
-        val saveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        // Cancel
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
 
-        styleDialogButton(saveButton, R.drawable.dialog_button_blue)
-
+        // Save changes
         saveButton.setOnClickListener {
 
             val newName = nameInput.text.toString().trim()
-            val newDescription = descriptionInput.text.toString().trim()
 
-            if (newName.isNotEmpty()) {
+            val newDescription =  descriptionInput.text.toString().trim()
 
-                val request = PackingListRequest(
-                    name = newName,
-                    description = newDescription
-                )
+            if (newName.isEmpty()) {
 
-                viewModel.updatePackingList(
-                    packingListId,
-                    request
-                )
-
-                title.text = newName
-                description.text = newDescription
-
-                dialog.dismiss()
+                nameInput.error = "Please enter a list name"
+                return@setOnClickListener
             }
+
+            val request = PackingListRequest(
+                name = newName,
+                description = newDescription
+            )
+
+            viewModel.updatePackingList(
+                packingListId,
+                request
+            )
+
+            // Update the page immediately
+            title.text = newName
+            description.text = newDescription
+
+            dialog.dismiss()
         }
     }
 
 
     // PACKING LIST DELETE
-    private fun showDeletePackingListDialog( packingListId: String,  packingListName: String) {
+    private fun showDeletePackingListDialog(packingListId: String, packingListName: String) {
+
+        val dialogView = layoutInflater.inflate( R.layout.dialog_delete_list, null )
+
+        val deleteTitle = dialogView.findViewById<TextView>(R.id.tvDeleteTitle)
+
+        val deleteMessage = dialogView.findViewById<TextView>(R.id.tvDeleteMessage)
+
+        val cancelButton = dialogView.findViewById<MaterialButton>(R.id.btnCancelDelete )
+
+        val confirmButton = dialogView.findViewById<MaterialButton>(R.id.btnConfirmDelete)
+
+        deleteTitle.text = "Delete Packing List ?"
+
+        deleteMessage.text = "Are you sure you want to delete \"$packingListName\"?\n\n" +
+                    "This will delete the list and every item inside it."
 
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Delete List")
-            .setMessage(
-                "Are you sure you want to delete \"$packingListName\"?\n\n" +
-                        "This will delete the list and every item inside it."
-            )
-            .setNegativeButton("Cancel", null)
-            .setPositiveButton("Delete", null)
+            .setView(dialogView)
             .create()
 
-        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_background)
+        cancelButton.setOnClickListener { dialog.dismiss() }
 
-        val deleteButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-
-        styleDialogButton(deleteButton,R.drawable.dialog_button_red
-        )
-
-        deleteButton.setOnClickListener {
+        confirmButton.setOnClickListener {
 
             viewModel.deletePackingList(packingListId)
 
@@ -263,30 +290,43 @@ class PackingItemsFragment : Fragment(R.layout.fragment_packing_items) {
 
             dialog.dismiss()
         }
+
+        dialog.show()
+
+        dialog.window?.setBackgroundDrawableResource(
+            android.R.color.transparent
+        )
     }
 
 
     // PACKING ITEM DELETE
-    private fun showDeleteItemDialog(item: PackingItem, packingListId: String ) {
+    private fun showDeleteItemDialog(item: PackingItem, packingListId: String) {
+
+        val dialogView = layoutInflater.inflate(R.layout.dialog_delete_item, null )
+
+        val deleteTitle =dialogView.findViewById<TextView>(R.id.tvDeleteTitle)
+
+        val deleteMessage = dialogView.findViewById<TextView>(R.id.tvDeleteMessage)
+
+        val cancelButton = dialogView.findViewById<MaterialButton>(R.id.btnCancelDelete )
+
+        val confirmButton =dialogView.findViewById<MaterialButton>(R.id.btnConfirmDelete )
+
+        deleteTitle.text = "Delete Item? "
+
+        deleteMessage.text = "Are you sure you want to delete \"${item.name}\"?"
 
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Delete Item?")
-            .setMessage(
-                "Are you sure you want to delete \"${item.name}\"?"
-            )
-            .setNegativeButton("Cancel", null)
-            .setPositiveButton("X Delete", null)
+            .setView(dialogView)
             .create()
 
-        dialog.show()
+        dialog.window?.setBackgroundDrawableResource( android.R.color.transparent )
 
-        dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_background)
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
 
-        val deleteButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-
-        styleDialogButton( deleteButton,R.drawable.dialog_button_red)
-
-        deleteButton.setOnClickListener {
+        confirmButton.setOnClickListener {
 
             viewModel.deletePackingItem(
                 item.packingItemId,
@@ -295,74 +335,73 @@ class PackingItemsFragment : Fragment(R.layout.fragment_packing_items) {
 
             dialog.dismiss()
         }
+
+        dialog.show()
+
+        dialog.window?.setBackgroundDrawableResource( android.R.color.transparent )
     }
 
 
-    // PACKING ITEM EDIT
+
     // PACKING ITEM EDIT
     private fun showEditItemDialog(item: PackingItem) {
 
-        val itemInput = EditText(requireContext())
+        // Load the custom XML layout
+        val dialogView = layoutInflater.inflate(
+            R.layout.dialog_edit_item,
+            null
+        )
+
+        // Get the views from the XML
+        val itemInput = dialogView.findViewById<EditText>( R.id.etItemName )
+
+        val cancelButton = dialogView.findViewById<MaterialButton>(R.id.btnCancelEditItem )
+
+        val saveButton = dialogView.findViewById<MaterialButton>(R.id.btnConfirmEditItem)
+
+        // Display the current item name
         itemInput.setText(item.name)
-        itemInput.hint = "Item name"
 
-        val layout = LinearLayout(requireContext())
-        layout.orientation = LinearLayout.VERTICAL
-        layout.setPadding(48, 0, 48, 0)
-
-        layout.addView(itemInput)
-
-        // Create the dialog
+        // Create dialog
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Edit Item")
-            .setView(layout)
-            .setNegativeButton("Cancel", null)
-            .setPositiveButton("Save Changes", null)
+            .setView(dialogView)
             .create()
 
-        // Show the dialog first
         dialog.show()
 
-        // Make the dialog rounded
-        dialog.window?.setBackgroundDrawableResource( R.drawable.dialog_background
+        // Make the default dialog background transparent
+        dialog.window?.setBackgroundDrawableResource(
+            android.R.color.transparent
         )
 
-        // Get the Save button
-        val saveButton = dialog.getButton( AlertDialog.BUTTON_POSITIVE
-        )
+        // Cancel
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
 
-        // Make the Save button blue
-        styleDialogButton( saveButton, R.drawable.dialog_button_blue
-        )
-
-        // Save the changes
+        // Save changes
         saveButton.setOnClickListener {
 
             val newName = itemInput.text.toString().trim()
 
-            if (newName.isNotEmpty()) {
+            if (newName.isEmpty()) {
 
-                viewModel.updatePackingItem(
-                    item.packingItemId,
-                    PackingItemRequest(
-                        name = newName,
-                        isPacked = item.isPacked
-                    )
-                )
-
-                dialog.dismiss()
+                itemInput.error = "Please enter an item name"
+                return@setOnClickListener
             }
+
+            viewModel.updatePackingItem(
+                item.packingItemId,
+                PackingItemRequest(
+                    name = newName,
+                    isPacked = item.isPacked
+                )
+            )
+
+            dialog.dismiss()
         }
     }
 
-    private fun styleDialogButton(button: Button, background: Int
-    ) {
-        button.backgroundTintList = null
-        button.setBackgroundResource(background)
-        button.setTextColor(android.graphics.Color.WHITE)
-        button.setPadding(32, 12, 32, 12)
-        button.alpha = 1f
-    }
 
 
 
