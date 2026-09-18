@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.roamly.ui.itinerary.ItineraryFragment
 import com.example.roamly.ui.packing.PackingFragment
 import com.example.roamly.ui.settings.SettingsFragment
+import com.example.roamly.ui.currency.CurrencyFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         val itineraryButton =
             findViewById<Button>(R.id.btnItinerary)
+
+        val currencyButton =
+            findViewById<Button>(
+                R.id.btnCurrency
+            )
 
         // Opens the Packing feature
         packingButton.setOnClickListener {
@@ -62,6 +68,19 @@ class MainActivity : AppCompatActivity() {
                 .replace(
                     R.id.fragmentContainer,
                     ItineraryFragment()
+                )
+                .addToBackStack(null)
+                .commit()
+        }
+
+        // Opens the Currency Converter while the final burger-menu navigation is still being built.
+        currencyButton.setOnClickListener {
+
+            supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.fragmentContainer,
+                    CurrencyFragment()
                 )
                 .addToBackStack(null)
                 .commit()

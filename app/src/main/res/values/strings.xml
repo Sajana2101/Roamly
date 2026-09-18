@@ -129,4 +129,33 @@
     <string name="activity_title">Activity</string>
     <string name="_08_30_am">08:30</string>
 
+    <!-- Currency Converter -->
+    <string name="currency_travel_money">TRAVEL MONEY</string>
+    <string name="currency_converter">Currency Converter</string>
+    <string name="currency_subtitle">Convert money quickly while planning or travelling.</string>
+
+    <string name="currency_convert_label">CONVERT</string>
+    <string name="currency_calculator">Currency Calculator</string>
+
+    <string name="currency_amount">Amount</string>
+    <string name="currency_amount_hint">1000</string>
+
+    <string name="currency_from">From</string>
+    <string name="currency_to">To</string>
+
+    <string name="currency_from_hint">Select source currency</string>
+    <string name="currency_to_hint">Select destination currency</string>
+
+    <string name="currency_swap">Swap currencies</string>
+    <string name="currency_convert_button">Convert Currency</string>
+
+    <string name="currency_converted_value">CONVERTED VALUE</string>
+    <string name="currency_example_result">€50.00</string>
+    <string name="currency_example_summary">R1,000.00 ZAR = €50.00 EUR</string>
+    <string name="currency_example_rate">1 ZAR = 0.0500 EUR</string>
+
+    <string name="currency_mock_rates_note">Prototype exchange rates are temporary until the live Roamly currency API is connected.</string>
+
+    <string name="currency_invalid_amount">Enter an amount greater than 0.</string>
+
 </resources>
