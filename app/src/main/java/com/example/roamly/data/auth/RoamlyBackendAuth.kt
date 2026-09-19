@@ -1,9 +1,11 @@
 package com.example.roamly.data.auth
 
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
+import java.util.concurrent.TimeUnit
 
 data class RoamlyGoogleAuthRequest(
     val idToken: String
@@ -37,9 +39,30 @@ object RoamlyAuthClient {
     private const val BASE_URL =
         "http://10.0.2.2:3000/"
 
-    private val retrofit: Retrofit =
+    private val httpClient =
+        OkHttpClient.Builder()
+            .connectTimeout(
+                15,
+                TimeUnit.SECONDS
+            )
+            .readTimeout(
+                30,
+                TimeUnit.SECONDS
+            )
+            .writeTimeout(
+                30,
+                TimeUnit.SECONDS
+            )
+            .callTimeout(
+                45,
+                TimeUnit.SECONDS
+            )
+            .build()
+
+    private val retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(httpClient)
             .addConverterFactory(
                 GsonConverterFactory.create()
             )
@@ -61,7 +84,8 @@ class RoamlyAuthRepository {
             RoamlyAuthClient.api
                 .authenticateWithGoogle(
                     RoamlyGoogleAuthRequest(
-                        idToken = googleIdToken
+                        idToken =
+                            googleIdToken
                     )
                 )
 

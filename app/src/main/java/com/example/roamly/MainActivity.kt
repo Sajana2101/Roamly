@@ -7,11 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.example.roamly.data.auth.SessionManager
 import com.example.roamly.ui.auth.LoginFragment
 import com.example.roamly.ui.auth.RegisterFragment
 import com.example.roamly.ui.currency.CurrencyFragment
 import com.example.roamly.ui.documents.DocumentsFragment
 import com.example.roamly.ui.holiday.AddHolidayFragment
+import com.example.roamly.ui.holiday.EditHolidayFragment
+import com.example.roamly.ui.holiday.HolidayDetailsFragment
 import com.example.roamly.ui.home.HomeFragment
 import com.example.roamly.ui.itinerary.ItineraryFragment
 import com.example.roamly.ui.packing.PackingFragment
@@ -20,132 +23,331 @@ import com.example.roamly.ui.settings.SettingsFragment
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-import com.example.roamly.ui.holiday.HolidayDetailsFragment
-import com.example.roamly.ui.holiday.EditHolidayFragment
+import com.google.firebase.auth.FirebaseAuth
+
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var toolbar: MaterialToolbar
-    private lateinit var bottomNavigation: BottomNavigationView
-    private lateinit var drawerLayout: DrawerLayout
-    private lateinit var navigationView: NavigationView
+    private lateinit var toolbar:
+            MaterialToolbar
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var bottomNavigation:
+            BottomNavigationView
 
-        setContentView(R.layout.activity_main)
+    private lateinit var drawerLayout:
+            DrawerLayout
 
-        toolbar = findViewById(R.id.toolbar)
-        bottomNavigation = findViewById(R.id.bottomNavigation)
-        drawerLayout = findViewById(R.id.drawerLayout)
-        navigationView = findViewById(R.id.navigationView)
+    private lateinit var navigationView:
+            NavigationView
 
-        setSupportActionBar(toolbar)
+    private lateinit var firebaseAuth:
+            FirebaseAuth
 
-        val drawerToggle = ActionBarDrawerToggle(
-            this,
-            drawerLayout,
-            toolbar,
-            R.string.drawer_open,
-            R.string.drawer_close
+    private lateinit var sessionManager:
+            SessionManager
+
+    override fun onCreate(
+        savedInstanceState: Bundle?
+    ) {
+
+        super.onCreate(
+            savedInstanceState
         )
 
-        drawerLayout.addDrawerListener(drawerToggle)
+        setContentView(
+            R.layout.activity_main
+        )
+
+        toolbar =
+            findViewById(
+                R.id.toolbar
+            )
+
+        bottomNavigation =
+            findViewById(
+                R.id.bottomNavigation
+            )
+
+        drawerLayout =
+            findViewById(
+                R.id.drawerLayout
+            )
+
+        navigationView =
+            findViewById(
+                R.id.navigationView
+            )
+
+        firebaseAuth =
+            FirebaseAuth.getInstance()
+
+        sessionManager =
+            SessionManager(
+                this
+            )
+
+        setSupportActionBar(
+            toolbar
+        )
+
+        val drawerToggle =
+            ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolbar,
+                R.string.drawer_open,
+                R.string.drawer_close
+            )
+
+        drawerLayout.addDrawerListener(
+            drawerToggle
+        )
+
         drawerToggle.syncState()
 
-        toolbar.setNavigationOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
+        toolbar
+            .setNavigationOnClickListener {
 
-        bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    openMainFragment(HomeFragment(), "My Holidays")
-                    true
-                }
-
-                R.id.nav_itinerary -> {
-                    openMainFragment(ItineraryFragment(), "Itinerary")
-                    true
-                }
-
-                R.id.nav_add_holiday -> {
-                    openMainFragment(AddHolidayFragment(), "Add Holiday")
-                    true
-                }
-
-                R.id.nav_packing -> {
-                    openMainFragment(PackingFragment(), "Packing")
-                    true
-                }
-
-                R.id.nav_documents -> {
-                    openMainFragment(DocumentsFragment(), "Documents")
-                    true
-                }
-
-                else -> false
-            }
-        }
-
-        navigationView.setNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.menu_currency -> {
-                    openMainFragment(
-                        CurrencyFragment(),
-                        "Currency Converter"
-                    )
-                }
-
-                R.id.menu_reminders -> {
-                    openMainFragment(
-                        RemindersFragment(),
-                        "Notifications & Reminders"
-                    )
-                }
-
-                R.id.menu_settings -> {
-                    openMainFragment(
-                        SettingsFragment(),
-                        "Settings"
-                    )
-                }
+                drawerLayout.openDrawer(
+                    GravityCompat.START
+                )
             }
 
-            drawerLayout.closeDrawer(GravityCompat.START)
+        bottomNavigation
+            .setOnItemSelectedListener {
+                    item ->
 
-            true
-        }
+                when (
+                    item.itemId
+                ) {
 
-        if (savedInstanceState == null) {
-            showLogin()
+                    R.id.nav_home -> {
+
+                        openMainFragment(
+                            HomeFragment(),
+                            "My Holidays"
+                        )
+
+                        true
+                    }
+
+                    R.id.nav_itinerary -> {
+
+                        openMainFragment(
+                            ItineraryFragment(),
+                            "Itinerary"
+                        )
+
+                        true
+                    }
+
+                    R.id.nav_add_holiday -> {
+
+                        openMainFragment(
+                            AddHolidayFragment(),
+                            "Add Holiday"
+                        )
+
+                        true
+                    }
+
+                    R.id.nav_packing -> {
+
+                        openMainFragment(
+                            PackingFragment(),
+                            "Packing"
+                        )
+
+                        true
+                    }
+
+                    R.id.nav_documents -> {
+
+                        openMainFragment(
+                            DocumentsFragment(),
+                            "Documents"
+                        )
+
+                        true
+                    }
+
+                    else ->
+                        false
+                }
+            }
+
+        navigationView
+            .setNavigationItemSelectedListener {
+                    item ->
+
+                when (
+                    item.itemId
+                ) {
+
+                    R.id.menu_currency -> {
+
+                        openMainFragment(
+                            CurrencyFragment(),
+                            "Currency Converter"
+                        )
+                    }
+
+                    R.id.menu_reminders -> {
+
+                        openMainFragment(
+                            RemindersFragment(),
+                            "Notifications & Reminders"
+                        )
+                    }
+
+                    R.id.menu_settings -> {
+
+                        openMainFragment(
+                            SettingsFragment(),
+                            "Settings"
+                        )
+                    }
+                }
+
+                drawerLayout.closeDrawer(
+                    GravityCompat.START
+                )
+
+                true
+            }
+
+        if (
+            savedInstanceState == null
+        ) {
+
+            showInitialScreen()
+
         } else {
-            restoreScreenChrome()
+
+            restoreExistingScreen()
+        }
+    }
+
+    private fun showInitialScreen() {
+
+        if (
+            isFullyAuthenticated()
+        ) {
+
+            showHomeAfterAuthentication()
+
+        } else {
+
+            clearIncompleteAuthentication()
+
+            showLogin()
+        }
+    }
+
+    private fun restoreExistingScreen() {
+
+        if (
+            isFullyAuthenticated()
+        ) {
+
+            val currentFragment =
+                supportFragmentManager
+                    .findFragmentById(
+                        R.id.fragmentContainer
+                    )
+
+            if (
+                currentFragment is LoginFragment ||
+                currentFragment is RegisterFragment
+            ) {
+
+                showHomeAfterAuthentication()
+
+            } else {
+
+                restoreScreenChrome()
+            }
+
+        } else {
+
+            clearIncompleteAuthentication()
+
+            showLogin()
+        }
+    }
+
+    private fun isFullyAuthenticated():
+            Boolean {
+
+        val firebaseUserExists =
+            firebaseAuth.currentUser != null
+
+        val roamlySessionExists =
+            sessionManager.hasSession()
+
+        return firebaseUserExists &&
+                roamlySessionExists
+    }
+
+    private fun clearIncompleteAuthentication() {
+
+        val firebaseUserExists =
+            firebaseAuth.currentUser != null
+
+        val roamlySessionExists =
+            sessionManager.hasSession()
+
+        if (
+            firebaseUserExists &&
+            !roamlySessionExists
+        ) {
+
+            firebaseAuth.signOut()
+        }
+
+        if (
+            !firebaseUserExists &&
+            roamlySessionExists
+        ) {
+
+            sessionManager.clearSession()
         }
     }
 
     fun showLogin() {
-        showAuthScreen(LoginFragment())
+
+        showAuthScreen(
+            LoginFragment()
+        )
     }
 
     fun showRegister() {
-        showAuthScreen(RegisterFragment())
+
+        showAuthScreen(
+            RegisterFragment()
+        )
     }
 
     fun showHomeAfterAuthentication() {
+
         showMainNavigation()
 
-        bottomNavigation.selectedItemId = R.id.nav_home
+        bottomNavigation.selectedItemId =
+            R.id.nav_home
 
         openMainFragment(
             HomeFragment(),
             "My Holidays"
         )
     }
+
     fun showAddHoliday() {
+
         bottomNavigation.selectedItemId =
             R.id.nav_add_holiday
     }
+
     fun showHome() {
+
         bottomNavigation.selectedItemId =
             R.id.nav_home
     }
@@ -153,6 +355,7 @@ class MainActivity : AppCompatActivity() {
     fun showHolidayDetails(
         holidayId: Int
     ) {
+
         openMainFragment(
             HolidayDetailsFragment
                 .newInstance(
@@ -165,6 +368,7 @@ class MainActivity : AppCompatActivity() {
     fun showEditHoliday(
         holidayId: Int
     ) {
+
         openMainFragment(
             EditHolidayFragment
                 .newInstance(
@@ -174,46 +378,74 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun showAuthScreen(fragment: Fragment) {
-        toolbar.visibility = View.GONE
-        bottomNavigation.visibility = View.GONE
+    private fun showAuthScreen(
+        fragment: Fragment
+    ) {
 
-        drawerLayout.closeDrawer(GravityCompat.START)
-        drawerLayout.setDrawerLockMode(
-            DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+        toolbar.visibility =
+            View.GONE
+
+        bottomNavigation.visibility =
+            View.GONE
+
+        drawerLayout.closeDrawer(
+            GravityCompat.START
         )
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
+        drawerLayout.setDrawerLockMode(
+            DrawerLayout
+                .LOCK_MODE_LOCKED_CLOSED
+        )
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.fragmentContainer,
+                fragment
+            )
             .commit()
     }
 
     private fun showMainNavigation() {
-        toolbar.visibility = View.VISIBLE
-        bottomNavigation.visibility = View.VISIBLE
+
+        toolbar.visibility =
+            View.VISIBLE
+
+        bottomNavigation.visibility =
+            View.VISIBLE
 
         drawerLayout.setDrawerLockMode(
-            DrawerLayout.LOCK_MODE_UNLOCKED
+            DrawerLayout
+                .LOCK_MODE_UNLOCKED
         )
     }
 
     private fun restoreScreenChrome() {
+
         val currentFragment =
-            supportFragmentManager.findFragmentById(
-                R.id.fragmentContainer
-            )
+            supportFragmentManager
+                .findFragmentById(
+                    R.id.fragmentContainer
+                )
 
         if (
             currentFragment is LoginFragment ||
             currentFragment is RegisterFragment
         ) {
-            toolbar.visibility = View.GONE
-            bottomNavigation.visibility = View.GONE
+
+            toolbar.visibility =
+                View.GONE
+
+            bottomNavigation.visibility =
+                View.GONE
 
             drawerLayout.setDrawerLockMode(
-                DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+                DrawerLayout
+                    .LOCK_MODE_LOCKED_CLOSED
             )
+
         } else {
+
             showMainNavigation()
         }
     }
@@ -222,12 +454,18 @@ class MainActivity : AppCompatActivity() {
         fragment: Fragment,
         title: String
     ) {
+
         showMainNavigation()
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
+        supportFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.fragmentContainer,
+                fragment
+            )
             .commit()
 
-        toolbar.title = title
+        toolbar.title =
+            title
     }
 }

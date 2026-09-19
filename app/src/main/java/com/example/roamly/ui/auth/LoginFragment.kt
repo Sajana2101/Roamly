@@ -13,6 +13,7 @@ import com.example.roamly.MainActivity
 import com.example.roamly.R
 import com.example.roamly.data.auth.GoogleSignInHelper
 import com.example.roamly.data.auth.RoamlyAuthRepository
+import com.example.roamly.data.auth.SessionManager
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -31,6 +32,9 @@ class LoginFragment :
 
     private lateinit var roamlyAuthRepository:
             RoamlyAuthRepository
+
+    private lateinit var sessionManager:
+            SessionManager
 
     private lateinit var googleSignInButton:
             MaterialButton
@@ -61,6 +65,11 @@ class LoginFragment :
 
         roamlyAuthRepository =
             RoamlyAuthRepository()
+
+        sessionManager =
+            SessionManager(
+                requireContext()
+            )
 
         googleSignInButton =
             view.findViewById(
@@ -249,12 +258,24 @@ class LoginFragment :
                                 googleIdToken
                             )
 
+                    sessionManager.saveSession(
+                        accessToken =
+                            authResponse.accessToken,
+                        user =
+                            authResponse.user
+                    )
+
                     Log.i(
                         TAG,
                         "Roamly backend authentication succeeded. " +
                                 "userId=${authResponse.user.userId}, " +
                                 "email=${authResponse.user.email}, " +
                                 "provider=${authResponse.user.ssoProvider}"
+                    )
+
+                    Log.i(
+                        TAG,
+                        "Roamly session saved successfully."
                     )
 
                     setLoading(
@@ -286,6 +307,9 @@ class LoginFragment :
                         "Roamly backend authentication failed",
                         exception
                     )
+
+                    sessionManager
+                        .clearSession()
 
                     firebaseAuth
                         .signOut()
