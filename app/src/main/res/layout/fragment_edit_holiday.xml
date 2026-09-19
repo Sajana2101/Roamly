@@ -2,7 +2,6 @@
 
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -28,7 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="@string/edit_holiday_subtitle" />
+            android:text="@string/edit_holiday_subtitle"
+            android:textAppearance="?attr/textAppearanceBodyMedium" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editHolidayNameLayout"
@@ -41,7 +41,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editHolidayNameEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,7 +74,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editCountryEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,7 +91,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editCityEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,11 +135,73 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/holiday_accommodation_section"
+            android:textAppearance="?attr/textAppearanceTitleLarge"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/holiday_accommodation_subtitle"
+            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+        <include
+            layout="@layout/view_accommodation_fields" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/editFlyingSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/holiday_flying_switch"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/holiday_flying_help"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
+
+        <LinearLayout
+            android:id="@+id/editFlightDetailsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="@string/holiday_flight_section"
+                android:textAppearance="?attr/textAppearanceTitleLarge"
+                android:textStyle="bold" />
+
+            <include
+                layout="@layout/view_flight_fields" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/cover_image_optional"
+            android:textStyle="bold" />
+
         <ImageView
             android:id="@+id/editCoverImageView"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
+            android:background="#EEEEEE"
             android:contentDescription="@string/cover_image_optional"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_holiday_placeholder" />

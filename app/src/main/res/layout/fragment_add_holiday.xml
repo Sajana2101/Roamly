@@ -133,6 +133,60 @@
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:inputType="none" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="@string/holiday_accommodation_section"
+                android:textAppearance="?attr/textAppearanceTitleLarge"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/holiday_accommodation_subtitle"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+            <include
+                layout="@layout/view_accommodation_fields" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/flyingSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="@string/holiday_flying_switch"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/holiday_flying_help"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
+
+            <LinearLayout
+                android:id="@+id/flightDetailsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/holiday_flight_section"
+                    android:textAppearance="?attr/textAppearanceTitleLarge"
+                    android:textStyle="bold" />
+
+                <include
+                    layout="@layout/view_flight_fields" />
+
+            </LinearLayout>
+
 
         </com.google.android.material.textfield.TextInputLayout>
 

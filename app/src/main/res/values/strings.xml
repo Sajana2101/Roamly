@@ -283,5 +283,20 @@
     <string name="holiday_arrival_time">Arrival time</string>
     <string name="holiday_terminal_optional">Terminal (optional)</string>
     <string name="holiday_gate_optional">Boarding gate (optional)</string>
+    <string name="holiday_return_flight_before_departure">Return flight cannot be before the departure flight.</string>
+
+    <!-- Holiday Details Display -->
+    <string name="holiday_view_accommodation_type">Type: %1$s</string>
+    <string name="holiday_view_accommodation_location">Location: %1$s</string>
+    <string name="holiday_view_check_in">Check-in: %1$s at %2$s</string>
+    <string name="holiday_view_check_out">Check-out: %1$s at %2$s</string>
+
+    <string name="holiday_view_route">Route: %1$s</string>
+    <string name="holiday_view_flight_date">Date: %1$s</string>
+    <string name="holiday_view_boarding_time">Boarding: %1$s</string>
+    <string name="holiday_view_departure_time">Departure: %1$s</string>
+    <string name="holiday_view_arrival_time">Arrival: %1$s</string>
+    <string name="holiday_view_terminal">Terminal: %1$s</string>
+    <string name="holiday_view_gate">Boarding gate: %1$s</string>
 
 </resources>

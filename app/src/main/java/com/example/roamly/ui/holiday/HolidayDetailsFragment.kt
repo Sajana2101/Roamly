@@ -2,13 +2,16 @@ package com.example.roamly.ui.holiday
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.roamly.MainActivity
 import com.example.roamly.R
+import com.example.roamly.data.model.FlightDetails
 import com.example.roamly.data.model.Holiday
 import com.example.roamly.data.repository.HolidayRepository
 import com.google.android.material.button.MaterialButton
@@ -24,12 +27,15 @@ class HolidayDetailsFragment :
     private lateinit var holidayRepository:
             HolidayRepository
 
-    private var holidayId: Int = -1
+    private var holidayId:
+            Int = -1
 
     override fun onCreate(
         savedInstanceState: Bundle?
     ) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(
+            savedInstanceState
+        )
 
         holidayId =
             arguments?.getInt(
@@ -53,6 +59,28 @@ class HolidayDetailsFragment :
                     .applicationContext
             )
 
+        setupButtons(
+            view
+        )
+
+        loadHoliday(
+            view
+        )
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        view?.let {
+            loadHoliday(
+                it
+            )
+        }
+    }
+
+    private fun setupButtons(
+        view: View
+    ) {
         val editButton =
             view.findViewById<MaterialButton>(
                 R.id.editHolidayButton
@@ -68,37 +96,33 @@ class HolidayDetailsFragment :
                 R.id.backToHolidaysButton
             )
 
-        editButton.setOnClickListener {
-            (
-                    requireActivity()
-                            as MainActivity
+        editButton
+            .setOnClickListener {
+
+                (
+                        requireActivity()
+                                as MainActivity
+                        )
+                    .showEditHoliday(
+                        holidayId
                     )
-                .showEditHoliday(
-                    holidayId
-                )
-        }
+            }
 
-        deleteButton.setOnClickListener {
-            showDeleteConfirmation()
-        }
+        deleteButton
+            .setOnClickListener {
 
-        backButton.setOnClickListener {
-            (
-                    requireActivity()
-                            as MainActivity
-                    )
-                .showHome()
-        }
+                showDeleteConfirmation()
+            }
 
-        loadHoliday(view)
-    }
+        backButton
+            .setOnClickListener {
 
-    override fun onResume() {
-        super.onResume()
-
-        view?.let {
-            loadHoliday(it)
-        }
+                (
+                        requireActivity()
+                                as MainActivity
+                        )
+                    .showHome()
+            }
     }
 
     private fun loadHoliday(
@@ -109,84 +133,387 @@ class HolidayDetailsFragment :
                 .getHolidayById(
                     holidayId
                 )
-                ?: run {
-                    (
-                            requireActivity()
-                                    as MainActivity
-                            )
-                        .showHome()
 
-                    return
-                }
+        if (holiday == null) {
 
-        bindHoliday(
+            (
+                    requireActivity()
+                            as MainActivity
+                    )
+                .showHome()
+
+            return
+        }
+
+        bindMainHolidayDetails(
+            view,
+            holiday
+        )
+
+        bindAccommodation(
+            view,
+            holiday
+        )
+
+        bindFlights(
             view,
             holiday
         )
     }
 
-    private fun bindHoliday(
+    private fun bindMainHolidayDetails(
         view: View,
         holiday: Holiday
     ) {
-        val coverImage =
+        val coverImageView =
             view.findViewById<ImageView>(
                 R.id.detailsCoverImageView
             )
 
-        val titleText =
+        val titleTextView =
             view.findViewById<TextView>(
                 R.id.detailsHolidayTitleTextView
             )
 
-        val statusText =
+        val statusTextView =
             view.findViewById<TextView>(
                 R.id.detailsStatusTextView
             )
 
-        val countdownText =
+        val countdownTextView =
             view.findViewById<TextView>(
                 R.id.detailsCountdownTextView
             )
 
-        val tripTypeText =
+        val tripTypeTextView =
             view.findViewById<TextView>(
                 R.id.detailsTripTypeTextView
             )
 
-        val locationText =
+        val locationTextView =
             view.findViewById<TextView>(
                 R.id.detailsLocationTextView
             )
 
-        val datesText =
+        val datesTextView =
             view.findViewById<TextView>(
                 R.id.detailsDatesTextView
             )
 
-        titleText.text =
+        titleTextView.text =
             holiday.name
 
-        tripTypeText.text =
+        tripTypeTextView.text =
             "✦ ${holiday.tripType}"
 
-        locationText.text =
+        locationTextView.text =
             "📍 ${holiday.location}"
 
-        datesText.text =
+        datesTextView.text =
             "▣ ${formatDate(holiday.startDate)} - " +
-                    formatDate(holiday.endDate)
+                    formatDate(
+                        holiday.endDate
+                    )
 
         loadCoverImage(
-            coverImage,
+            coverImageView,
             holiday
         )
 
         updateStatus(
             holiday,
-            statusText,
-            countdownText
+            statusTextView,
+            countdownTextView
         )
+    }
+
+    private fun bindAccommodation(
+        view: View,
+        holiday: Holiday
+    ) {
+        val container =
+            view.findViewById<LinearLayout>(
+                R.id.detailsAccommodationContainer
+            )
+
+        val accommodation =
+            holiday.accommodation
+
+        if (accommodation == null) {
+
+            container.visibility =
+                View.GONE
+
+            return
+        }
+
+        container.visibility =
+            View.VISIBLE
+
+        view.findViewById<TextView>(
+            R.id.detailsAccommodationNameTextView
+        ).text =
+            accommodation.name
+
+        view.findViewById<TextView>(
+            R.id.detailsAccommodationTypeTextView
+        ).text =
+            getString(
+                R.string.holiday_view_accommodation_type,
+                accommodation.type
+            )
+
+        view.findViewById<TextView>(
+            R.id.detailsAccommodationLocationTextView
+        ).text =
+            getString(
+                R.string.holiday_view_accommodation_location,
+                accommodation.location
+            )
+
+        view.findViewById<TextView>(
+            R.id.detailsCheckInTextView
+        ).text =
+            getString(
+                R.string.holiday_view_check_in,
+                formatDate(
+                    accommodation.checkInDate
+                ),
+                accommodation.checkInTime
+            )
+
+        view.findViewById<TextView>(
+            R.id.detailsCheckOutTextView
+        ).text =
+            getString(
+                R.string.holiday_view_check_out,
+                formatDate(
+                    accommodation.checkOutDate
+                ),
+                accommodation.checkOutTime
+            )
+    }
+
+    private fun bindFlights(
+        view: View,
+        holiday: Holiday
+    ) {
+        val flightContainer =
+            view.findViewById<LinearLayout>(
+                R.id.detailsFlightContainer
+            )
+
+        if (!holiday.isFlying) {
+
+            flightContainer.visibility =
+                View.GONE
+
+            return
+        }
+
+        flightContainer.visibility =
+            View.VISIBLE
+
+        bindOutboundFlight(
+            view,
+            holiday.outboundFlight
+        )
+
+        bindReturnFlight(
+            view,
+            holiday.returnFlight
+        )
+    }
+
+    private fun bindOutboundFlight(
+        view: View,
+        flight: FlightDetails?
+    ) {
+        val card =
+            view.findViewById<View>(
+                R.id.detailsOutboundFlightCard
+            )
+
+        if (flight == null) {
+
+            card.visibility =
+                View.GONE
+
+            return
+        }
+
+        card.visibility =
+            View.VISIBLE
+
+        view.findViewById<TextView>(
+            R.id.detailsOutboundAirlineTextView
+        ).text =
+            flight.airline
+
+        view.findViewById<TextView>(
+            R.id.detailsOutboundRouteTextView
+        ).text =
+            getString(
+                R.string.holiday_view_route,
+                flight.airportRoute
+            )
+
+        view.findViewById<TextView>(
+            R.id.detailsOutboundDateTextView
+        ).text =
+            getString(
+                R.string.holiday_view_flight_date,
+                formatDate(
+                    flight.flightDate
+                )
+            )
+
+        view.findViewById<TextView>(
+            R.id.detailsOutboundBoardingTextView
+        ).text =
+            getString(
+                R.string.holiday_view_boarding_time,
+                flight.boardingTime
+            )
+
+        view.findViewById<TextView>(
+            R.id.detailsOutboundDepartureTextView
+        ).text =
+            getString(
+                R.string.holiday_view_departure_time,
+                flight.departureTime
+            )
+
+        view.findViewById<TextView>(
+            R.id.detailsOutboundArrivalTextView
+        ).text =
+            getString(
+                R.string.holiday_view_arrival_time,
+                flight.arrivalTime
+            )
+
+        setOptionalFlightText(
+            view.findViewById(
+                R.id.detailsOutboundTerminalTextView
+            ),
+            R.string.holiday_view_terminal,
+            flight.terminal
+        )
+
+        setOptionalFlightText(
+            view.findViewById(
+                R.id.detailsOutboundGateTextView
+            ),
+            R.string.holiday_view_gate,
+            flight.boardingGate
+        )
+    }
+
+    private fun bindReturnFlight(
+        view: View,
+        flight: FlightDetails?
+    ) {
+        val card =
+            view.findViewById<View>(
+                R.id.detailsReturnFlightCard
+            )
+
+        if (flight == null) {
+
+            card.visibility =
+                View.GONE
+
+            return
+        }
+
+        card.visibility =
+            View.VISIBLE
+
+        view.findViewById<TextView>(
+            R.id.detailsReturnAirlineTextView
+        ).text =
+            flight.airline
+
+        view.findViewById<TextView>(
+            R.id.detailsReturnRouteTextView
+        ).text =
+            getString(
+                R.string.holiday_view_route,
+                flight.airportRoute
+            )
+
+        view.findViewById<TextView>(
+            R.id.detailsReturnDateTextView
+        ).text =
+            getString(
+                R.string.holiday_view_flight_date,
+                formatDate(
+                    flight.flightDate
+                )
+            )
+
+        view.findViewById<TextView>(
+            R.id.detailsReturnBoardingTextView
+        ).text =
+            getString(
+                R.string.holiday_view_boarding_time,
+                flight.boardingTime
+            )
+
+        view.findViewById<TextView>(
+            R.id.detailsReturnDepartureTextView
+        ).text =
+            getString(
+                R.string.holiday_view_departure_time,
+                flight.departureTime
+            )
+
+        view.findViewById<TextView>(
+            R.id.detailsReturnArrivalTextView
+        ).text =
+            getString(
+                R.string.holiday_view_arrival_time,
+                flight.arrivalTime
+            )
+
+        setOptionalFlightText(
+            view.findViewById(
+                R.id.detailsReturnTerminalTextView
+            ),
+            R.string.holiday_view_terminal,
+            flight.terminal
+        )
+
+        setOptionalFlightText(
+            view.findViewById(
+                R.id.detailsReturnGateTextView
+            ),
+            R.string.holiday_view_gate,
+            flight.boardingGate
+        )
+    }
+
+    private fun setOptionalFlightText(
+        textView: TextView,
+        stringResource: Int,
+        value: String
+    ) {
+        if (value.isBlank()) {
+
+            textView.visibility =
+                View.GONE
+
+            return
+        }
+
+        textView.visibility =
+            View.VISIBLE
+
+        textView.text =
+            getString(
+                stringResource,
+                value
+            )
     }
 
     private fun loadCoverImage(
@@ -197,6 +524,7 @@ class HolidayDetailsFragment :
             holiday.coverImageUri
 
         if (imageUri.isNullOrBlank()) {
+
             imageView.setImageResource(
                 R.drawable.ic_holiday_placeholder
             )
@@ -205,10 +533,23 @@ class HolidayDetailsFragment :
         }
 
         try {
+
             imageView.setImageURI(
-                Uri.parse(imageUri)
+                Uri.parse(
+                    imageUri
+                )
             )
-        } catch (_: Exception) {
+
+        } catch (
+            exception: Exception
+        ) {
+
+            Log.e(
+                "RoamlyHoliday",
+                "Could not load holiday cover image",
+                exception
+            )
+
             imageView.setImageResource(
                 R.drawable.ic_holiday_placeholder
             )
@@ -217,30 +558,41 @@ class HolidayDetailsFragment :
 
     private fun updateStatus(
         holiday: Holiday,
-        statusText: TextView,
-        countdownText: TextView
+        statusTextView: TextView,
+        countdownTextView: TextView
     ) {
         try {
-            val format =
+
+            val dateFormat =
                 SimpleDateFormat(
                     "yyyy-MM-dd",
                     Locale.getDefault()
                 )
 
-            val start =
-                format.parse(
+            dateFormat.isLenient =
+                false
+
+            val startDate =
+                dateFormat.parse(
                     holiday.startDate
                 )
 
-            val end =
-                format.parse(
+            val endDate =
+                dateFormat.parse(
                     holiday.endDate
                 )
 
             if (
-                start == null ||
-                end == null
+                startDate == null ||
+                endDate == null
             ) {
+
+                statusTextView.text =
+                    ""
+
+                countdownTextView.text =
+                    ""
+
                 return
             }
 
@@ -267,24 +619,31 @@ class HolidayDetailsFragment :
                 0
             )
 
-            val current =
+            val currentDate =
                 today.time
 
             when {
-                current.before(start) -> {
-                    statusText.text =
+
+                currentDate.before(
+                    startDate
+                ) -> {
+
+                    statusTextView.text =
                         getString(
                             R.string.holiday_upcoming
                         )
 
+                    val difference =
+                        startDate.time -
+                                currentDate.time
+
                     val days =
                         TimeUnit.MILLISECONDS
                             .toDays(
-                                start.time -
-                                        current.time
+                                difference
                             )
 
-                    countdownText.text =
+                    countdownTextView.text =
                         "✈  " +
                                 getString(
                                     R.string.holiday_days_to_go,
@@ -292,66 +651,100 @@ class HolidayDetailsFragment :
                                 )
                 }
 
-                current.after(end) -> {
-                    statusText.text =
+                currentDate.after(
+                    endDate
+                ) -> {
+
+                    statusTextView.text =
                         getString(
                             R.string.holiday_completed
                         )
 
-                    countdownText.text =
+                    countdownTextView.text =
                         getString(
                             R.string.holiday_finished
                         )
                 }
 
                 else -> {
-                    statusText.text =
+
+                    statusTextView.text =
                         getString(
                             R.string.holiday_in_progress
                         )
 
-                    countdownText.text =
+                    countdownTextView.text =
                         getString(
                             R.string.holiday_started
                         )
                 }
             }
-        } catch (_: Exception) {
-            statusText.text = ""
-            countdownText.text = ""
+
+        } catch (
+            exception: Exception
+        ) {
+
+            Log.e(
+                "RoamlyHoliday",
+                "Could not calculate holiday status",
+                exception
+            )
+
+            statusTextView.text =
+                ""
+
+            countdownTextView.text =
+                ""
         }
     }
 
     private fun formatDate(
         date: String
     ): String {
+
         return try {
-            val input =
+
+            val inputFormat =
                 SimpleDateFormat(
                     "yyyy-MM-dd",
                     Locale.getDefault()
                 )
 
-            val output =
+            inputFormat.isLenient =
+                false
+
+            val outputFormat =
                 SimpleDateFormat(
                     "d MMM yyyy",
                     Locale.getDefault()
                 )
 
-            val parsed =
-                input.parse(date)
+            val parsedDate =
+                inputFormat.parse(
+                    date
+                )
 
-            if (parsed != null) {
-                output.format(parsed)
+            if (parsedDate != null) {
+
+                outputFormat.format(
+                    parsedDate
+                )
+
             } else {
+
                 date
             }
-        } catch (_: Exception) {
+
+        } catch (
+            exception: Exception
+        ) {
+
             date
         }
     }
 
     private fun showDeleteConfirmation() {
+
         MaterialAlertDialogBuilder(
             requireContext()
         )
@@ -367,41 +760,57 @@ class HolidayDetailsFragment :
             )
             .setPositiveButton(
                 R.string.delete
-            ) { _, _ ->
+            ) {
+                    _,
+                    _ ->
 
-                holidayRepository
-                    .deleteHoliday(
-                        holidayId
-                    )
-
-                Toast.makeText(
-                    requireContext(),
-                    getString(
-                        R.string.holiday_deleted
-                    ),
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                (
-                        requireActivity()
-                                as MainActivity
-                        )
-                    .showHome()
+                deleteHoliday()
             }
             .show()
     }
 
+    private fun deleteHoliday() {
+
+        holidayRepository
+            .deleteHoliday(
+                holidayId
+            )
+
+        Log.i(
+            "RoamlyHoliday",
+            "Holiday deleted: $holidayId"
+        )
+
+        Toast.makeText(
+            requireContext(),
+            getString(
+                R.string.holiday_deleted
+            ),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        (
+                requireActivity()
+                        as MainActivity
+                )
+            .showHome()
+    }
+
     companion object {
+
         private const val ARG_HOLIDAY_ID =
             "holiday_id"
 
         fun newInstance(
             holidayId: Int
         ): HolidayDetailsFragment {
+
             return HolidayDetailsFragment()
                 .apply {
+
                     arguments =
                         Bundle().apply {
+
                             putInt(
                                 ARG_HOLIDAY_ID,
                                 holidayId
