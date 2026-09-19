@@ -256,4 +256,32 @@
     <string name="edit_holiday_title">Edit Holiday</string>
     <string name="edit_holiday_subtitle">Update the details for this trip.</string>
 
+    <!-- Holiday Accommodation -->
+    <string name="holiday_accommodation_section">Accommodation</string>
+    <string name="holiday_accommodation_subtitle">Where will you be staying?</string>
+    <string name="holiday_accommodation_name">Accommodation name</string>
+    <string name="holiday_accommodation_location">Accommodation location</string>
+    <string name="holiday_accommodation_type">Accommodation type</string>
+    <string name="holiday_check_in_date">Check-in date</string>
+    <string name="holiday_check_in_time">Check-in time</string>
+    <string name="holiday_check_out_date">Check-out date</string>
+    <string name="holiday_check_out_time">Check-out time</string>
+    <string name="holiday_invalid_accommodation_dates">Check-out cannot be before check-in.</string>
+
+    <!-- Holiday Flights -->
+    <string name="holiday_flying_switch">Are you flying?</string>
+    <string name="holiday_flying_help">Turn this on to add your flight information.</string>
+    <string name="holiday_flight_section">Flight Details</string>
+    <string name="holiday_outbound_flight">Departure Flight</string>
+    <string name="holiday_return_flight">Return Flight</string>
+    <string name="holiday_airline">Airline</string>
+    <string name="holiday_airport_route">Airports / route</string>
+    <string name="holiday_airport_route_hint">e.g. JNB → CPT</string>
+    <string name="holiday_flight_date">Flight date</string>
+    <string name="holiday_boarding_time">Boarding time</string>
+    <string name="holiday_departure_time">Departure time</string>
+    <string name="holiday_arrival_time">Arrival time</string>
+    <string name="holiday_terminal_optional">Terminal (optional)</string>
+    <string name="holiday_gate_optional">Boarding gate (optional)</string>
+
 </resources>
