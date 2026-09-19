@@ -211,6 +211,27 @@
     <string name="holiday_started">Trip in progress</string>
     <string name="holiday_finished">Trip completed</string>
 
+    <!-- Add Holiday -->
+    <string name="add_holiday_title">Plan a New Holiday</string>
+    <string name="add_holiday_subtitle">Add the main details for your upcoming trip.</string>
 
+    <string name="holiday_name">Holiday title</string>
+    <string name="trip_type">Trip type</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
+
+    <string name="choose_cover_image">Choose Cover Image</string>
+    <string name="change_cover_image">Change Cover Image</string>
+    <string name="cover_image_optional">Cover image (optional)</string>
+
+    <string name="create_holiday">Create Holiday</string>
+
+    <string name="holiday_created">Holiday created successfully.</string>
+    <string name="end_date_before_start">End date cannot be before the start date.</string>
+    <string name="select_trip_type">Select a trip type.</string>
+    <string name="select_start_date">Select a start date.</string>
+    <string name="select_end_date">Select an end date.</string>
 
 </resources>

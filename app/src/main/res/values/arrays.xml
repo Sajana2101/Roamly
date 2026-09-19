@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="trip_types">
+        <item>Leisure</item>
+        <item>Business</item>
+        <item>Family</item>
+        <item>Romantic</item>
+        <item>Adventure</item>
+        <item>Road Trip</item>
+        <item>Solo</item>
+        <item>Other</item>
+    </string-array>
+
+</resources>
