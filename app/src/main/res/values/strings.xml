@@ -169,4 +169,31 @@
 
     <string name="currency_invalid_amount">Enter an amount greater than 0.</string>
 
+    <!-- Authentication -->
+    <string name="login_title">Welcome back</string>
+    <string name="login_subtitle">Sign in to continue planning your trips</string>
+    <string name="email">Email address</string>
+    <string name="password">Password</string>
+    <string name="login_button">Log In</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="create_account">Create Account</string>
+
+    <string name="register_title">Create your account</string>
+    <string name="register_subtitle">Join Roamly and start planning your next trip</string>
+    <string name="full_name">Full name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="register_button">Create Account</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="back_to_login">Log In</string>
+
+    <string name="field_required">This field is required.</string>
+    <string name="invalid_email">Enter a valid email address.</string>
+    <string name="password_requirements">Password must be at least 8 characters and contain an uppercase letter, lowercase letter and number.</string>
+    <string name="passwords_do_not_match">Passwords do not match.</string>
+    <string name="name_too_short">Name must contain at least 2 characters.</string>
+
+    <string name="login_successful">Login successful.</string>
+    <string name="registration_successful">Account created successfully.</string>
+    <string name="authentication_error">Something went wrong. Please try again.</string>
+    <string name="network_error">Could not connect to Roamly. Check your connection and try again.</string>
 </resources>
