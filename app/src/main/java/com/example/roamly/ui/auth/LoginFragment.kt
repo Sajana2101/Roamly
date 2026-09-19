@@ -1,211 +1,354 @@
 package com.example.roamly.ui.auth
 
 import android.os.Bundle
-import android.util.Patterns
+import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
+import androidx.credentials.exceptions.GetCredentialException
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.roamly.MainActivity
 import com.example.roamly.R
-import com.example.roamly.data.model.ApiError
-import com.example.roamly.data.model.AuthResponse
-import com.example.roamly.data.repository.AuthRepository
+import com.example.roamly.data.auth.GoogleSignInHelper
+import com.example.roamly.data.auth.RoamlyAuthRepository
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import com.google.gson.Gson
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.coroutines.launch
 
-class LoginFragment : Fragment(R.layout.fragment_login) {
+class LoginFragment :
+    Fragment(
+        R.layout.fragment_login
+    ) {
 
-    private val authRepository = AuthRepository()
+    private lateinit var firebaseAuth:
+            FirebaseAuth
+
+    private lateinit var googleSignInHelper:
+            GoogleSignInHelper
+
+    private lateinit var roamlyAuthRepository:
+            RoamlyAuthRepository
+
+    private lateinit var googleSignInButton:
+            MaterialButton
+
+    private lateinit var progressBar:
+            ProgressBar
+
+    private lateinit var statusTextView:
+            TextView
 
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
     ) {
+
         super.onViewCreated(
             view,
             savedInstanceState
         )
 
-        val emailLayout =
-            view.findViewById<TextInputLayout>(
-                R.id.loginEmailLayout
+        firebaseAuth =
+            FirebaseAuth.getInstance()
+
+        googleSignInHelper =
+            GoogleSignInHelper(
+                requireActivity()
             )
 
-        val passwordLayout =
-            view.findViewById<TextInputLayout>(
-                R.id.loginPasswordLayout
+        roamlyAuthRepository =
+            RoamlyAuthRepository()
+
+        googleSignInButton =
+            view.findViewById(
+                R.id.googleSignInButton
             )
 
-        val emailEditText =
-            view.findViewById<TextInputEditText>(
-                R.id.loginEmailEditText
+        progressBar =
+            view.findViewById(
+                R.id.googleSignInProgressBar
             )
 
-        val passwordEditText =
-            view.findViewById<TextInputEditText>(
-                R.id.loginPasswordEditText
+        statusTextView =
+            view.findViewById(
+                R.id.googleSignInStatusTextView
             )
 
-        val loginButton =
-            view.findViewById<MaterialButton>(
-                R.id.loginButton
-            )
+        googleSignInButton
+            .setOnClickListener {
 
-        val openRegisterButton =
-            view.findViewById<MaterialButton>(
-                R.id.openRegisterButton
-            )
-
-        openRegisterButton.setOnClickListener {
-            (requireActivity() as MainActivity)
-                .showRegister()
-        }
-
-        loginButton.setOnClickListener {
-            emailLayout.error = null
-            passwordLayout.error = null
-
-            val email =
-                emailEditText.text
-                    ?.toString()
-                    ?.trim()
-                    .orEmpty()
-
-            val password =
-                passwordEditText.text
-                    ?.toString()
-                    .orEmpty()
-
-            var valid = true
-
-            if (email.isBlank()) {
-                emailLayout.error =
-                    getString(R.string.field_required)
-
-                valid = false
-            } else if (
-                !Patterns.EMAIL_ADDRESS
-                    .matcher(email)
-                    .matches()
-            ) {
-                emailLayout.error =
-                    getString(R.string.invalid_email)
-
-                valid = false
+                startGoogleSignIn()
             }
+    }
 
-            if (password.isBlank()) {
-                passwordLayout.error =
-                    getString(R.string.field_required)
+    private fun startGoogleSignIn() {
 
-                valid = false
-            }
+        setLoading(
+            true
+        )
 
-            if (!valid) {
-                return@setOnClickListener
-            }
+        viewLifecycleOwner
+            .lifecycleScope
+            .launch {
 
-            loginButton.isEnabled = false
+                try {
 
-            authRepository.login(
-                email = email,
-                password = password
-            ).enqueue(
-                object : Callback<AuthResponse> {
+                    val googleIdToken =
+                        googleSignInHelper
+                            .getGoogleIdToken()
 
-                    override fun onResponse(
-                        call: Call<AuthResponse>,
-                        response: Response<AuthResponse>
-                    ) {
-                        if (!isAdded) {
-                            return
-                        }
+                    authenticateWithFirebase(
+                        googleIdToken
+                    )
 
-                        loginButton.isEnabled = true
+                } catch (
+                    exception:
+                    GetCredentialException
+                ) {
 
-                        if (response.isSuccessful) {
-                            val authResponse =
-                                response.body()
+                    Log.w(
+                        TAG,
+                        "Google credential request failed",
+                        exception
+                    )
 
-                            if (authResponse != null) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    getString(
-                                        R.string.login_successful
-                                    ),
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                    setLoading(
+                        false
+                    )
 
-                                (
-                                        requireActivity()
-                                                as MainActivity
-                                        )
-                                    .showHomeAfterAuthentication()
-
-                                return
-                            }
-                        }
+                    if (isAdded) {
 
                         Toast.makeText(
                             requireContext(),
-                            getApiError(response),
-                            Toast.LENGTH_LONG
+                            getString(
+                                R.string
+                                    .firebase_google_cancelled
+                            ),
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
 
-                    override fun onFailure(
-                        call: Call<AuthResponse>,
-                        throwable: Throwable
-                    ) {
-                        Log.e(
-                            "RoamlyAuth",
-                            "Login request failed",
-                            throwable
-                        )
+                } catch (
+                    exception:
+                    Exception
+                ) {
 
-                        if (!isAdded) {
-                            return
-                        }
+                    Log.e(
+                        TAG,
+                        "Google sign-in failed",
+                        exception
+                    )
 
-                        loginButton.isEnabled = true
+                    setLoading(
+                        false
+                    )
+
+                    if (isAdded) {
 
                         Toast.makeText(
                             requireContext(),
-                            getString(R.string.network_error),
+                            getString(
+                                R.string
+                                    .firebase_google_failed
+                            ),
                             Toast.LENGTH_LONG
                         ).show()
                     }
                 }
+            }
+    }
+
+    private fun authenticateWithFirebase(
+        googleIdToken: String
+    ) {
+
+        val firebaseCredential =
+            GoogleAuthProvider
+                .getCredential(
+                    googleIdToken,
+                    null
+                )
+
+        firebaseAuth
+            .signInWithCredential(
+                firebaseCredential
             )
+            .addOnCompleteListener {
+                    task ->
+
+                if (!isAdded) {
+
+                    return@addOnCompleteListener
+                }
+
+                if (
+                    task.isSuccessful
+                ) {
+
+                    val firebaseUser =
+                        firebaseAuth
+                            .currentUser
+
+                    Log.i(
+                        TAG,
+                        "Firebase authentication succeeded. " +
+                                "UID=${firebaseUser?.uid}, " +
+                                "email=${firebaseUser?.email}"
+                    )
+
+                    authenticateWithRoamlyBackend(
+                        googleIdToken
+                    )
+
+                } else {
+
+                    setLoading(
+                        false
+                    )
+
+                    Log.e(
+                        TAG,
+                        "Firebase Google authentication failed",
+                        task.exception
+                    )
+
+                    Toast.makeText(
+                        requireContext(),
+                        getString(
+                            R.string
+                                .firebase_google_failed
+                        ),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+    }
+
+    private fun authenticateWithRoamlyBackend(
+        googleIdToken: String
+    ) {
+
+        viewLifecycleOwner
+            .lifecycleScope
+            .launch {
+
+                try {
+
+                    statusTextView.text =
+                        getString(
+                            R.string
+                                .roamly_connecting_account
+                        )
+
+                    val authResponse =
+                        roamlyAuthRepository
+                            .authenticateWithGoogle(
+                                googleIdToken
+                            )
+
+                    Log.i(
+                        TAG,
+                        "Roamly backend authentication succeeded. " +
+                                "userId=${authResponse.user.userId}, " +
+                                "email=${authResponse.user.email}, " +
+                                "provider=${authResponse.user.ssoProvider}"
+                    )
+
+                    setLoading(
+                        false
+                    )
+
+                    Toast.makeText(
+                        requireContext(),
+                        getString(
+                            R.string
+                                .roamly_sign_in_successful
+                        ),
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    (
+                            requireActivity()
+                                    as MainActivity
+                            )
+                        .showHomeAfterAuthentication()
+
+                } catch (
+                    exception:
+                    Exception
+                ) {
+
+                    Log.e(
+                        TAG,
+                        "Roamly backend authentication failed",
+                        exception
+                    )
+
+                    firebaseAuth
+                        .signOut()
+
+                    setLoading(
+                        false
+                    )
+
+                    if (isAdded) {
+
+                        Toast.makeText(
+                            requireContext(),
+                            getString(
+                                R.string
+                                    .roamly_backend_failed
+                            ),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
+    }
+
+    private fun setLoading(
+        loading: Boolean
+    ) {
+
+        googleSignInButton
+            .isEnabled =
+            !loading
+
+        progressBar.visibility =
+            if (loading) {
+
+                View.VISIBLE
+
+            } else {
+
+                View.GONE
+            }
+
+        statusTextView.visibility =
+            if (loading) {
+
+                View.VISIBLE
+
+            } else {
+
+                View.GONE
+            }
+
+        if (!loading) {
+
+            statusTextView.text =
+                getString(
+                    R.string.firebase_signing_in
+                )
         }
     }
 
-    private fun getApiError(
-        response: Response<*>
-    ): String {
-        val errorBody =
-            response.errorBody()?.string()
-                ?: return getString(
-                    R.string.authentication_error
-                )
+    companion object {
 
-        return try {
-            Gson()
-                .fromJson(
-                    errorBody,
-                    ApiError::class.java
-                )
-                .message
-        } catch (_: Exception) {
-            getString(
-                R.string.authentication_error
-            )
-        }
+        private const val TAG =
+            "RoamlyGoogleAuth"
     }
 }

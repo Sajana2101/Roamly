@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="firebase_roamly_title">
+        Roamly
+    </string>
+
+    <string name="firebase_login_heading">
+        Welcome to Roamly
+    </string>
+
+    <string name="firebase_login_subtitle">
+        Plan, organise and enjoy every part of your trip.
+    </string>
+
+    <string name="firebase_google_button">
+        Continue with Google
+    </string>
+
+    <string name="firebase_signing_in">
+        Signing you in…
+    </string>
+
+    <string name="firebase_google_success">
+        Signed in successfully.
+    </string>
+
+    <string name="firebase_google_failed">
+        Google sign-in failed. Please try again.
+    </string>
+
+    <string name="firebase_google_cancelled">
+        Google sign-in was cancelled.
+    </string>
+
+    <string name="roamly_connecting_account">
+        Connecting your Roamly account…
+    </string>
+
+    <string name="roamly_sign_in_successful">
+        Welcome to Roamly.
+    </string>
+
+    <string name="roamly_backend_failed">
+        Could not connect your Roamly account. Please try again.
+    </string>
+
+</resources>
