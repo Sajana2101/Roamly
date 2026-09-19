@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -18,7 +19,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner =
+            "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -26,21 +28,25 @@ android {
             isMinifyEnabled = false
 
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
+                getDefaultProguardFile(
+                    "proguard-android-optimize.txt"
+                ),
                 "proguard-rules.pro"
             )
         }
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility =
+            JavaVersion.VERSION_11
+
+        targetCompatibility =
+            JavaVersion.VERSION_11
     }
 }
 
 dependencies {
 
-    // Main Android dependencies already used by the project
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -48,17 +54,47 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.recyclerview)
 
-    // API dependencies added to support the shared Retrofit setup
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.gson)
 
-    // Lifecycle and Fragment dependencies used by the ViewModel structure
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.fragment.ktx)
+    implementation(
+        libs.androidx.lifecycle.viewmodel.ktx
+    )
 
-    // Testing dependencies
+    implementation(
+        libs.androidx.fragment.ktx
+    )
+
+    implementation(
+        platform(
+            "com.google.firebase:firebase-bom:34.19.0"
+        )
+    )
+
+    implementation(
+        "com.google.firebase:firebase-auth"
+    )
+
+    implementation(
+        "androidx.credentials:credentials:1.3.0"
+    )
+
+    implementation(
+        "androidx.credentials:credentials-play-services-auth:1.3.0"
+    )
+
+    implementation(
+        "com.google.android.libraries.identity.googleid:googleid:1.1.1"
+    )
+
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+
+    androidTestImplementation(
+        libs.androidx.junit
+    )
+
+    androidTestImplementation(
+        libs.androidx.espresso.core
+    )
 }
