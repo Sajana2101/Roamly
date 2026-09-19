@@ -62,181 +62,11 @@
             android:scrollbars="none">
 
             <LinearLayout
+                android:id="@+id/holidaysContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingBottom="4dp">
-
-                <!-- Honeymoon - selected -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardHoneymoon"
-                    android:layout_width="165dp"
-                    android:layout_height="74dp"
-                    android:layout_marginEnd="10dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="14dp"
-                    app:cardElevation="2dp"
-                    app:strokeColor="#3D9BE9"
-                    app:strokeWidth="2dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <!-- Displays the image linked to the Honeymoon holiday -->
-                        <ImageView
-                            android:layout_width="62dp"
-                            android:layout_height="match_parent"
-                            android:contentDescription="@null"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/holiday_greece" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="8dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/honeymoon"
-                                android:textColor="#172B3A"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="3dp"
-                                android:text="@string/greece"
-                                android:textColor="#7B8794"
-                                android:textSize="11sp" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-
-                <!-- Business Trip -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardBusinessTrip"
-                    android:layout_width="165dp"
-                    android:layout_height="74dp"
-                    android:layout_marginEnd="10dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="14dp"
-                    app:cardElevation="1dp"
-                    app:strokeColor="#E0E6EC"
-                    app:strokeWidth="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <!-- Displays the image linked to the Business Trip holiday -->
-                        <ImageView
-                            android:layout_width="62dp"
-                            android:layout_height="match_parent"
-                            android:contentDescription="@null"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/holiday_cape_town" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="8dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/business_trip"
-                                android:textColor="#172B3A"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="3dp"
-                                android:text="@string/cape_town"
-                                android:textColor="#7B8794"
-                                android:textSize="11sp" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-
-                <!-- Family Vacation -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardFamilyVacation"
-                    android:layout_width="165dp"
-                    android:layout_height="74dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="14dp"
-                    app:cardElevation="1dp"
-                    app:strokeColor="#E0E6EC"
-                    app:strokeWidth="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <!-- Displays the image linked to the Family Vacation holiday -->
-                        <ImageView
-                            android:layout_width="62dp"
-                            android:layout_height="match_parent"
-                            android:contentDescription="@null"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/holiday_durban" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="8dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/family_vacation"
-                                android:textColor="#172B3A"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="3dp"
-                                android:text="@string/durban"
-                                android:textColor="#7B8794"
-                                android:textSize="11sp" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-            </LinearLayout>
+                android:paddingBottom="4dp" />
 
         </HorizontalScrollView>
 
@@ -270,7 +100,7 @@
                     android:id="@+id/tvSelectedTripName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/honeymoon2"
+                    android:text=""
                     android:textColor="#172B3A"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -280,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="@string/_12_sep_20_sep_2026"
+                    android:text=""
                     android:textColor="#7B8794"
                     android:textSize="12sp" />
 
