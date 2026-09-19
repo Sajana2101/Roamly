@@ -8,19 +8,22 @@ datasource db {
 }
 
 model User {
-  userId         String        @id @default(uuid()) @db.UniqueIdentifier
-  name           String
-  email          String        @unique
-  ssoProvider    String
-  providerUserId String        @unique
-  createdAt      DateTime      @default(now()) @db.DateTime2
-  updatedAt      DateTime      @updatedAt @db.DateTime2
-  settings       UserSettings?
-  holidays       Holiday[]
-  packingLists   PackingList[]
-  checklists     Checklist[]
+  userId          String        @id @default(uuid()) @db.UniqueIdentifier
+  name            String
+  email           String        @unique
+  passwordHash    String?
+  ssoProvider     String?
+  providerUserId  String?
+  createdAt       DateTime      @default(now()) @db.DateTime2
+  updatedAt       DateTime      @updatedAt @db.DateTime2
+  settings        UserSettings?
+  holidays        Holiday[]
+  packingLists    PackingList[]
+  checklists      Checklist[]
   travelDocuments TravelDocument[]
   reminders       Reminder[]
+
+  @@index([providerUserId])
 }
 
 model UserSettings {
