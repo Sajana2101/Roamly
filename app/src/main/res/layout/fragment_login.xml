@@ -1,93 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
-    android:paddingStart="28dp"
-    android:paddingEnd="28dp">
+    android:fillViewport="true"
+    android:background="#FFFFFF">
 
     <LinearLayout
-        android:id="@+id/loginContent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
+        android:paddingTop="28dp"
+        android:paddingBottom="32dp">
 
-        <ImageView
-            android:id="@+id/roamlyLogoImageView"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:contentDescription="@string/firebase_roamly_title"
-            android:src="@mipmap/ic_launcher" />
+        <!-- Back Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginBackButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="0dp"
+            android:text="‹"
+            android:textColor="#123B63"
+            android:textSize="30sp"
+            android:textStyle="normal"
+            app:cornerRadius="24dp"
+            app:backgroundTint="#FFFFFF"
+            app:strokeColor="#DCE5EE"
+            app:strokeWidth="1dp"
+            app:elevation="3dp" />
 
+        <!-- Space above logo -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="52dp" />
+
+        <!-- Roamly Logo -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            app:cardBackgroundColor="#E4F1FC"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <ImageView
+                android:id="@+id/roamlyLoginLogo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:src="@drawable/roamly_logo"
+                android:contentDescription="Roamly logo"
+                android:scaleType="centerInside" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="22dp" />
+
+        <!-- Welcome -->
         <TextView
-            android:id="@+id/roamlyTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="@string/firebase_roamly_title"
-            android:textColor="#172B3A"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+            android:text="WELCOME BACK"
+            android:textColor="#337CC1"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.18" />
 
+        <!-- Login Heading -->
         <TextView
-            android:id="@+id/loginHeadingTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:gravity="center"
-            android:text="@string/firebase_login_heading"
-            android:textColor="#172B3A"
-            android:textSize="22sp"
+            android:layout_marginTop="7dp"
+            android:text="Login"
+            android:textColor="#082B4C"
+            android:textSize="31sp"
             android:textStyle="bold" />
 
+        <!-- Subtitle -->
         <TextView
-            android:id="@+id/loginSubtitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="@string/firebase_login_subtitle"
-            android:textColor="#718096"
-            android:textSize="14sp" />
+            android:layout_marginTop="7dp"
+            android:text="Sign in to access your holidays, packing lists and travel documents."
+            android:textColor="#7B8794"
+            android:textSize="14sp"
+            android:lineSpacingExtra="3dp" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="42dp" />
+
+        <!-- SSO Label -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continue securely with Google"
+            android:textColor="#23384D"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <!-- Google Sign In -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/googleSignInButton"
-            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="36dp"
-            android:text="@string/firebase_google_button"
+            android:layout_height="58dp"
+            android:layout_marginTop="12dp"
+            android:text="Continue with Google"
             android:textAllCaps="false"
-            android:textColor="#172B3A"
-            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:backgroundTint="#194A73"
             app:cornerRadius="14dp"
-            app:strokeColor="#CBD5E0" />
+            app:elevation="5dp" />
 
+        <!-- Loading -->
         <ProgressBar
             android:id="@+id/googleSignInProgressBar"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="22dp"
             android:visibility="gone" />
 
+        <!-- Authentication Status -->
         <TextView
             android:id="@+id/googleSignInStatusTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/firebase_signing_in"
-            android:textColor="#718096"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="Signing in securely..."
+            android:textColor="#7B8794"
             android:textSize="13sp"
             android:visibility="gone" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="28dp" />
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E2E8EF" />
+
+        <!-- SSO explanation -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="Your first Google sign-in creates your Roamly account automatically."
+            android:textColor="#94A0AD"
+            android:textSize="12sp"
+            android:lineSpacingExtra="2dp" />
+
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

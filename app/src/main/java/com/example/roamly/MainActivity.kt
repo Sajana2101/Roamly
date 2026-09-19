@@ -1,7 +1,11 @@
 package com.example.roamly
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -21,7 +25,6 @@ import com.example.roamly.ui.packing.PackingFragment
 import com.example.roamly.ui.reminders.RemindersFragment
 import com.example.roamly.ui.settings.SettingsFragment
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -31,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             MaterialToolbar
 
     private lateinit var bottomNavigation:
-            BottomNavigationView
+            View
 
     private lateinit var drawerLayout:
             DrawerLayout
@@ -44,6 +47,51 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var sessionManager:
             SessionManager
+
+    private lateinit var navHome:
+            View
+
+    private lateinit var navItinerary:
+            View
+
+    private lateinit var navAddHoliday:
+            View
+
+    private lateinit var navPacking:
+            View
+
+    private lateinit var navDocuments:
+            View
+
+    private lateinit var navAddHolidayButton:
+            View
+
+    private lateinit var navHomeIcon:
+            ImageView
+
+    private lateinit var navItineraryIcon:
+            ImageView
+
+    private lateinit var navPackingIcon:
+            ImageView
+
+    private lateinit var navDocumentsIcon:
+            ImageView
+
+    private lateinit var navHomeText:
+            TextView
+
+    private lateinit var navItineraryText:
+            TextView
+
+    private lateinit var navAddHolidayText:
+            TextView
+
+    private lateinit var navPackingText:
+            TextView
+
+    private lateinit var navDocumentsText:
+            TextView
 
     override fun onCreate(
         savedInstanceState: Bundle?
@@ -85,6 +133,8 @@ class MainActivity : AppCompatActivity() {
                 this
             )
 
+        setupBottomNavigation()
+
         setSupportActionBar(
             toolbar
         )
@@ -110,69 +160,6 @@ class MainActivity : AppCompatActivity() {
                 drawerLayout.openDrawer(
                     GravityCompat.START
                 )
-            }
-
-        bottomNavigation
-            .setOnItemSelectedListener {
-                    item ->
-
-                when (
-                    item.itemId
-                ) {
-
-                    R.id.nav_home -> {
-
-                        openMainFragment(
-                            HomeFragment(),
-                            "My Holidays"
-                        )
-
-                        true
-                    }
-
-                    R.id.nav_itinerary -> {
-
-                        openMainFragment(
-                            ItineraryFragment(),
-                            "Itinerary"
-                        )
-
-                        true
-                    }
-
-                    R.id.nav_add_holiday -> {
-
-                        openMainFragment(
-                            AddHolidayFragment(),
-                            "Add Holiday"
-                        )
-
-                        true
-                    }
-
-                    R.id.nav_packing -> {
-
-                        openMainFragment(
-                            PackingFragment(),
-                            "Packing"
-                        )
-
-                        true
-                    }
-
-                    R.id.nav_documents -> {
-
-                        openMainFragment(
-                            DocumentsFragment(),
-                            "Documents"
-                        )
-
-                        true
-                    }
-
-                    else ->
-                        false
-                }
             }
 
         navigationView
@@ -227,6 +214,333 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupBottomNavigation() {
+
+        navHome =
+            findViewById(
+                R.id.nav_home
+            )
+
+        navItinerary =
+            findViewById(
+                R.id.nav_itinerary
+            )
+
+        navAddHoliday =
+            findViewById(
+                R.id.nav_add_holiday
+            )
+
+        navPacking =
+            findViewById(
+                R.id.nav_packing
+            )
+
+        navDocuments =
+            findViewById(
+                R.id.nav_documents
+            )
+
+        navAddHolidayButton =
+            findViewById(
+                R.id.navAddHolidayButton
+            )
+
+        navHomeIcon =
+            findViewById(
+                R.id.navHomeIcon
+            )
+
+        navItineraryIcon =
+            findViewById(
+                R.id.navItineraryIcon
+            )
+
+        navPackingIcon =
+            findViewById(
+                R.id.navPackingIcon
+            )
+
+        navDocumentsIcon =
+            findViewById(
+                R.id.navDocumentsIcon
+            )
+
+        navHomeText =
+            findViewById(
+                R.id.navHomeText
+            )
+
+        navItineraryText =
+            findViewById(
+                R.id.navItineraryText
+            )
+
+        navAddHolidayText =
+            findViewById(
+                R.id.navAddHolidayText
+            )
+
+        navPackingText =
+            findViewById(
+                R.id.navPackingText
+            )
+
+        navDocumentsText =
+            findViewById(
+                R.id.navDocumentsText
+            )
+
+        navHome.setOnClickListener {
+
+            selectBottomNavigation(
+                NavigationItem.HOME
+            )
+
+            openMainFragment(
+                HomeFragment(),
+                "My Holidays"
+            )
+        }
+
+        navItinerary.setOnClickListener {
+
+            selectBottomNavigation(
+                NavigationItem.ITINERARY
+            )
+
+            openMainFragment(
+                ItineraryFragment(),
+                "Itinerary"
+            )
+        }
+
+        navAddHoliday.setOnClickListener {
+
+            openAddHoliday()
+        }
+
+        navAddHolidayButton
+            .setOnClickListener {
+
+                openAddHoliday()
+            }
+
+        navPacking.setOnClickListener {
+
+            selectBottomNavigation(
+                NavigationItem.PACKING
+            )
+
+            openMainFragment(
+                PackingFragment(),
+                "Packing"
+            )
+        }
+
+        navDocuments.setOnClickListener {
+
+            selectBottomNavigation(
+                NavigationItem.DOCUMENTS
+            )
+
+            openMainFragment(
+                DocumentsFragment(),
+                "Documents"
+            )
+        }
+    }
+
+    private fun openAddHoliday() {
+
+        selectBottomNavigation(
+            NavigationItem.ADD_HOLIDAY
+        )
+
+        openMainFragment(
+            AddHolidayFragment(),
+            "Add Holiday"
+        )
+    }
+
+    private fun selectBottomNavigation(
+        selectedItem: NavigationItem
+    ) {
+
+        val activeColor =
+            Color.parseColor(
+                "#2C79BD"
+            )
+
+        val inactiveColor =
+            Color.parseColor(
+                "#666B72"
+            )
+
+        navHomeIcon.imageTintList =
+            ColorStateList.valueOf(
+                if (
+                    selectedItem ==
+                    NavigationItem.HOME
+                ) {
+                    activeColor
+                } else {
+                    inactiveColor
+                }
+            )
+
+        navItineraryIcon.imageTintList =
+            ColorStateList.valueOf(
+                if (
+                    selectedItem ==
+                    NavigationItem.ITINERARY
+                ) {
+                    activeColor
+                } else {
+                    inactiveColor
+                }
+            )
+
+        navPackingIcon.imageTintList =
+            ColorStateList.valueOf(
+                if (
+                    selectedItem ==
+                    NavigationItem.PACKING
+                ) {
+                    activeColor
+                } else {
+                    inactiveColor
+                }
+            )
+
+        navDocumentsIcon.imageTintList =
+            ColorStateList.valueOf(
+                if (
+                    selectedItem ==
+                    NavigationItem.DOCUMENTS
+                ) {
+                    activeColor
+                } else {
+                    inactiveColor
+                }
+            )
+
+        navHomeText.setTextColor(
+            if (
+                selectedItem ==
+                NavigationItem.HOME
+            ) {
+                activeColor
+            } else {
+                inactiveColor
+            }
+        )
+
+        navItineraryText.setTextColor(
+            if (
+                selectedItem ==
+                NavigationItem.ITINERARY
+            ) {
+                activeColor
+            } else {
+                inactiveColor
+            }
+        )
+
+        navAddHolidayText.setTextColor(
+            if (
+                selectedItem ==
+                NavigationItem.ADD_HOLIDAY
+            ) {
+                activeColor
+            } else {
+                inactiveColor
+            }
+        )
+
+        navPackingText.setTextColor(
+            if (
+                selectedItem ==
+                NavigationItem.PACKING
+            ) {
+                activeColor
+            } else {
+                inactiveColor
+            }
+        )
+
+        navDocumentsText.setTextColor(
+            if (
+                selectedItem ==
+                NavigationItem.DOCUMENTS
+            ) {
+                activeColor
+            } else {
+                inactiveColor
+            }
+        )
+
+        navHomeText.setTypeface(
+            null,
+            if (
+                selectedItem ==
+                NavigationItem.HOME
+            ) {
+                android.graphics.Typeface.BOLD
+            } else {
+                android.graphics.Typeface.NORMAL
+            }
+        )
+
+        navItineraryText.setTypeface(
+            null,
+            if (
+                selectedItem ==
+                NavigationItem.ITINERARY
+            ) {
+                android.graphics.Typeface.BOLD
+            } else {
+                android.graphics.Typeface.NORMAL
+            }
+        )
+
+        navAddHolidayText.setTypeface(
+            null,
+            if (
+                selectedItem ==
+                NavigationItem.ADD_HOLIDAY
+            ) {
+                android.graphics.Typeface.BOLD
+            } else {
+                android.graphics.Typeface.NORMAL
+            }
+        )
+
+        navPackingText.setTypeface(
+            null,
+            if (
+                selectedItem ==
+                NavigationItem.PACKING
+            ) {
+                android.graphics.Typeface.BOLD
+            } else {
+                android.graphics.Typeface.NORMAL
+            }
+        )
+
+        navDocumentsText.setTypeface(
+            null,
+            if (
+                selectedItem ==
+                NavigationItem.DOCUMENTS
+            ) {
+                android.graphics.Typeface.BOLD
+            } else {
+                android.graphics.Typeface.NORMAL
+            }
+        )
+    }
+
     private fun showInitialScreen() {
 
         if (
@@ -265,6 +579,10 @@ class MainActivity : AppCompatActivity() {
             } else {
 
                 restoreScreenChrome()
+
+                restoreBottomNavigation(
+                    currentFragment
+                )
             }
 
         } else {
@@ -272,6 +590,53 @@ class MainActivity : AppCompatActivity() {
             clearIncompleteAuthentication()
 
             showLogin()
+        }
+    }
+
+    private fun restoreBottomNavigation(
+        fragment: Fragment?
+    ) {
+
+        when (
+            fragment
+        ) {
+
+            is HomeFragment,
+            is HolidayDetailsFragment,
+            is EditHolidayFragment -> {
+
+                selectBottomNavigation(
+                    NavigationItem.HOME
+                )
+            }
+
+            is ItineraryFragment -> {
+
+                selectBottomNavigation(
+                    NavigationItem.ITINERARY
+                )
+            }
+
+            is AddHolidayFragment -> {
+
+                selectBottomNavigation(
+                    NavigationItem.ADD_HOLIDAY
+                )
+            }
+
+            is PackingFragment -> {
+
+                selectBottomNavigation(
+                    NavigationItem.PACKING
+                )
+            }
+
+            is DocumentsFragment -> {
+
+                selectBottomNavigation(
+                    NavigationItem.DOCUMENTS
+                )
+            }
         }
     }
 
@@ -331,8 +696,9 @@ class MainActivity : AppCompatActivity() {
 
         showMainNavigation()
 
-        bottomNavigation.selectedItemId =
-            R.id.nav_home
+        selectBottomNavigation(
+            NavigationItem.HOME
+        )
 
         openMainFragment(
             HomeFragment(),
@@ -342,19 +708,28 @@ class MainActivity : AppCompatActivity() {
 
     fun showAddHoliday() {
 
-        bottomNavigation.selectedItemId =
-            R.id.nav_add_holiday
+        openAddHoliday()
     }
 
     fun showHome() {
 
-        bottomNavigation.selectedItemId =
-            R.id.nav_home
+        selectBottomNavigation(
+            NavigationItem.HOME
+        )
+
+        openMainFragment(
+            HomeFragment(),
+            "My Holidays"
+        )
     }
 
     fun showHolidayDetails(
         holidayId: Int
     ) {
+
+        selectBottomNavigation(
+            NavigationItem.HOME
+        )
 
         openMainFragment(
             HolidayDetailsFragment
@@ -368,6 +743,10 @@ class MainActivity : AppCompatActivity() {
     fun showEditHoliday(
         holidayId: Int
     ) {
+
+        selectBottomNavigation(
+            NavigationItem.HOME
+        )
 
         openMainFragment(
             EditHolidayFragment
@@ -467,5 +846,13 @@ class MainActivity : AppCompatActivity() {
 
         toolbar.title =
             title
+    }
+
+    private enum class NavigationItem {
+        HOME,
+        ITINERARY,
+        ADD_HOLIDAY,
+        PACKING,
+        DOCUMENTS
     }
 }
