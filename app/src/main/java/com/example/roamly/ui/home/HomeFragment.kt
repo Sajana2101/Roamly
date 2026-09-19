@@ -42,7 +42,15 @@ class HomeFragment :
             )
 
         holidayAdapter =
-            HolidayAdapter()
+            HolidayAdapter { holiday ->
+                (
+                        requireActivity()
+                                as MainActivity
+                        )
+                    .showHolidayDetails(
+                        holiday.holidayId
+                    )
+            }
 
         holidaysRecyclerView =
             view.findViewById(

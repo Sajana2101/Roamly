@@ -14,8 +14,9 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
-class HolidayAdapter :
-    RecyclerView.Adapter<HolidayAdapter.HolidayViewHolder>() {
+class HolidayAdapter(
+    private val onHolidayClick: (Holiday) -> Unit
+) : RecyclerView.Adapter<HolidayAdapter.HolidayViewHolder>() {
 
     private val holidays =
         mutableListOf<Holiday>()
@@ -51,7 +52,8 @@ class HolidayAdapter :
         position: Int
     ) {
         holder.bind(
-            holidays[position]
+            holidays[position],
+            onHolidayClick
         )
     }
 
@@ -99,7 +101,8 @@ class HolidayAdapter :
             )
 
         fun bind(
-            holiday: Holiday
+            holiday: Holiday,
+            onHolidayClick: (Holiday) -> Unit
         ) {
             val context =
                 itemView.context
@@ -122,6 +125,10 @@ class HolidayAdapter :
             updateStatusAndCountdown(
                 holiday
             )
+
+            itemView.setOnClickListener {
+                onHolidayClick(holiday)
+            }
         }
 
         private fun loadCoverImage(
@@ -228,8 +235,7 @@ class HolidayAdapter :
                         countdownTextView.text =
                             "✈  " +
                                     context.getString(
-                                        R.string
-                                            .holiday_days_to_go,
+                                        R.string.holiday_days_to_go,
                                         days
                                     )
                     }

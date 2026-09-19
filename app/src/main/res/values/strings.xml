@@ -239,4 +239,21 @@
     <string name="holiday_in_progress">In Progress</string>
     <string name="holiday_completed">Completed</string>
     <string name="holiday_days_to_go">%1$d days to go</string>
+    <!-- Holiday Details -->
+    <string name="holiday_details">Holiday Details</string>
+    <string name="trip_details">Trip Details</string>
+    <string name="edit_holiday">Edit Holiday</string>
+    <string name="delete_holiday">Delete Holiday</string>
+    <string name="back_to_holidays">Back to My Holidays</string>
+
+    <string name="delete_holiday_title">Delete holiday?</string>
+    <string name="delete_holiday_message">This holiday will be permanently removed.</string>
+
+    <string name="holiday_deleted">Holiday deleted successfully.</string>
+
+    <string name="save_changes">Save Changes</string>
+    <string name="holiday_updated">Holiday updated successfully.</string>
+    <string name="edit_holiday_title">Edit Holiday</string>
+    <string name="edit_holiday_subtitle">Update the details for this trip.</string>
+
 </resources>

@@ -20,7 +20,8 @@ import com.example.roamly.ui.settings.SettingsFragment
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-
+import com.example.roamly.ui.holiday.HolidayDetailsFragment
+import com.example.roamly.ui.holiday.EditHolidayFragment
 class MainActivity : AppCompatActivity() {
 
     private lateinit var toolbar: MaterialToolbar
@@ -147,6 +148,30 @@ class MainActivity : AppCompatActivity() {
     fun showHome() {
         bottomNavigation.selectedItemId =
             R.id.nav_home
+    }
+
+    fun showHolidayDetails(
+        holidayId: Int
+    ) {
+        openMainFragment(
+            HolidayDetailsFragment
+                .newInstance(
+                    holidayId
+                ),
+            "Holiday Details"
+        )
+    }
+
+    fun showEditHoliday(
+        holidayId: Int
+    ) {
+        openMainFragment(
+            EditHolidayFragment
+                .newInstance(
+                    holidayId
+                ),
+            "Edit Holiday"
+        )
     }
 
     private fun showAuthScreen(fragment: Fragment) {
