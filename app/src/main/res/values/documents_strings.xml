@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="documents_title">Travel Documents</string>
+
+    <string name="documents_subtitle">
+        Keep your important travel files together.
+    </string>
+
+    <string name="upload_document">
+        Upload Document
+    </string>
+
+    <string name="no_documents_title">
+        No documents yet
+    </string>
+
+    <string name="no_documents_message">
+        Upload booking confirmations, tickets, identification copies and other travel documents.
+    </string>
+
+    <string name="document_delete">
+        Delete
+    </string>
+
+    <string name="document_delete_title">
+        Delete document?
+    </string>
+
+    <string name="document_delete_message">
+        This document will be removed from Roamly.
+    </string>
+
+    <string name="document_deleted">
+        Document removed successfully.
+    </string>
+
+    <string name="document_added">
+        Document uploaded successfully.
+    </string>
+
+    <string name="documents_added">
+        Documents uploaded successfully.
+    </string>
+
+    <string name="document_open_error">
+        No compatible application is available to open this document.
+    </string>
+
+    <string name="document_access_error">
+        Roamly can no longer access this document.
+    </string>
+
+    <string name="open_document">
+        Open document
+    </string>
+
+    <string name="document_unknown_name">
+        Travel document
+    </string>
+
+</resources>
