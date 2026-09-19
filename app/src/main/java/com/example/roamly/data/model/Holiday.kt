@@ -5,5 +5,12 @@ data class Holiday(
     val name: String,
     val location: String,
     val startDate: String,
-    val endDate: String
-)
+    val endDate: String,
+    val tripType: String = "",
+    val country: String = "",
+    val city: String = "",
+    val coverImageUri: String? = null
+) {
+    val title: String
+        get() = name
+}
