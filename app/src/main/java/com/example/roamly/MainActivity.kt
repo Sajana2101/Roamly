@@ -1,11 +1,14 @@
 package com.example.roamly
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.example.roamly.ui.auth.LoginFragment
+import com.example.roamly.ui.auth.RegisterFragment
 import com.example.roamly.ui.currency.CurrencyFragment
 import com.example.roamly.ui.documents.DocumentsFragment
 import com.example.roamly.ui.holiday.AddHolidayFragment
@@ -52,41 +55,30 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        if (savedInstanceState == null) {
-            openFragment(
-                HomeFragment(),
-                "My Holidays"
-            )
-
-            bottomNavigation.selectedItemId = R.id.nav_home
-        }
-
         bottomNavigation.setOnItemSelectedListener { item ->
-
             when (item.itemId) {
-
                 R.id.nav_home -> {
-                    openFragment(HomeFragment(), "My Holidays")
+                    openMainFragment(HomeFragment(), "My Holidays")
                     true
                 }
 
                 R.id.nav_itinerary -> {
-                    openFragment(ItineraryFragment(), "Itinerary")
+                    openMainFragment(ItineraryFragment(), "Itinerary")
                     true
                 }
 
                 R.id.nav_add_holiday -> {
-                    openFragment(AddHolidayFragment(), "Add Holiday")
+                    openMainFragment(AddHolidayFragment(), "Add Holiday")
                     true
                 }
 
                 R.id.nav_packing -> {
-                    openFragment(PackingFragment(), "Packing")
+                    openMainFragment(PackingFragment(), "Packing")
                     true
                 }
 
                 R.id.nav_documents -> {
-                    openFragment(DocumentsFragment(), "Documents")
+                    openMainFragment(DocumentsFragment(), "Documents")
                     true
                 }
 
@@ -95,25 +87,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         navigationView.setNavigationItemSelectedListener { item ->
-
             when (item.itemId) {
-
                 R.id.menu_currency -> {
-                    openFragment(
+                    openMainFragment(
                         CurrencyFragment(),
                         "Currency Converter"
                     )
                 }
 
                 R.id.menu_reminders -> {
-                    openFragment(
+                    openMainFragment(
                         RemindersFragment(),
                         "Notifications & Reminders"
                     )
                 }
 
                 R.id.menu_settings -> {
-                    openFragment(
+                    openMainFragment(
                         SettingsFragment(),
                         "Settings"
                     )
@@ -124,12 +114,83 @@ class MainActivity : AppCompatActivity() {
 
             true
         }
+
+        if (savedInstanceState == null) {
+            showLogin()
+        } else {
+            restoreScreenChrome()
+        }
     }
 
-    private fun openFragment(
+    fun showLogin() {
+        showAuthScreen(LoginFragment())
+    }
+
+    fun showRegister() {
+        showAuthScreen(RegisterFragment())
+    }
+
+    fun showHomeAfterAuthentication() {
+        showMainNavigation()
+
+        bottomNavigation.selectedItemId = R.id.nav_home
+
+        openMainFragment(
+            HomeFragment(),
+            "My Holidays"
+        )
+    }
+
+    private fun showAuthScreen(fragment: Fragment) {
+        toolbar.visibility = View.GONE
+        bottomNavigation.visibility = View.GONE
+
+        drawerLayout.closeDrawer(GravityCompat.START)
+        drawerLayout.setDrawerLockMode(
+            DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+        )
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .commit()
+    }
+
+    private fun showMainNavigation() {
+        toolbar.visibility = View.VISIBLE
+        bottomNavigation.visibility = View.VISIBLE
+
+        drawerLayout.setDrawerLockMode(
+            DrawerLayout.LOCK_MODE_UNLOCKED
+        )
+    }
+
+    private fun restoreScreenChrome() {
+        val currentFragment =
+            supportFragmentManager.findFragmentById(
+                R.id.fragmentContainer
+            )
+
+        if (
+            currentFragment is LoginFragment ||
+            currentFragment is RegisterFragment
+        ) {
+            toolbar.visibility = View.GONE
+            bottomNavigation.visibility = View.GONE
+
+            drawerLayout.setDrawerLockMode(
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+            )
+        } else {
+            showMainNavigation()
+        }
+    }
+
+    private fun openMainFragment(
         fragment: Fragment,
         title: String
     ) {
+        showMainNavigation()
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
             .commit()
