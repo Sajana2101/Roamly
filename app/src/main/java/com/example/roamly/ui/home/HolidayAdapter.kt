@@ -1,8 +1,10 @@
 package com.example.roamly.ui.home
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roamly.R
@@ -31,6 +33,7 @@ class HolidayAdapter :
         parent: ViewGroup,
         viewType: Int
     ): HolidayViewHolder {
+
         val view =
             LayoutInflater
                 .from(parent.context)
@@ -60,9 +63,19 @@ class HolidayAdapter :
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
 
+        private val coverImageView =
+            itemView.findViewById<ImageView>(
+                R.id.holidayCoverImageView
+            )
+
         private val titleTextView =
             itemView.findViewById<TextView>(
                 R.id.holidayTitleTextView
+            )
+
+        private val statusTextView =
+            itemView.findViewById<TextView>(
+                R.id.holidayStatusTextView
             )
 
         private val tripTypeTextView =
@@ -92,61 +105,83 @@ class HolidayAdapter :
                 itemView.context
 
             titleTextView.text =
-                holiday.title
+                holiday.name
 
             tripTypeTextView.text =
-                holiday.tripType
+                "✦ ${holiday.tripType}"
 
             locationTextView.text =
-                context.getString(
-                    R.string.holiday_location_format,
-                    holiday.city,
-                    holiday.country
-                )
+                "📍 ${holiday.location}"
 
             datesTextView.text =
-                context.getString(
-                    R.string.holiday_date_format,
-                    holiday.startDate,
-                    holiday.endDate
-                )
+                "▣ ${formatDisplayDate(holiday.startDate)} - " +
+                        formatDisplayDate(holiday.endDate)
 
-            countdownTextView.text =
-                getCountdownText(
-                    holiday
-                )
+            loadCoverImage(holiday)
+
+            updateStatusAndCountdown(
+                holiday
+            )
         }
 
-        private fun getCountdownText(
+        private fun loadCoverImage(
             holiday: Holiday
-        ): String {
+        ) {
+            val imageUri =
+                holiday.coverImageUri
+
+            if (imageUri.isNullOrBlank()) {
+                coverImageView.setImageResource(
+                    R.drawable.ic_holiday_placeholder
+                )
+
+                return
+            }
+
+            try {
+                coverImageView.setImageURI(
+                    Uri.parse(imageUri)
+                )
+            } catch (_: Exception) {
+                coverImageView.setImageResource(
+                    R.drawable.ic_holiday_placeholder
+                )
+            }
+        }
+
+        private fun updateStatusAndCountdown(
+            holiday: Holiday
+        ) {
             val context =
                 itemView.context
 
-            return try {
-                val dateFormat =
+            try {
+                val format =
                     SimpleDateFormat(
                         "yyyy-MM-dd",
                         Locale.getDefault()
                     )
 
-                dateFormat.isLenient = false
+                format.isLenient = false
 
-                val startDate =
-                    dateFormat.parse(
+                val start =
+                    format.parse(
                         holiday.startDate
                     )
 
-                val endDate =
-                    dateFormat.parse(
+                val end =
+                    format.parse(
                         holiday.endDate
                     )
 
                 if (
-                    startDate == null ||
-                    endDate == null
+                    start == null ||
+                    end == null
                 ) {
-                    return ""
+                    statusTextView.text = ""
+                    countdownTextView.text = ""
+
+                    return
                 }
 
                 val today =
@@ -172,42 +207,89 @@ class HolidayAdapter :
                     0
                 )
 
-                val currentDate =
+                val current =
                     today.time
 
                 when {
-                    currentDate.before(startDate) -> {
+                    current.before(start) -> {
+                        statusTextView.text =
+                            context.getString(
+                                R.string.holiday_upcoming
+                            )
+
                         val difference =
-                            startDate.time -
-                                    currentDate.time
+                            start.time -
+                                    current.time
 
                         val days =
                             TimeUnit.MILLISECONDS
                                 .toDays(difference)
 
-                        context.getString(
-                            R.string
-                                .holiday_countdown_days,
-                            days
-                        )
+                        countdownTextView.text =
+                            "✈  " +
+                                    context.getString(
+                                        R.string
+                                            .holiday_days_to_go,
+                                        days
+                                    )
                     }
 
-                    currentDate.after(endDate) -> {
-                        context.getString(
-                            R.string
-                                .holiday_finished
-                        )
+                    current.after(end) -> {
+                        statusTextView.text =
+                            context.getString(
+                                R.string.holiday_completed
+                            )
+
+                        countdownTextView.text =
+                            context.getString(
+                                R.string.holiday_finished
+                            )
                     }
 
                     else -> {
-                        context.getString(
-                            R.string
-                                .holiday_started
-                        )
+                        statusTextView.text =
+                            context.getString(
+                                R.string.holiday_in_progress
+                            )
+
+                        countdownTextView.text =
+                            context.getString(
+                                R.string.holiday_started
+                            )
                     }
                 }
             } catch (_: Exception) {
-                ""
+                statusTextView.text = ""
+                countdownTextView.text = ""
+            }
+        }
+
+        private fun formatDisplayDate(
+            date: String
+        ): String {
+            return try {
+                val input =
+                    SimpleDateFormat(
+                        "yyyy-MM-dd",
+                        Locale.getDefault()
+                    )
+
+                val output =
+                    SimpleDateFormat(
+                        "d MMM",
+                        Locale.getDefault()
+                    )
+
+                val parsed =
+                    input.parse(date)
+
+                if (parsed != null) {
+                    output.format(parsed)
+                } else {
+                    date
+                }
+            } catch (_: Exception) {
+                date
             }
         }
     }
