@@ -15,9 +15,14 @@ import java.util.Locale
 class DocumentAdapter(
     private val onDocumentClick:
         (TravelDocument) -> Unit,
+    private val onEditClick:
+        (TravelDocument) -> Unit,
     private val onDeleteClick:
         (TravelDocument) -> Unit
-) : RecyclerView.Adapter<DocumentAdapter.DocumentViewHolder>() {
+) :
+    RecyclerView.Adapter<
+            DocumentAdapter.DocumentViewHolder
+            >() {
 
     private val documents =
         mutableListOf<TravelDocument>()
@@ -65,6 +70,7 @@ class DocumentAdapter(
         holder.bind(
             documents[position],
             onDocumentClick,
+            onEditClick,
             onDeleteClick
         )
     }
@@ -97,22 +103,33 @@ class DocumentAdapter(
                 R.id.documentDetailsTextView
             )
 
+        private val openButton =
+            itemView.findViewById<MaterialButton>(
+                R.id.openDocumentButton
+            )
+
+        private val editButton =
+            itemView.findViewById<MaterialButton>(
+                R.id.editDocumentButton
+            )
+
         private val deleteButton =
             itemView.findViewById<MaterialButton>(
                 R.id.deleteDocumentButton
             )
 
         fun bind(
-            document:
-            TravelDocument,
+            document: TravelDocument,
             onDocumentClick:
+                (TravelDocument) -> Unit,
+            onEditClick:
                 (TravelDocument) -> Unit,
             onDeleteClick:
                 (TravelDocument) -> Unit
         ) {
 
             typeTextView.text =
-                getDocumentType(
+                getFileType(
                     document
                 )
 
@@ -132,6 +149,22 @@ class DocumentAdapter(
                     )
                 }
 
+            openButton
+                .setOnClickListener {
+
+                    onDocumentClick(
+                        document
+                    )
+                }
+
+            editButton
+                .setOnClickListener {
+
+                    onEditClick(
+                        document
+                    )
+                }
+
             deleteButton
                 .setOnClickListener {
 
@@ -141,12 +174,72 @@ class DocumentAdapter(
                 }
         }
 
-        private fun getDocumentType(
-            document:
-            TravelDocument
+        private fun buildDetails(
+            document: TravelDocument
         ): String {
 
-            val mimeType =
+            val values =
+                mutableListOf<String>()
+
+            document.documentType
+                ?.takeIf {
+                    it.isNotBlank()
+                }
+                ?.let {
+                    values.add(
+                        it
+                    )
+                }
+
+            document.fileName
+                ?.takeIf {
+                    it.isNotBlank()
+                }
+                ?.let {
+                    values.add(
+                        it
+                    )
+                }
+
+            val size =
+                formatFileSize(
+                    document.sizeBytes
+                )
+
+            if (
+                size.isNotBlank()
+            ) {
+
+                values.add(
+                    size
+                )
+            }
+
+            val date =
+                SimpleDateFormat(
+                    "dd MMM yyyy",
+                    Locale.getDefault()
+                )
+                    .format(
+                        Date(
+                            document.addedAt
+                        )
+                    )
+
+            values.add(
+                date
+            )
+
+            return values.joinToString(
+                " • "
+            )
+        }
+
+        private fun getFileType(
+            document: TravelDocument
+        ): String {
+
+            val mime =
                 document.mimeType
                     .lowercase(
                         Locale.getDefault()
@@ -154,96 +247,46 @@ class DocumentAdapter(
 
             return when {
 
-                mimeType ==
-                        "application/pdf" -> {
-
+                mime ==
+                        "application/pdf" ->
                     "PDF"
-                }
 
-                mimeType
-                    .startsWith(
-                        "image/"
-                    ) -> {
-
+                mime.startsWith(
+                    "image/"
+                ) ->
                     "IMG"
-                }
 
-                mimeType.contains(
+                mime.contains(
                     "word"
                 ) ||
-                        mimeType.contains(
+                        mime.contains(
                             "wordprocessingml"
-                        ) -> {
-
+                        ) ->
                     "DOC"
-                }
 
-                mimeType.contains(
+                mime.contains(
                     "excel"
                 ) ||
-                        mimeType.contains(
+                        mime.contains(
                             "spreadsheetml"
-                        ) -> {
-
+                        ) ->
                     "XLS"
-                }
 
-                mimeType.contains(
+                mime.contains(
                     "powerpoint"
                 ) ||
-                        mimeType.contains(
+                        mime.contains(
                             "presentationml"
-                        ) -> {
-
+                        ) ->
                     "PPT"
-                }
 
-                mimeType.startsWith(
+                mime.startsWith(
                     "text/"
-                ) -> {
-
+                ) ->
                     "TXT"
-                }
 
-                else -> {
-
+                else ->
                     "FILE"
-                }
-            }
-        }
-
-        private fun buildDetails(
-            document:
-            TravelDocument
-        ): String {
-
-            val dateFormat =
-                SimpleDateFormat(
-                    "dd MMM yyyy",
-                    Locale.getDefault()
-                )
-
-            val date =
-                dateFormat.format(
-                    Date(
-                        document.addedAt
-                    )
-                )
-
-            val size =
-                formatFileSize(
-                    document.sizeBytes
-                )
-
-            return if (
-                size.isBlank()
-            ) {
-
-                date
-
-            } else {
-
-                "$size • $date"
             }
         }
 
@@ -251,30 +294,26 @@ class DocumentAdapter(
             bytes: Long
         ): String {
 
-            if (bytes <= 0L) {
+            if (
+                bytes <= 0L
+            ) {
                 return ""
             }
 
             return when {
 
-                bytes <
-                        1024L -> {
-
+                bytes < 1024L ->
                     "$bytes B"
-                }
 
                 bytes <
-                        1024L * 1024L -> {
-
+                        1024L * 1024L ->
                     String.format(
                         Locale.getDefault(),
                         "%.1f KB",
                         bytes / 1024.0
                     )
-                }
 
-                else -> {
-
+                else ->
                     String.format(
                         Locale.getDefault(),
                         "%.1f MB",
@@ -284,7 +323,6 @@ class DocumentAdapter(
                                                 1024.0
                                         )
                     )
-                }
             }
         }
     }

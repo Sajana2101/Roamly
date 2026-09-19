@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0.14"
+            android:text="DOCUMENT DETAILS"
+            android:textColor="#3277BA"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Edit Document"
+            android:textColor="#102B46"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Update this document's information."
+            android:textColor="#8A98A9"
+            android:textSize="11sp" />
+
+        <!-- DOCUMENT NAME -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Document Name"
+            android:textColor="#24384A"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            app:boxBackgroundColor="#FAFBFD"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="#CBD5E1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editDocumentNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:textColor="#172B3A"
+                android:textSize="13sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- DOCUMENT TYPE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Document Type"
+            android:textColor="#24384A"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            app:boxBackgroundColor="#FAFBFD"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="#CBD5E1">
+
+            <AutoCompleteTextView
+                android:id="@+id/editDocumentTypeAutoComplete"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="Select document type"
+                android:inputType="none"
+                android:textColor="#172B3A"
+                android:textColorHint="#A0ADBA"
+                android:textSize="13sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- CURRENT FILE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Current File"
+            android:textColor="#24384A"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/currentDocumentFileTextView"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="7dp"
+            android:background="#F5F8FB"
+            android:ellipsize="middle"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:textColor="#40586E"
+            android:textSize="12sp" />
+
+        <!-- REPLACE FILE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Replace File"
+            android:textColor="#24384A"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/replaceDocumentFileButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="7dp"
+            android:text="Choose File"
+            android:textAllCaps="false"
+            android:textColor="#17466F"
+            app:backgroundTint="#F5F8FB"
+            app:cornerRadius="11dp"
+            app:strokeColor="#CBD5E1"
+            app:strokeWidth="1dp" />
+
+        <TextView
+            android:id="@+id/replacementDocumentFileTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:ellipsize="middle"
+            android:maxLines="1"
+            android:text="Optional — leave empty to keep the current file."
+            android:textColor="#8A98A9"
+            android:textSize="10sp" />
+
+        <!-- NOTES -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Notes"
+            android:textColor="#24384A"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            app:boxBackgroundColor="#FAFBFD"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="#CBD5E1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editDocumentNotesEditText"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:gravity="top"
+                android:hint="Optional notes"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="3"
+                android:paddingTop="14dp"
+                android:textColor="#172B3A"
+                android:textColorHint="#A0ADBA"
+                android:textSize="13sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- BUTTONS -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="18dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancelEditDocumentButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:text="Cancel"
+                android:textAllCaps="false"
+                android:textColor="#334A5F"
+                app:backgroundTint="#F7F9FC"
+                app:cornerRadius="11dp"
+                app:strokeColor="#D3DCE5"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveDocumentChangesButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1.3"
+                android:text="Save Changes"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                app:backgroundTint="#16466F"
+                app:cornerRadius="11dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

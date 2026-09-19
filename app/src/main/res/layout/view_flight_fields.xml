@@ -7,12 +7,63 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <!-- ========================= -->
+    <!-- OUTBOUND -->
+    <!-- ========================= -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="6dp"
+        android:background="#EFF5FC"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.14"
+                android:text="OUTBOUND"
+                android:textColor="#4382D3"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Departure Flight"
+                android:textColor="#102B46"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:contentDescription="Departure flight"
+            android:src="@drawable/ic_nav_add"
+            app:tint="#367EC9" />
+
+    </LinearLayout>
+
+    <!-- AIRLINE -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/holiday_outbound_flight"
-        android:textSize="18sp"
+        android:text="Airline"
+        android:textColor="#24384A"
+        android:textSize="11sp"
         android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -20,142 +71,400 @@
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_airline">
+        android:layout_marginTop="7dp"
+        app:boxBackgroundColor="#FAFBFD"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeColor="#CBD5E1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/outboundAirlineEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textCapWords" />
+            android:layout_height="54dp"
+            android:hint="e.g. Emirates"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textColor="#172B3A"
+            android:textColorHint="#A0ADBA"
+            android:textSize="13sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- AIRPORT ROUTE -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="Airport Route"
+        android:textColor="#24384A"
+        android:textSize="11sp"
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/outboundAirportRouteLayout"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_airport_route"
-        app:helperText="@string/holiday_airport_route_hint">
+        android:layout_marginTop="7dp"
+        app:boxBackgroundColor="#FAFBFD"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeColor="#CBD5E1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/outboundAirportRouteEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textCapCharacters" />
+            android:layout_height="54dp"
+            android:hint="e.g. JHB "
+            android:inputType="textCapCharacters"
+            android:maxLines="1"
+            android:textColor="#172B3A"
+            android:textColorHint="#A0ADBA"
+            android:textSize="13sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- DATE -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="Flight Date"
+        android:textColor="#24384A"
+        android:textSize="11sp"
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/outboundFlightDateLayout"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_flight_date">
+        android:layout_marginTop="7dp"
+        app:boxBackgroundColor="#FAFBFD"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeColor="#CBD5E1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/outboundFlightDateEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:clickable="true"
             android:cursorVisible="false"
             android:focusable="false"
-            android:inputType="none" />
+            android:hint="yyyy/mm/dd"
+            android:inputType="none"
+            android:textColor="#172B3A"
+            android:textColorHint="#A0ADBA"
+            android:textSize="13sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/outboundBoardingTimeLayout"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    <!-- TIME LABELS -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_boarding_time">
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/outboundBoardingTimeEditText"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:inputType="none" />
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="Boarding"
+            android:textColor="#24384A"
+            android:textSize="10sp"
+            android:textStyle="bold" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/outboundDepartureTimeLayout"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_departure_time">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/outboundDepartureTimeEditText"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:inputType="none" />
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="Departure"
+            android:textColor="#24384A"
+            android:textSize="10sp"
+            android:textStyle="bold" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/outboundArrivalTimeLayout"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_arrival_time">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/outboundArrivalTimeEditText"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:inputType="none" />
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="Arrival"
+            android:textColor="#24384A"
+            android:textSize="10sp"
+            android:textStyle="bold" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <!-- 3 TIME BOXES -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_terminal_optional">
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/outboundTerminalEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outboundBoardingTimeLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            app:boxBackgroundColor="#FAFBFD"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="#CBD5E1">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/outboundBoardingTimeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="--:--"
+                android:inputType="none"
+                android:textColor="#172B3A"
+                android:textColorHint="#A0ADBA"
+                android:textSize="12sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outboundDepartureTimeLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            app:boxBackgroundColor="#FAFBFD"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="#CBD5E1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/outboundDepartureTimeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="--:--"
+                android:inputType="none"
+                android:textColor="#172B3A"
+                android:textColorHint="#A0ADBA"
+                android:textSize="12sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outboundArrivalTimeLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            app:boxBackgroundColor="#FAFBFD"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="#CBD5E1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/outboundArrivalTimeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="--:--"
+                android:inputType="none"
+                android:textColor="#172B3A"
+                android:textColorHint="#A0ADBA"
+                android:textSize="12sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <!-- TERMINAL / GATE -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_gate_optional">
+        android:layout_marginTop="13dp"
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/outboundGateEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Terminal"
+                android:textColor="#24384A"
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:boxBackgroundColor="#FAFBFD"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeColor="#CBD5E1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/outboundTerminalEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:hint="Optional"
+                    android:maxLines="1"
+                    android:textColor="#172B3A"
+                    android:textColorHint="#A0ADBA"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gate"
+                android:textColor="#24384A"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:boxBackgroundColor="#FAFBFD"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeColor="#CBD5E1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/outboundGateEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:hint="Optional"
+                    android:maxLines="1"
+                    android:textColor="#172B3A"
+                    android:textColorHint="#A0ADBA"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- DIVIDER -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:background="#DCE4EC" />
+
+    <!-- ========================= -->
+    <!-- RETURN -->
+    <!-- ========================= -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#EFF5FC"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.14"
+                android:text="RETURN"
+                android:textColor="#7E63C9"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Return Flight"
+                android:textColor="#102B46"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:contentDescription="Return flight"
+            android:rotation="180"
+            android:src="@drawable/ic_nav_add"
+            app:tint="#367EC9" />
+
+    </LinearLayout>
+
+    <!-- RETURN AIRLINE -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/holiday_return_flight"
-        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:text="Airline"
+        android:textColor="#24384A"
+        android:textSize="11sp"
         android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -163,134 +472,330 @@
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_airline">
+        android:layout_marginTop="7dp"
+        app:boxBackgroundColor="#FAFBFD"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeColor="#CBD5E1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/returnAirlineEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textCapWords" />
+            android:layout_height="54dp"
+            android:hint="e.g. Emirates"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textColor="#172B3A"
+            android:textColorHint="#A0ADBA"
+            android:textSize="13sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- RETURN ROUTE -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="Airport Route"
+        android:textColor="#24384A"
+        android:textSize="11sp"
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/returnAirportRouteLayout"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_airport_route"
-        app:helperText="@string/holiday_airport_route_hint">
+        android:layout_marginTop="7dp"
+        app:boxBackgroundColor="#FAFBFD"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeColor="#CBD5E1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/returnAirportRouteEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textCapCharacters" />
+            android:layout_height="54dp"
+            android:hint="e.g. JHB "
+            android:inputType="textCapCharacters"
+            android:maxLines="1"
+            android:textColor="#172B3A"
+            android:textColorHint="#A0ADBA"
+            android:textSize="13sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- RETURN DATE -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="Return Date"
+        android:textColor="#24384A"
+        android:textSize="11sp"
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/returnFlightDateLayout"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_flight_date">
+        android:layout_marginTop="7dp"
+        app:boxBackgroundColor="#FAFBFD"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeColor="#CBD5E1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/returnFlightDateEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:clickable="true"
             android:cursorVisible="false"
             android:focusable="false"
-            android:inputType="none" />
+            android:hint="yyyy/mm/dd"
+            android:inputType="none"
+            android:textColor="#172B3A"
+            android:textColorHint="#A0ADBA"
+            android:textSize="13sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/returnBoardingTimeLayout"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    <!-- RETURN TIME LABELS -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_boarding_time">
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/returnBoardingTimeEditText"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:inputType="none" />
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:text="Boarding"
+            android:textColor="#24384A"
+            android:textSize="10sp"
+            android:textStyle="bold" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/returnDepartureTimeLayout"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_departure_time">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/returnDepartureTimeEditText"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:inputType="none" />
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:text="Departure"
+            android:textColor="#24384A"
+            android:textSize="10sp"
+            android:textStyle="bold" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/returnArrivalTimeLayout"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_arrival_time">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/returnArrivalTimeEditText"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:inputType="none" />
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:text="Arrival"
+            android:textColor="#24384A"
+            android:textSize="10sp"
+            android:textStyle="bold" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <!-- RETURN TIMES -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_terminal_optional">
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/returnTerminalEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/returnBoardingTimeLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            app:boxBackgroundColor="#FAFBFD"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="#CBD5E1">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/returnBoardingTimeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="--:--"
+                android:inputType="none"
+                android:textColor="#172B3A"
+                android:textColorHint="#A0ADBA"
+                android:textSize="12sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/returnDepartureTimeLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            app:boxBackgroundColor="#FAFBFD"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="#CBD5E1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/returnDepartureTimeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="--:--"
+                android:inputType="none"
+                android:textColor="#172B3A"
+                android:textColorHint="#A0ADBA"
+                android:textSize="12sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/returnArrivalTimeLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            app:boxBackgroundColor="#FAFBFD"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="#CBD5E1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/returnArrivalTimeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="--:--"
+                android:inputType="none"
+                android:textColor="#172B3A"
+                android:textColorHint="#A0ADBA"
+                android:textSize="12sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <!-- RETURN TERMINAL / GATE -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/holiday_gate_optional">
+        android:layout_marginTop="13dp"
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/returnGateEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Terminal"
+                android:textColor="#24384A"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:boxBackgroundColor="#FAFBFD"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeColor="#CBD5E1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/returnTerminalEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:hint="Optional"
+                    android:maxLines="1"
+                    android:textColor="#172B3A"
+                    android:textColorHint="#A0ADBA"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gate"
+                android:textColor="#24384A"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:boxBackgroundColor="#FAFBFD"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeColor="#CBD5E1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/returnGateEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:hint="Optional"
+                    android:maxLines="1"
+                    android:textColor="#172B3A"
+                    android:textColorHint="#A0ADBA"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

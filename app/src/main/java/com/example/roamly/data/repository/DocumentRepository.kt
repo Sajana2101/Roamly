@@ -31,7 +31,9 @@ class DocumentRepository(
 
             val type =
                 object :
-                    TypeToken<MutableList<TravelDocument>>() {}
+                    TypeToken<
+                            MutableList<TravelDocument>
+                            >() {}
                     .type
 
             gson.fromJson(
@@ -54,7 +56,8 @@ class DocumentRepository(
 
         val alreadyExists =
             documents.any {
-                it.uri == document.uri
+                it.uri ==
+                        document.uri
             }
 
         if (!alreadyExists) {
@@ -67,6 +70,33 @@ class DocumentRepository(
                 documents
             )
         }
+    }
+
+    fun updateDocument(
+        document: TravelDocument
+    ) {
+
+        val documents =
+            getDocuments()
+
+        val index =
+            documents.indexOfFirst {
+                it.documentId ==
+                        document.documentId
+            }
+
+        if (
+            index == -1
+        ) {
+            return
+        }
+
+        documents[index] =
+            document
+
+        saveDocuments(
+            documents
+        )
     }
 
     fun deleteDocument(

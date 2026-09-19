@@ -6,5 +6,8 @@ data class TravelDocument(
     val mimeType: String,
     val uri: String,
     val sizeBytes: Long = 0L,
-    val addedAt: Long
+    val addedAt: Long,
+    val documentType : String? = null,
+    val fileName: String? = null,
+    val notes: String? = null
 )
