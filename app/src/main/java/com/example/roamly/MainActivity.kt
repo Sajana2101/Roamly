@@ -140,6 +140,11 @@ class MainActivity : AppCompatActivity() {
             "My Holidays"
         )
     }
+    fun showAddHoliday() {
+        bottomNavigation.selectedItemId =
+            R.id.nav_add_holiday
+    }
+
 
     private fun showAuthScreen(fragment: Fragment) {
         toolbar.visibility = View.GONE

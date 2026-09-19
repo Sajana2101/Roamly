@@ -196,4 +196,21 @@
     <string name="registration_successful">Account created successfully.</string>
     <string name="authentication_error">Something went wrong. Please try again.</string>
     <string name="network_error">Could not connect to Roamly. Check your connection and try again.</string>
+
+    <!-- My Holidays Dashboard -->
+    <string name="my_holidays">My Holidays</string>
+    <string name="holiday_dashboard_subtitle">Keep all your upcoming trips in one place.</string>
+
+    <string name="no_holidays_title">No holidays yet</string>
+    <string name="no_holidays_message">Start planning your next adventure by creating your first holiday.</string>
+    <string name="plan_first_holiday">Plan a Holiday</string>
+
+    <string name="holiday_location_format">%1$s, %2$s</string>
+    <string name="holiday_date_format">%1$s - %2$s</string>
+    <string name="holiday_countdown_days">%1$d days to go</string>
+    <string name="holiday_started">Trip in progress</string>
+    <string name="holiday_finished">Trip completed</string>
+
+
+
 </resources>
