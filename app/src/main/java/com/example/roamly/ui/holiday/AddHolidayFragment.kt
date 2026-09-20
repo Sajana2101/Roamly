@@ -105,6 +105,7 @@ class AddHolidayFragment :
             try {
                 requireContext()
                     .contentResolver
+                    // This keeps long-term read access to the selected cover image so it can still be displayed after navigating to a different page or restarting the app
                     .takePersistableUriPermission(
                         uri,
                         Intent.FLAG_GRANT_READ_URI_PERMISSION

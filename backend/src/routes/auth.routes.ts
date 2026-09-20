@@ -280,7 +280,7 @@ router.post(
     }
   }
 );
-
+// This verifies the Google ID token, finds or creates the corresponding user in Azure SQL, then issues Roamly's own JWT session token.
 router.post(
   "/google",
   async (req, res) => {

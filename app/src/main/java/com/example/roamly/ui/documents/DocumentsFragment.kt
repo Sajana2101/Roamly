@@ -918,6 +918,8 @@ class DocumentsFragment :
 
             requireContext()
                 .contentResolver
+                // THis keeps access to the selected document URI after the app restarts
+                // Without this permission Android may revoke access to the uploaded file
                 .takePersistableUriPermission(
                     uri,
                     Intent

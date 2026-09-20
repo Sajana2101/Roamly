@@ -55,7 +55,8 @@ class ItineraryRepository(
             mutableListOf()
         }
     }
-
+    // Stores itinerary days and activities locally per the user and holiday
+// this allows itinerary data to survive navigation and app restarts
     fun saveItineraryDays(
         holidayId: Int,
         itineraryDays:

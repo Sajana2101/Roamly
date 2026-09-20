@@ -14,6 +14,7 @@ class SessionManager(
     context: Context
 ) {
 
+    // Persists the authenticated session so the user remains signed in after the app is closed and opened again
     private val preferences =
         context.getSharedPreferences(
             PREFERENCES_NAME,

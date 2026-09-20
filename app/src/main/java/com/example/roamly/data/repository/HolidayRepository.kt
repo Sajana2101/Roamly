@@ -10,6 +10,9 @@ class HolidayRepository(
     context: Context
 ) {
 
+    // Scopes locally persisted data to the authenticated user so accounts on the same device cannot access each other's travel information
+    // Same structure is applied to documents, packing, and itinereary
+
     private val userId =
         SessionManager(
             context

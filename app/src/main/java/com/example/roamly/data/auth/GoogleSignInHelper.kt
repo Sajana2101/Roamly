@@ -16,7 +16,8 @@ class GoogleSignInHelper(
         CredentialManager.create(
             activity
         )
-
+    // THis retrieves a Google ID token using android credential manager
+// The token is sent to the  backend for server-side verification
     suspend fun getGoogleIdToken(): String {
 
         val googleSignInOption =
