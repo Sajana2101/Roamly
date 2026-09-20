@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "417669814711-2ncv75nrpohg0k59fk3u2q9ohg1anm1g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.roamly",
+            "certificate_hash": "63bd7b865847f8bdec8f8052aeb60a08a63f521d"
+          }
+        },
+        {
           "client_id": "417669814711-npbrf0mpn4gnmu0mj0j5siqftpq05bqf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
