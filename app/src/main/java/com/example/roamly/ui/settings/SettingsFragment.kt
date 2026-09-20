@@ -273,6 +273,10 @@ class SettingsFragment :
 
     private fun saveSettings() {
 
+        sessionManager.updateName(
+            displayName
+        )
+
         requireContext()
             .getSharedPreferences(
                 SETTINGS_PREFERENCES,
