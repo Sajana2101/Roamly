@@ -1,6 +1,7 @@
 package com.example.roamly.data.repository
 
 import android.content.Context
+import com.example.roamly.data.auth.SessionManager
 import com.example.roamly.data.model.Holiday
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -9,9 +10,15 @@ class HolidayRepository(
     context: Context
 ) {
 
+    private val userId =
+        SessionManager(
+            context
+        ).getUserId()
+            ?: "guest"
+
     private val sharedPreferences =
         context.getSharedPreferences(
-            "roamly_holidays",
+            "roamly_holidays_${userId}",
             Context.MODE_PRIVATE
         )
 

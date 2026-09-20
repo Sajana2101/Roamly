@@ -19,6 +19,7 @@ import com.example.roamly.data.model.Holiday
 import com.example.roamly.data.model.ItineraryActivity
 import com.example.roamly.data.model.ItineraryDay
 import com.example.roamly.data.repository.HolidayRepository
+import com.example.roamly.data.repository.ItineraryRepository
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
@@ -30,6 +31,7 @@ import java.util.Locale
 class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
     private lateinit var holidayRepository: HolidayRepository
+    private lateinit var itineraryRepository: ItineraryRepository
     private lateinit var holidaysContainer: LinearLayout
     private lateinit var daysContainer: LinearLayout
     private lateinit var tvSelectedDayDate: TextView
@@ -41,12 +43,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
     private val holidayCards = linkedMapOf<Int, MaterialCardView>()
 
     private var selectedHolidayId = -1
-
-    private val itineraryDaysByHoliday =
-        mutableMapOf<Int, MutableList<ItineraryDay>>()
-
-    private val activitiesByHoliday =
-        mutableMapOf<Int, MutableList<ItineraryActivity>>()
 
     private var itineraryDays =
         mutableListOf<ItineraryDay>()
@@ -67,6 +63,12 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
         holidayRepository =
             HolidayRepository(
+                requireContext()
+                    .applicationContext
+            )
+
+        itineraryRepository =
+            ItineraryRepository(
                 requireContext()
                     .applicationContext
             )
@@ -154,25 +156,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         holidays.addAll(
             loadedHolidays
         )
-
-        val validHolidayIds =
-            holidays
-                .map {
-                    it.holidayId
-                }
-                .toSet()
-
-        itineraryDaysByHoliday
-            .keys
-            .retainAll(
-                validHolidayIds
-            )
-
-        activitiesByHoliday
-            .keys
-            .retainAll(
-                validHolidayIds
-            )
 
         renderHolidayCards()
 
@@ -383,20 +366,16 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             holidayId
 
         itineraryDays =
-            itineraryDaysByHoliday
-                .getOrPut(
+            itineraryRepository
+                .getItineraryDays(
                     holidayId
-                ) {
-                    mutableListOf()
-                }
+                )
 
         itineraryActivities =
-            activitiesByHoliday
-                .getOrPut(
+            itineraryRepository
+                .getItineraryActivities(
                     holidayId
-                ) {
-                    mutableListOf()
-                }
+                )
 
         selectedDayNumber =
             itineraryDays
@@ -971,6 +950,8 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
                 itineraryDays.add(newDay)
 
+                saveCurrentItinerary()
+
                 selectedDayNumber = newDay.dayNumber
 
 // Refreshes the day cards and shows the empty activity state for the new day
@@ -1200,6 +1181,8 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                         }
                     }
 
+                    saveCurrentItinerary()
+
                     selectedDayNumber = newDayNumber
 
                     // Refreshes both the day selector and the activities linked to this day
@@ -1286,6 +1269,8 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             itineraryActivities.removeAll {
                 it.dayNumber == selectedDay.dayNumber
             }
+
+            saveCurrentItinerary()
 
             if (itineraryDays.isNotEmpty()) {
 
@@ -1475,6 +1460,8 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 )
 
                 itineraryActivities.add(newActivity)
+
+                saveCurrentItinerary()
 
                 // Refreshes the list so the new activity appears in chronological order
                 renderActivities()
@@ -1674,6 +1661,8 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                             startTime = newTime
                         )
 
+                    saveCurrentItinerary()
+
                     // Redraws the activities so any changed time is re-sorted correctly
                     renderActivities()
 
@@ -1737,6 +1726,8 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             itineraryActivities.removeAll {
                 it.activityId == activity.activityId
             }
+
+            saveCurrentItinerary()
 
             // Refreshes the selected day's activities immediately after deletion
             renderActivities()
@@ -1803,6 +1794,11 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             itineraryDays.clear()
             itineraryActivities.clear()
 
+            itineraryRepository
+                .deleteItinerary(
+                    selectedHolidayId
+                )
+
             // No day remains selected once the itinerary has been cleared
             selectedDayNumber = -1
 
@@ -1820,6 +1816,25 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         }
 
         dialog.show()
+    }
+
+    private fun saveCurrentItinerary() {
+
+        if (selectedHolidayId == -1) {
+            return
+        }
+
+        itineraryRepository
+            .saveItineraryDays(
+                selectedHolidayId,
+                itineraryDays
+            )
+
+        itineraryRepository
+            .saveItineraryActivities(
+                selectedHolidayId,
+                itineraryActivities
+            )
     }
 
     private fun isDateWithinHoliday(

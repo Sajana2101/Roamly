@@ -152,6 +152,19 @@ class SessionManager(
         )
     }
 
+    fun updateName(
+        name: String
+    ) {
+
+        preferences
+            .edit()
+            .putString(
+                KEY_NAME,
+                name
+            )
+            .apply()
+    }
+
     fun clearSession() {
 
         preferences

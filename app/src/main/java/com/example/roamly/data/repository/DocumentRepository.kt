@@ -1,6 +1,7 @@
 package com.example.roamly.data.repository
 
 import android.content.Context
+import com.example.roamly.data.auth.SessionManager
 import com.example.roamly.data.model.TravelDocument
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -9,9 +10,15 @@ class DocumentRepository(
     context: Context
 ) {
 
+    private val userId =
+        SessionManager(
+            context
+        ).getUserId()
+            ?: "guest"
+
     private val sharedPreferences =
         context.getSharedPreferences(
-            "roamly_documents",
+            "roamly_documents_${userId}",
             Context.MODE_PRIVATE
         )
 

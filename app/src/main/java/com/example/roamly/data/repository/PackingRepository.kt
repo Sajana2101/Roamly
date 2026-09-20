@@ -1,6 +1,7 @@
 package com.example.roamly.data.repository
 
 import android.content.Context
+import com.example.roamly.data.auth.SessionManager
 import com.example.roamly.data.model.PackingItem
 import com.example.roamly.data.model.PackingList
 import com.google.gson.Gson
@@ -10,9 +11,15 @@ class PackingRepository(
     context: Context
 ) {
 
+    private val userId =
+        SessionManager(
+            context
+        ).getUserId()
+            ?: "guest"
+
     private val sharedPreferences =
         context.getSharedPreferences(
-            "roamly_packing",
+            "roamly_packing_${userId}",
             Context.MODE_PRIVATE
         )
 
