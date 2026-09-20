@@ -26,6 +26,7 @@ import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import com.example.roamly.data.storage.HolidayImageStorage
 
 class AddHolidayFragment :
     Fragment(R.layout.fragment_add_holiday) {
@@ -119,9 +120,28 @@ class AddHolidayFragment :
                 )
             }
 
-            selectedCoverImageUri = uri
+            val savedUri =
+                HolidayImageStorage.saveImage(
+                    requireContext(),
+                    uri
+                )
 
-            coverImageView.setImageURI(uri)
+            if (savedUri == null) {
+                Toast.makeText(
+                    requireContext(),
+                    "Could not save image.",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                return@registerForActivityResult
+            }
+
+            selectedCoverImageUri =
+                savedUri
+
+            coverImageView.setImageURI(
+                savedUri
+            )
 
             coverImageView.visibility =
                 View.VISIBLE
