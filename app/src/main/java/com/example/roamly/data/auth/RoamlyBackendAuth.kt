@@ -38,7 +38,6 @@ object RoamlyAuthClient {
 
     private const val BASE_URL =
         "https://roamly-api-sujen-g7d4bscfbba6aaex.southafricanorth-01.azurewebsites.net/"
-
     private val httpClient =
         OkHttpClient.Builder()
             .connectTimeout(
