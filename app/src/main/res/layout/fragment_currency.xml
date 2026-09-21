@@ -311,15 +311,6 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Temporary note until the live currency endpoint is ready -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:gravity="center"
-            android:text="@string/currency_mock_rates_note"
-            android:textColor="#8A96A3"
-            android:textSize="9sp" />
 
     </LinearLayout>
 

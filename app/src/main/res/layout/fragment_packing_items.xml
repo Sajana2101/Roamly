@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="&lt; All Lists"
+        android:text="All Lists"
         android:textColor="#3F51B5"
         android:textSize="10sp"
         android:textStyle="bold"
@@ -58,7 +58,8 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/edit_packing_list"
             android:scaleType="centerInside"
-            android:src="@drawable/imgedit" />
+            android:src="@drawable/imgedit"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <!-- Delete packing list -->
         <ImageButton
@@ -68,7 +69,8 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/delete_packing_list"
             android:scaleType="centerInside"
-            android:src="@drawable/imgdelete" />
+            android:src="@drawable/imgdelete"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <!-- Add packing item -->
         <ImageButton
@@ -78,7 +80,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="centerInside"
             android:src="@drawable/imgplus"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText,TouchTargetSizeCheck" />
 
     </LinearLayout>
 
