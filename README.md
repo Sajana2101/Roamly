@@ -66,7 +66,8 @@ and database layers.
 The Android application communicates with the REST API using Retrofit. The API processes requests and 
 communicates with the Azure SQL database through Prisma ORM.
 
-[ add diagram ] 
+<img width="950" height="466" alt="image" src="https://github.com/user-attachments/assets/de5519fa-693a-4ada-b1d4-2dfc1cf87d79" />
+
 ________________________________________
 ## Architectural Design Overview 
 The Android application acts as the presentation layer and contains the Dashboard, Itinerary, Currency, 
