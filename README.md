@@ -186,8 +186,7 @@ The backend has been tested end-to-end, and once the service is active, requests
 ___________________
 ## Demonstration Video
 A YouTube video demonstration of the application is available below:
-[…….]
-
+https://youtu.be/19JSbAVfl0A
 _______________
 ## References
 Bernard, N. B., 2025 . Understanding the 3-tier architecture. [Online] 
