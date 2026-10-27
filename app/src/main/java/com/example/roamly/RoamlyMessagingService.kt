@@ -37,6 +37,29 @@ class RoamlyMessagingService : FirebaseMessagingService() {
     }
 
 
+    override fun onUnregistered(installationId: String) {
+        super.onUnregistered(installationId)
+
+        val preferences = getSharedPreferences(
+            "roamly_notifications",
+            MODE_PRIVATE
+        )
+
+        if (
+            preferences.getString(
+                "firebase_installation_id",
+                null
+            ) == installationId
+        ) {
+            preferences.edit()
+                .remove("firebase_installation_id")
+                .apply()
+        }
+
+        Log.d(TAG, "Firebase device unregistered")
+    }
+
+
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
