@@ -560,41 +560,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
     private fun restoreExistingScreen() {
-
-        if (
-            isFullyAuthenticated()
-        ) {
-
-            val currentFragment =
-                supportFragmentManager
-                    .findFragmentById(
-                        R.id.fragmentContainer
-                    )
-
-            if (
-                currentFragment is LoginFragment ||
-                currentFragment is RegisterFragment
-            ) {
-
-                showHomeAfterAuthentication()
-
-            } else {
-
-                restoreScreenChrome()
-
-                restoreBottomNavigation(
-                    currentFragment
-                )
-            }
-
+        if (isFullyAuthenticated()) {
+            showBiometricLock()
         } else {
-
             clearIncompleteAuthentication()
-
             showLogin()
         }
     }
+
 
     private fun restoreBottomNavigation(
         fragment: Fragment?
