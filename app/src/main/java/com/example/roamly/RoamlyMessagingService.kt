@@ -22,6 +22,21 @@ class RoamlyMessagingService : FirebaseMessagingService() {
         private const val TAG = "RoamlyFCM"
     }
 
+
+    override fun onRegistered(installationId: String) {
+        super.onRegistered(installationId)
+
+        getSharedPreferences(
+            "roamly_notifications",
+            MODE_PRIVATE
+        ).edit()
+            .putString("firebase_installation_id", installationId)
+            .apply()
+
+        Log.d(TAG, "Firebase device registered successfully")
+    }
+
+
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
