@@ -3,6 +3,7 @@ package com.example.roamly.ui.reminders
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roamly.R
 import com.example.roamly.data.model.Reminder
+import com.example.roamly.data.reminders.ReminderAlarmScheduler
 import com.example.roamly.data.reminders.ReminderLocalStore
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -38,10 +40,9 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
 
         reminderStore = ReminderLocalStore(requireContext())
 
-        val recyclerView =
-            view.findViewById<RecyclerView>(
-                R.id.remindersRecyclerView
-            )
+        val recyclerView = view.findViewById<RecyclerView>(
+            R.id.remindersRecyclerView
+        )
 
         reminderAdapter = ReminderAdapter(
             onEdit = { reminder ->
@@ -66,6 +67,13 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
             showReminderDialog()
         }
 
+        reminderStore.getReminders().forEach { reminder ->
+            ReminderAlarmScheduler.schedule(
+                requireContext(),
+                reminder
+            )
+        }
+
         refreshReminderList()
     }
 
@@ -74,15 +82,13 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
 
         val reminders = reminderStore.getReminders()
 
-        val recyclerView =
-            currentView.findViewById<RecyclerView>(
-                R.id.remindersRecyclerView
-            )
+        val recyclerView = currentView.findViewById<RecyclerView>(
+            R.id.remindersRecyclerView
+        )
 
-        val emptyState =
-            currentView.findViewById<View>(
-                R.id.remindersEmptyState
-            )
+        val emptyState = currentView.findViewById<View>(
+            R.id.remindersEmptyState
+        )
 
         reminderAdapter.updateReminders(reminders)
 
@@ -99,10 +105,9 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
         val dialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.dialog_reminder, null)
 
-        val dialogTitle =
-            dialogView.findViewById<TextView>(
-                R.id.reminderDialogTitle
-            )
+        val dialogTitle = dialogView.findViewById<TextView>(
+            R.id.reminderDialogTitle
+        )
 
         val titleInputLayout =
             dialogView.findViewById<TextInputLayout>(
@@ -114,15 +119,13 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
                 R.id.reminderTitleEditText
             )
 
-        val dateButton =
-            dialogView.findViewById<MaterialButton>(
-                R.id.reminderDateButton
-            )
+        val dateButton = dialogView.findViewById<MaterialButton>(
+            R.id.reminderDateButton
+        )
 
-        val timeButton =
-            dialogView.findViewById<MaterialButton>(
-                R.id.reminderTimeButton
-            )
+        val timeButton = dialogView.findViewById<MaterialButton>(
+            R.id.reminderTimeButton
+        )
 
         val enabledSwitch =
             dialogView.findViewById<SwitchMaterial>(
@@ -146,8 +149,7 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
 
             titleInput.setText(existingReminder.title)
 
-            enabledSwitch.isChecked =
-                existingReminder.isEnabled
+            enabledSwitch.isChecked = existingReminder.isEnabled
 
             val calendar = Calendar.getInstance().apply {
                 timeInMillis = existingReminder.scheduledAtMillis
@@ -163,8 +165,7 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
         }
 
         dateButton.setOnClickListener {
-            val calendar =
-                selectedDate ?: Calendar.getInstance()
+            val calendar = selectedDate ?: Calendar.getInstance()
 
             val datePicker = DatePickerDialog(
                 requireContext(),
@@ -198,13 +199,11 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
             }
 
             datePicker.datePicker.minDate = today.timeInMillis
-
             datePicker.show()
         }
 
         timeButton.setOnClickListener {
-            val calendar =
-                selectedTime ?: Calendar.getInstance()
+            val calendar = selectedTime ?: Calendar.getInstance()
 
             val timePicker = TimePickerDialog(
                 requireContext(),
@@ -248,7 +247,7 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
 
         dialog.setOnShowListener {
             dialog.getButton(
-                android.content.DialogInterface.BUTTON_POSITIVE
+                DialogInterface.BUTTON_POSITIVE
             ).setOnClickListener {
 
                 val title = titleInput.text
@@ -322,8 +321,7 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
                     isEnabled = enabledSwitch.isChecked
                 )
 
-                val currentReminders =
-                    reminderStore.getReminders()
+                val currentReminders = reminderStore.getReminders()
 
                 val updatedReminders =
                     if (existingReminder == null) {
@@ -342,6 +340,11 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
                     }
 
                 reminderStore.saveReminders(updatedReminders)
+
+                ReminderAlarmScheduler.schedule(
+                    requireContext(),
+                    reminder
+                )
 
                 refreshReminderList()
 
@@ -368,7 +371,9 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
                 R.string.reminders_cancel,
                 null
             )
-            .setPositiveButton(R.string.reminders_delete) { _, _ ->
+            .setPositiveButton(
+                R.string.reminders_delete
+            ) { _, _ ->
 
                 val updatedReminders =
                     reminderStore.getReminders().filterNot {
@@ -376,6 +381,11 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
                     }
 
                 reminderStore.saveReminders(updatedReminders)
+
+                ReminderAlarmScheduler.cancel(
+                    requireContext(),
+                    reminder.reminderId
+                )
 
                 refreshReminderList()
 
@@ -397,16 +407,25 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
             return
         }
 
+        val updatedReminder = reminder.copy(
+            isEnabled = enabled
+        )
+
         val updatedReminders =
             reminderStore.getReminders().map {
                 if (it.reminderId == reminder.reminderId) {
-                    it.copy(isEnabled = enabled)
+                    updatedReminder
                 } else {
                     it
                 }
             }
 
         reminderStore.saveReminders(updatedReminders)
+
+        ReminderAlarmScheduler.schedule(
+            requireContext(),
+            updatedReminder
+        )
 
         refreshReminderList()
     }
