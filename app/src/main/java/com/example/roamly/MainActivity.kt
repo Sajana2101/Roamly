@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.roamly.data.auth.SessionManager
+import com.example.roamly.ui.auth.BiometricLockFragment
 import com.example.roamly.ui.auth.LoginFragment
 import com.example.roamly.ui.auth.RegisterFragment
 import com.example.roamly.ui.currency.CurrencyFragment
@@ -541,13 +542,14 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+
     private fun showInitialScreen() {
 
         if (
             isFullyAuthenticated()
         ) {
 
-            showHomeAfterAuthentication()
+            showBiometricLock()
 
         } else {
 
@@ -556,6 +558,7 @@ class MainActivity : AppCompatActivity() {
             showLogin()
         }
     }
+
 
     private fun restoreExistingScreen() {
 
@@ -692,6 +695,13 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    fun showBiometricLock() {
+        showAuthScreen(
+            BiometricLockFragment()
+        )
+    }
+
+
     fun showHomeAfterAuthentication() {
 
         showMainNavigation()
@@ -756,6 +766,7 @@ class MainActivity : AppCompatActivity() {
             "Edit Holiday"
         )
     }
+
 
     private fun showAuthScreen(
         fragment: Fragment
