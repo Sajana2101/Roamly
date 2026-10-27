@@ -3,11 +3,11 @@ package com.example.roamly.ui.reminders
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,37 +38,20 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
 
         reminderStore = ReminderLocalStore(requireContext())
 
-        val addReminderButton =
-            view.findViewById<MaterialButton>(
-                R.id.btnAddReminder
-            )
-
         val recyclerView =
             view.findViewById<RecyclerView>(
                 R.id.remindersRecyclerView
             )
 
         reminderAdapter = ReminderAdapter(
-            onEdit = {
-                Toast.makeText(
-                    requireContext(),
-                    "Reminder editing is not available yet",
-                    Toast.LENGTH_SHORT
-                ).show()
+            onEdit = { reminder ->
+                showReminderDialog(reminder)
             },
-            onDelete = {
-                Toast.makeText(
-                    requireContext(),
-                    "Reminder deletion is not available yet",
-                    Toast.LENGTH_SHORT
-                ).show()
+            onDelete = { reminder ->
+                confirmDeleteReminder(reminder)
             },
-            onEnabledChange = { _, _ ->
-                Toast.makeText(
-                    requireContext(),
-                    "Reminder updates are not available yet",
-                    Toast.LENGTH_SHORT
-                ).show()
+            onEnabledChange = { reminder, enabled ->
+                updateReminderEnabled(reminder, enabled)
             }
         )
 
@@ -77,41 +60,49 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
 
         recyclerView.adapter = reminderAdapter
 
-        updateReminderList(view, reminderStore.getReminders())
-
-        addReminderButton.setOnClickListener {
-            showAddReminderDialog()
+        view.findViewById<MaterialButton>(
+            R.id.btnAddReminder
+        ).setOnClickListener {
+            showReminderDialog()
         }
+
+        refreshReminderList()
     }
 
-    private fun updateReminderList(
-        view: View,
-        reminders: List<Reminder>
-    ) {
+    private fun refreshReminderList() {
+        val currentView = view ?: return
+
+        val reminders = reminderStore.getReminders()
+
         val recyclerView =
-            view.findViewById<RecyclerView>(
+            currentView.findViewById<RecyclerView>(
                 R.id.remindersRecyclerView
             )
 
         val emptyState =
-            view.findViewById<View>(
+            currentView.findViewById<View>(
                 R.id.remindersEmptyState
             )
 
         reminderAdapter.updateReminders(reminders)
 
-        if (reminders.isEmpty()) {
-            recyclerView.visibility = View.GONE
-            emptyState.visibility = View.VISIBLE
-        } else {
-            recyclerView.visibility = View.VISIBLE
-            emptyState.visibility = View.GONE
-        }
+        recyclerView.visibility =
+            if (reminders.isEmpty()) View.GONE else View.VISIBLE
+
+        emptyState.visibility =
+            if (reminders.isEmpty()) View.VISIBLE else View.GONE
     }
 
-    private fun showAddReminderDialog() {
+    private fun showReminderDialog(
+        existingReminder: Reminder? = null
+    ) {
         val dialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.dialog_reminder, null)
+
+        val dialogTitle =
+            dialogView.findViewById<TextView>(
+                R.id.reminderDialogTitle
+            )
 
         val titleInputLayout =
             dialogView.findViewById<TextInputLayout>(
@@ -138,27 +129,57 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
                 R.id.reminderEnabledSwitch
             )
 
+        val dateFormat = SimpleDateFormat(
+            "dd MMM yyyy",
+            Locale.getDefault()
+        )
+
+        val timeFormat = DateFormat.getTimeFormat(
+            requireContext()
+        )
+
         var selectedDate: Calendar? = null
         var selectedTime: Calendar? = null
 
+        if (existingReminder != null) {
+            dialogTitle.setText(R.string.reminders_edit)
+
+            titleInput.setText(existingReminder.title)
+
+            enabledSwitch.isChecked =
+                existingReminder.isEnabled
+
+            val calendar = Calendar.getInstance().apply {
+                timeInMillis = existingReminder.scheduledAtMillis
+            }
+
+            selectedDate = calendar.clone() as Calendar
+            selectedTime = calendar.clone() as Calendar
+
+            dateButton.text = dateFormat.format(calendar.time)
+            timeButton.text = timeFormat.format(calendar.time)
+        } else {
+            dialogTitle.setText(R.string.reminders_add)
+        }
+
         dateButton.setOnClickListener {
-            val calendar = selectedDate ?: Calendar.getInstance()
+            val calendar =
+                selectedDate ?: Calendar.getInstance()
 
             val datePicker = DatePickerDialog(
                 requireContext(),
-                { _, year, month, dayOfMonth ->
+                { _, year, month, day ->
                     val chosenDate = Calendar.getInstance().apply {
                         set(Calendar.YEAR, year)
                         set(Calendar.MONTH, month)
-                        set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        set(Calendar.DAY_OF_MONTH, day)
+                        set(Calendar.HOUR_OF_DAY, 0)
+                        set(Calendar.MINUTE, 0)
+                        set(Calendar.SECOND, 0)
+                        set(Calendar.MILLISECOND, 0)
                     }
 
                     selectedDate = chosenDate
-
-                    val dateFormat = SimpleDateFormat(
-                        "dd MMM yyyy",
-                        Locale.getDefault()
-                    )
 
                     dateButton.text = dateFormat.format(
                         chosenDate.time
@@ -177,27 +198,25 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
             }
 
             datePicker.datePicker.minDate = today.timeInMillis
+
             datePicker.show()
         }
 
         timeButton.setOnClickListener {
-            val calendar = selectedTime ?: Calendar.getInstance()
+            val calendar =
+                selectedTime ?: Calendar.getInstance()
 
             val timePicker = TimePickerDialog(
                 requireContext(),
-                { _, hourOfDay, minute ->
+                { _, hour, minute ->
                     val chosenTime = Calendar.getInstance().apply {
-                        set(Calendar.HOUR_OF_DAY, hourOfDay)
+                        set(Calendar.HOUR_OF_DAY, hour)
                         set(Calendar.MINUTE, minute)
                         set(Calendar.SECOND, 0)
                         set(Calendar.MILLISECOND, 0)
                     }
 
                     selectedTime = chosenTime
-
-                    val timeFormat = DateFormat.getTimeFormat(
-                        requireContext()
-                    )
 
                     timeButton.text = timeFormat.format(
                         chosenTime.time
@@ -213,13 +232,23 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
 
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(dialogView)
-            .setPositiveButton(R.string.reminders_save, null)
-            .setNegativeButton(R.string.reminders_cancel, null)
+            .setPositiveButton(
+                if (existingReminder == null) {
+                    R.string.reminders_save
+                } else {
+                    R.string.reminders_edit
+                },
+                null
+            )
+            .setNegativeButton(
+                R.string.reminders_cancel,
+                null
+            )
             .create()
 
         dialog.setOnShowListener {
             dialog.getButton(
-                DialogInterface.BUTTON_POSITIVE
+                android.content.DialogInterface.BUTTON_POSITIVE
             ).setOnClickListener {
 
                 val title = titleInput.text
@@ -240,67 +269,153 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
                 val time = selectedTime
 
                 if (date == null || time == null) {
-                    Toast.makeText(
-                        requireContext(),
-                        R.string.reminders_invalid_date,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showMessage(
+                        getString(R.string.reminders_invalid_date)
+                    )
 
                     return@setOnClickListener
                 }
 
-                val scheduledDateTime = Calendar.getInstance().apply {
-                    set(Calendar.YEAR, date.get(Calendar.YEAR))
-                    set(Calendar.MONTH, date.get(Calendar.MONTH))
-                    set(Calendar.DAY_OF_MONTH, date.get(Calendar.DAY_OF_MONTH))
-                    set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY))
-                    set(Calendar.MINUTE, time.get(Calendar.MINUTE))
-                    set(Calendar.SECOND, 0)
-                    set(Calendar.MILLISECOND, 0)
-                }
+                val scheduledDateTime =
+                    Calendar.getInstance().apply {
+                        set(
+                            Calendar.YEAR,
+                            date.get(Calendar.YEAR)
+                        )
+                        set(
+                            Calendar.MONTH,
+                            date.get(Calendar.MONTH)
+                        )
+                        set(
+                            Calendar.DAY_OF_MONTH,
+                            date.get(Calendar.DAY_OF_MONTH)
+                        )
+                        set(
+                            Calendar.HOUR_OF_DAY,
+                            time.get(Calendar.HOUR_OF_DAY)
+                        )
+                        set(
+                            Calendar.MINUTE,
+                            time.get(Calendar.MINUTE)
+                        )
+                        set(Calendar.SECOND, 0)
+                        set(Calendar.MILLISECOND, 0)
+                    }
 
                 if (
                     scheduledDateTime.timeInMillis <=
                     System.currentTimeMillis()
                 ) {
-                    Toast.makeText(
-                        requireContext(),
-                        R.string.reminders_invalid_date,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showMessage(
+                        getString(R.string.reminders_invalid_date)
+                    )
 
                     return@setOnClickListener
                 }
 
                 val reminder = Reminder(
-                    reminderId = UUID.randomUUID().toString(),
+                    reminderId = existingReminder?.reminderId
+                        ?: UUID.randomUUID().toString(),
                     title = title,
-                    scheduledAtMillis = scheduledDateTime.timeInMillis,
+                    scheduledAtMillis =
+                        scheduledDateTime.timeInMillis,
                     isEnabled = enabledSwitch.isChecked
                 )
 
                 val currentReminders =
                     reminderStore.getReminders()
 
-                reminderStore.saveReminders(
-                    currentReminders + reminder
-                )
+                val updatedReminders =
+                    if (existingReminder == null) {
+                        currentReminders + reminder
+                    } else {
+                        currentReminders.map {
+                            if (
+                                it.reminderId ==
+                                existingReminder.reminderId
+                            ) {
+                                reminder
+                            } else {
+                                it
+                            }
+                        }
+                    }
 
-                updateReminderList(
-                    requireView(),
-                    reminderStore.getReminders()
-                )
+                reminderStore.saveReminders(updatedReminders)
 
-                Toast.makeText(
-                    requireContext(),
-                    "Reminder saved successfully",
-                    Toast.LENGTH_SHORT
-                ).show()
+                refreshReminderList()
+
+                showMessage(
+                    if (existingReminder == null) {
+                        "Reminder saved successfully"
+                    } else {
+                        "Reminder updated successfully"
+                    }
+                )
 
                 dialog.dismiss()
             }
         }
 
         dialog.show()
+    }
+
+    private fun confirmDeleteReminder(reminder: Reminder) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.reminders_delete)
+            .setMessage(R.string.reminders_delete_confirmation)
+            .setNegativeButton(
+                R.string.reminders_cancel,
+                null
+            )
+            .setPositiveButton(R.string.reminders_delete) { _, _ ->
+
+                val updatedReminders =
+                    reminderStore.getReminders().filterNot {
+                        it.reminderId == reminder.reminderId
+                    }
+
+                reminderStore.saveReminders(updatedReminders)
+
+                refreshReminderList()
+
+                showMessage("Reminder deleted successfully")
+            }
+            .show()
+    }
+
+    private fun updateReminderEnabled(
+        reminder: Reminder,
+        enabled: Boolean
+    ) {
+        if (
+            enabled &&
+            reminder.scheduledAtMillis <= System.currentTimeMillis()
+        ) {
+            showMessage("Cannot enable a reminder in the past")
+            refreshReminderList()
+            return
+        }
+
+        val updatedReminders =
+            reminderStore.getReminders().map {
+                if (it.reminderId == reminder.reminderId) {
+                    it.copy(isEnabled = enabled)
+                } else {
+                    it
+                }
+            }
+
+        reminderStore.saveReminders(updatedReminders)
+
+        refreshReminderList()
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(
+            requireContext(),
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
