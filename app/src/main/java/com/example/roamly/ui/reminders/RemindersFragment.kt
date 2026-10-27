@@ -7,8 +7,12 @@ import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.roamly.R
+import com.example.roamly.data.model.Reminder
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.SimpleDateFormat
@@ -16,6 +20,8 @@ import java.util.Calendar
 import java.util.Locale
 
 class RemindersFragment : Fragment(R.layout.fragment_reminders) {
+
+    private lateinit var reminderAdapter: ReminderAdapter
 
     override fun onViewCreated(
         view: View,
@@ -28,8 +34,69 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
                 R.id.btnAddReminder
             )
 
+        val recyclerView =
+            view.findViewById<RecyclerView>(
+                R.id.remindersRecyclerView
+            )
+
+        reminderAdapter = ReminderAdapter(
+            onEdit = {
+                Toast.makeText(
+                    requireContext(),
+                    "Reminder editing is not available yet",
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+            onDelete = {
+                Toast.makeText(
+                    requireContext(),
+                    "Reminder deletion is not available yet",
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+            onEnabledChange = { _, _ ->
+                Toast.makeText(
+                    requireContext(),
+                    "Reminder updates are not available yet",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        )
+
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext())
+
+        recyclerView.adapter = reminderAdapter
+
+        updateReminderList(view, emptyList())
+
         addReminderButton.setOnClickListener {
             showAddReminderDialog()
+        }
+    }
+
+    private fun updateReminderList(
+        view: View,
+        reminders: List<Reminder>
+    ) {
+        val recyclerView =
+            view.findViewById<RecyclerView>(
+                R.id.remindersRecyclerView
+            )
+
+        val emptyState =
+            view.findViewById<View>(
+                R.id.remindersEmptyState
+            )
+
+        reminderAdapter.updateReminders(reminders)
+
+        if (reminders.isEmpty()) {
+            recyclerView.visibility = View.GONE
+            emptyState.visibility = View.VISIBLE
+        } else {
+            recyclerView.visibility = View.VISIBLE
+            emptyState.visibility = View.GONE
         }
     }
 
