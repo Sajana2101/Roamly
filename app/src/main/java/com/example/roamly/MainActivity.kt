@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.roamly.data.auth.SessionManager
+import com.example.roamly.ui.auth.BiometricLockFragment
 import com.example.roamly.ui.auth.LoginFragment
 import com.example.roamly.ui.auth.RegisterFragment
 import com.example.roamly.ui.currency.CurrencyFragment
@@ -92,6 +93,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navDocumentsText:
             TextView
+
+
+    private var requireBiometricOnReturn = false
 
     override fun onCreate(
         savedInstanceState: Bundle?
@@ -213,6 +217,36 @@ class MainActivity : AppCompatActivity() {
             restoreExistingScreen()
         }
     }
+
+
+    override fun onStart() {
+        super.onStart()
+
+        if (requireBiometricOnReturn && isFullyAuthenticated()) {
+            requireBiometricOnReturn = false
+
+            val currentFragment = supportFragmentManager
+                .findFragmentById(R.id.fragmentContainer)
+
+            if (currentFragment !is BiometricLockFragment) {
+                showBiometricLock()
+            }
+        }
+    }
+
+    override fun onStop() {
+        if (isFullyAuthenticated()) {
+            val currentFragment = supportFragmentManager
+                .findFragmentById(R.id.fragmentContainer)
+
+            if (currentFragment !is BiometricLockFragment) {
+                requireBiometricOnReturn = true
+            }
+        }
+
+        super.onStop()
+    }
+
 
     private fun setupBottomNavigation() {
 
@@ -541,13 +575,14 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+
     private fun showInitialScreen() {
 
         if (
             isFullyAuthenticated()
         ) {
 
-            showHomeAfterAuthentication()
+            showBiometricLock()
 
         } else {
 
@@ -556,42 +591,18 @@ class MainActivity : AppCompatActivity() {
             showLogin()
         }
     }
+
+
 
     private fun restoreExistingScreen() {
-
-        if (
-            isFullyAuthenticated()
-        ) {
-
-            val currentFragment =
-                supportFragmentManager
-                    .findFragmentById(
-                        R.id.fragmentContainer
-                    )
-
-            if (
-                currentFragment is LoginFragment ||
-                currentFragment is RegisterFragment
-            ) {
-
-                showHomeAfterAuthentication()
-
-            } else {
-
-                restoreScreenChrome()
-
-                restoreBottomNavigation(
-                    currentFragment
-                )
-            }
-
+        if (isFullyAuthenticated()) {
+            showBiometricLock()
         } else {
-
             clearIncompleteAuthentication()
-
             showLogin()
         }
     }
+
 
     private fun restoreBottomNavigation(
         fragment: Fragment?
@@ -692,6 +703,13 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    fun showBiometricLock() {
+        showAuthScreen(
+            BiometricLockFragment()
+        )
+    }
+
+
     fun showHomeAfterAuthentication() {
 
         showMainNavigation()
@@ -756,6 +774,7 @@ class MainActivity : AppCompatActivity() {
             "Edit Holiday"
         )
     }
+
 
     private fun showAuthScreen(
         fragment: Fragment
