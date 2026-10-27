@@ -72,15 +72,19 @@ dependencies {
         )
     )
 
+    implementation("com.google.firebase:firebase-auth")
+
+
+    implementation("com.google.firebase:firebase-messaging"
+    )
+
 
     implementation("androidx.biometric:biometric:1.1.0"
     )
 
     implementation(libs.androidx.appcompat)
 
-    implementation(
-        "com.google.firebase:firebase-auth"
-    )
+    implementation("com.google.firebase:firebase-auth")
 
     implementation(
         "androidx.credentials:credentials:1.3.0"

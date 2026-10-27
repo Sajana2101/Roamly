@@ -1,5 +1,12 @@
 package com.example.roamly
 
+
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -96,6 +103,18 @@ class MainActivity : AppCompatActivity() {
 
 
     private var requireBiometricOnReturn = false
+
+
+    private val notificationPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { granted ->
+            if (granted) {
+                Log.d("RoamlyFCM", "Notification permission granted")
+            } else {
+                Log.d("RoamlyFCM", "Notification permission denied")
+            }
+        }
 
     override fun onCreate(
         savedInstanceState: Bundle?
@@ -384,6 +403,40 @@ class MainActivity : AppCompatActivity() {
             )
         }
     }
+
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            return
+        }
+
+        if (
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+
+        val preferences = getSharedPreferences(
+            "roamly_notifications",
+            MODE_PRIVATE
+        )
+
+        if (preferences.getBoolean("permission_requested", false)) {
+            return
+        }
+
+        preferences.edit()
+            .putBoolean("permission_requested", true)
+            .apply()
+
+        notificationPermissionLauncher.launch(
+            Manifest.permission.POST_NOTIFICATIONS
+        )
+    }
+
 
     private fun openAddHoliday() {
 
@@ -722,6 +775,9 @@ class MainActivity : AppCompatActivity() {
             HomeFragment(),
             "My Holidays"
         )
+
+        requestNotificationPermission()
+
     }
 
     fun showAddHoliday() {
