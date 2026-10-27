@@ -57,11 +57,14 @@
             android:textAllCaps="false"
             app:cornerRadius="12dp" />
 
+
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/reminderEnabledSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:minHeight="48dp"
             android:text="@string/reminders_enable"
             android:textColor="@color/roamly_text_primary"
             android:checked="true" />
