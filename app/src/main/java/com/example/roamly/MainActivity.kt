@@ -94,6 +94,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navDocumentsText:
             TextView
 
+
+    private var requireBiometricOnReturn = false
+
     override fun onCreate(
         savedInstanceState: Bundle?
     ) {
@@ -214,6 +217,36 @@ class MainActivity : AppCompatActivity() {
             restoreExistingScreen()
         }
     }
+
+
+    override fun onStart() {
+        super.onStart()
+
+        if (requireBiometricOnReturn && isFullyAuthenticated()) {
+            requireBiometricOnReturn = false
+
+            val currentFragment = supportFragmentManager
+                .findFragmentById(R.id.fragmentContainer)
+
+            if (currentFragment !is BiometricLockFragment) {
+                showBiometricLock()
+            }
+        }
+    }
+
+    override fun onStop() {
+        if (isFullyAuthenticated()) {
+            val currentFragment = supportFragmentManager
+                .findFragmentById(R.id.fragmentContainer)
+
+            if (currentFragment !is BiometricLockFragment) {
+                requireBiometricOnReturn = true
+            }
+        }
+
+        super.onStop()
+    }
+
 
     private fun setupBottomNavigation() {
 
