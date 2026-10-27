@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="biometric_unlock_title">Unlock Roamly</string>
+    <string name="biometric_unlock_message">Confirm your identity to access your travel plans.</string>
+    <string name="biometric_try_again">Try biometric authentication</string>
+    <string name="biometric_use_google">Use Google sign-in</string>
+    <string name="biometric_waiting">Your Roamly session is locked.</string>
+    <string name="biometric_unavailable">Biometric authentication is unavailable. Sign in with Google to continue.</string>
+    <string name="biometric_failed">Biometric authentication was not recognised. Please try again.</string>
+    <string name="biometric_cancelled">Authentication was cancelled. Try again or use Google sign-in.</string>
+</resources>
