@@ -97,6 +97,8 @@ class AddHolidayFragment :
         registerForActivityResult(
             ActivityResultContracts.OpenDocument()
         ) { uri ->
+            (activity as? MainActivity)?.endExternalFilePicker()
+            if (!isAdded) return@registerForActivityResult
 
             if (uri == null) {
                 return@registerForActivityResult
@@ -452,6 +454,7 @@ class AddHolidayFragment :
         selectCoverImageButton
             .setOnClickListener {
 
+                (activity as? MainActivity)?.beginExternalFilePicker()
                 coverImagePicker.launch(
                     arrayOf(
                         "image/*"
