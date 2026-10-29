@@ -17,7 +17,8 @@ import java.util.Locale
 class ReminderAdapter(
     private val onEdit: (Reminder) -> Unit,
     private val onDelete: (Reminder) -> Unit,
-    private val onEnabledChange: (Reminder, Boolean) -> Unit
+    private val onEnabledChange: (Reminder, Boolean) -> Unit,
+    private val holidayNameForId: (Int?) -> String?
 ) : RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder>() {
 
     private var reminders: List<Reminder> = emptyList()
@@ -45,7 +46,6 @@ class ReminderAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ReminderViewHolder {
-
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_reminder, parent, false)
 
@@ -65,12 +65,21 @@ class ReminderAdapter(
             Locale.getDefault()
         )
 
-        holder.date.text = dateFormat.format(
-            Date(reminder.scheduledAtMillis)
+        val details = mutableListOf(
+            dateFormat.format(Date(reminder.scheduledAtMillis))
         )
 
-        holder.enabledSwitch.setOnCheckedChangeListener(null)
+        holidayNameForId(reminder.holidayId)?.let {
+            details.add("Holiday: $it")
+        }
 
+        if (reminder.description.isNotBlank()) {
+            details.add(reminder.description)
+        }
+
+        holder.date.text = details.joinToString("\n")
+
+        holder.enabledSwitch.setOnCheckedChangeListener(null)
         holder.enabledSwitch.isChecked = reminder.isEnabled
 
         holder.enabledSwitch.setOnCheckedChangeListener { _, checked ->
@@ -86,9 +95,7 @@ class ReminderAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return reminders.size
-    }
+    override fun getItemCount(): Int = reminders.size
 
     fun updateReminders(newReminders: List<Reminder>) {
         reminders = newReminders.toList()

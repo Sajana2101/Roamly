@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.roamly.MainActivity
 import com.example.roamly.R
 import com.example.roamly.data.model.TravelDocument
 import com.example.roamly.data.repository.DocumentRepository
@@ -69,6 +70,8 @@ class DocumentsFragment :
             ActivityResultContracts
                 .OpenDocument()
         ) { uri ->
+            (activity as? MainActivity)?.endExternalFilePicker()
+            if (!isAdded) return@registerForActivityResult
 
             if (
                 uri == null
@@ -94,6 +97,8 @@ class DocumentsFragment :
             ActivityResultContracts
                 .OpenDocument()
         ) { uri ->
+            (activity as? MainActivity)?.endExternalFilePicker()
+            if (!isAdded) return@registerForActivityResult
 
             if (
                 uri == null
@@ -340,6 +345,7 @@ class DocumentsFragment :
         chooseFileButton
             .setOnClickListener {
 
+                (activity as? MainActivity)?.beginExternalFilePicker()
                 addFilePicker.launch(
                     supportedDocumentTypes()
                 )
@@ -454,6 +460,7 @@ class DocumentsFragment :
         notes: String,
         uri: Uri
     ): Boolean {
+        if (!isAdded) return false
 
         return try {
 
@@ -695,6 +702,7 @@ class DocumentsFragment :
         replaceFileButton
             .setOnClickListener {
 
+                (activity as? MainActivity)?.beginExternalFilePicker()
                 editFilePicker.launch(
                     supportedDocumentTypes()
                 )
@@ -800,6 +808,7 @@ class DocumentsFragment :
         notes: String,
         replacementUri: Uri?
     ): Boolean {
+        if (!isAdded) return false
 
         return try {
 

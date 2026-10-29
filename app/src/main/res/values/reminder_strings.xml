@@ -7,10 +7,14 @@
     <string name="reminders_empty_title">No reminders yet</string>
     <string name="reminders_empty_message">Create your first reminder to stay on top of your travel plans.</string>
     <string name="reminders_name">Reminder Title</string>
+    <string name="reminders_description">Description (Optional)</string>
+    <string name="reminders_select_holiday">Select Holiday</string>
+    <string name="reminders_holiday_required">Please select a holiday.</string>
+    <string name="reminders_no_holidays">Create a holiday first before adding reminders.</string>
     <string name="reminders_date">Select Date</string>
     <string name="reminders_time">Select Time</string>
     <string name="reminders_save">Save Reminder</string>
-    <string name="reminders_edit">Edit Reminder</string>
+    <string name="reminders_edit">Edit</string>
     <string name="reminders_delete">Delete</string>
     <string name="reminders_enable">Enable</string>
     <string name="reminders_cancel">Cancel</string>

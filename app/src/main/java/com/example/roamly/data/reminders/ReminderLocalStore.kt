@@ -24,11 +24,7 @@ class ReminderLocalStore(context: Context) {
 
     fun getReminders(): List<Reminder> {
         val key = getStorageKey() ?: return emptyList()
-
-        val storedData = preferences.getString(
-            key,
-            "[]"
-        ) ?: "[]"
+        val storedData = preferences.getString(key, "[]") ?: "[]"
 
         return try {
             val jsonArray = JSONArray(storedData)
@@ -41,39 +37,42 @@ class ReminderLocalStore(context: Context) {
                     Reminder(
                         reminderId = item.getString("reminderId"),
                         title = item.getString("title"),
-                        scheduledAtMillis = item.getLong(
-                            "scheduledAtMillis"
-                        ),
-                        isEnabled = item.optBoolean(
-                            "isEnabled",
-                            true
-                        )
+                        scheduledAtMillis = item.getLong("scheduledAtMillis"),
+                        isEnabled = item.optBoolean("isEnabled", true),
+                        description = item.optString("description", ""),
+                        holidayId = if (
+                            item.has("holidayId") &&
+                            !item.isNull("holidayId")
+                        ) {
+                            item.getInt("holidayId")
+                        } else {
+                            null
+                        }
                     )
                 )
             }
 
-            reminders.sortedBy {
-                it.scheduledAtMillis
-            }
-        } catch (exception: Exception) {
+            reminders.sortedBy { it.scheduledAtMillis }
+        } catch (_: Exception) {
             emptyList()
         }
     }
 
     fun saveReminders(reminders: List<Reminder>) {
         val key = getStorageKey() ?: return
-
         val jsonArray = JSONArray()
 
         reminders.forEach { reminder ->
             val item = JSONObject().apply {
                 put("reminderId", reminder.reminderId)
                 put("title", reminder.title)
-                put(
-                    "scheduledAtMillis",
-                    reminder.scheduledAtMillis
-                )
+                put("scheduledAtMillis", reminder.scheduledAtMillis)
                 put("isEnabled", reminder.isEnabled)
+                put("description", reminder.description)
+
+                reminder.holidayId?.let {
+                    put("holidayId", it)
+                }
             }
 
             jsonArray.put(item)

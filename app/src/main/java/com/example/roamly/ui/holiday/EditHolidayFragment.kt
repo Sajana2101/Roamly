@@ -103,6 +103,8 @@ class EditHolidayFragment :
         registerForActivityResult(
             ActivityResultContracts.OpenDocument()
         ) { uri ->
+            (activity as? MainActivity)?.endExternalFilePicker()
+            if (!isAdded) return@registerForActivityResult
 
             if (uri == null) {
                 return@registerForActivityResult
@@ -365,6 +367,7 @@ class EditHolidayFragment :
         changeCoverImageButton
             .setOnClickListener {
 
+                (activity as? MainActivity)?.beginExternalFilePicker()
                 imagePicker.launch(
                     arrayOf(
                         "image/*"

@@ -25,7 +25,7 @@
             android:id="@+id/reminderTitleInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:hint="@string/reminders_name"
             app:boxBackgroundMode="outline">
 
@@ -39,11 +39,39 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/reminders_description"
+            app:boxBackgroundMode="outline">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/reminderDescriptionEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="500"
+                android:minLines="2"
+                android:maxLines="4" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/reminderHolidayButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/reminders_select_holiday"
+            android:textAllCaps="false"
+            app:cornerRadius="12dp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/reminderDateButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:text="@string/reminders_date"
             android:textAllCaps="false"
             app:cornerRadius="12dp" />
@@ -57,7 +85,6 @@
             android:textAllCaps="false"
             app:cornerRadius="12dp" />
 
-
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/reminderEnabledSwitch"
             android:layout_width="match_parent"
@@ -70,5 +97,4 @@
             android:checked="true" />
 
     </LinearLayout>
-
 </ScrollView>

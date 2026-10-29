@@ -103,6 +103,15 @@ class MainActivity : AppCompatActivity() {
 
 
     private var requireBiometricOnReturn = false
+    private var externalFilePickerOpen = false
+
+    fun beginExternalFilePicker() {
+        externalFilePickerOpen = true
+    }
+
+    fun endExternalFilePicker() {
+        externalFilePickerOpen = false
+    }
 
 
     private val notificationPermissionLauncher =
@@ -241,7 +250,9 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        if (requireBiometricOnReturn && isFullyAuthenticated()) {
+        if (externalFilePickerOpen) {
+            requireBiometricOnReturn = false
+        } else if (requireBiometricOnReturn && isFullyAuthenticated()) {
             requireBiometricOnReturn = false
 
             val currentFragment = supportFragmentManager
@@ -254,7 +265,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
-        if (isFullyAuthenticated()) {
+        if (!externalFilePickerOpen && isFullyAuthenticated()) {
             val currentFragment = supportFragmentManager
                 .findFragmentById(R.id.fragmentContainer)
 
