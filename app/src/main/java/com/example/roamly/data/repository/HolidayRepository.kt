@@ -1,7 +1,9 @@
+
 package com.example.roamly.data.repository
 
 import android.content.Context
 import com.example.roamly.data.auth.SessionManager
+import com.example.roamly.data.local.HolidayRoomMirror
 import com.example.roamly.data.model.Holiday
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -10,13 +12,11 @@ class HolidayRepository(
     context: Context
 ) {
 
-    // Scopes locally persisted data to the authenticated user so accounts on the same device cannot access each other's travel information
-    // Same structure is applied to documents, packing, and itinereary
+    private val applicationContext =
+        context.applicationContext
 
     private val userId =
-        SessionManager(
-            context
-        ).getUserId()
+        SessionManager(context).getUserId()
             ?: "guest"
 
     private val sharedPreferences =
@@ -26,6 +26,13 @@ class HolidayRepository(
         )
 
     private val gson = Gson()
+
+    init {
+        HolidayRoomMirror.schedule(
+            applicationContext,
+            userId
+        )
+    }
 
     fun getHolidays(): MutableList<Holiday> {
         val json =
@@ -61,8 +68,7 @@ class HolidayRepository(
     fun addHoliday(
         holiday: Holiday
     ) {
-        val holidays =
-            getHolidays()
+        val holidays = getHolidays()
 
         holidays.add(holiday)
 
@@ -72,13 +78,11 @@ class HolidayRepository(
     fun updateHoliday(
         holiday: Holiday
     ) {
-        val holidays =
-            getHolidays()
+        val holidays = getHolidays()
 
         val index =
             holidays.indexOfFirst {
-                it.holidayId ==
-                        holiday.holidayId
+                it.holidayId == holiday.holidayId
             }
 
         if (index >= 0) {
@@ -91,8 +95,7 @@ class HolidayRepository(
     fun deleteHoliday(
         holidayId: Int
     ) {
-        val holidays =
-            getHolidays()
+        val holidays = getHolidays()
 
         holidays.removeAll {
             it.holidayId == holidayId
@@ -102,8 +105,7 @@ class HolidayRepository(
     }
 
     fun getNextHolidayId(): Int {
-        val holidays =
-            getHolidays()
+        val holidays = getHolidays()
 
         val highestId =
             holidays.maxOfOrNull {
@@ -116,8 +118,7 @@ class HolidayRepository(
     private fun saveHolidays(
         holidays: List<Holiday>
     ) {
-        val json =
-            gson.toJson(holidays)
+        val json = gson.toJson(holidays)
 
         sharedPreferences
             .edit()
@@ -126,6 +127,11 @@ class HolidayRepository(
                 json
             )
             .apply()
+
+        HolidayRoomMirror.schedule(
+            applicationContext,
+            userId
+        )
     }
 
     companion object {
