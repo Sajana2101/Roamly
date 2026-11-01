@@ -2,26 +2,41 @@
 package com.example.roamly.data.repository
 
 import android.content.Context
+import androidx.work.BackoffPolicy
+import androidx.work.Constraints
+import androidx.work.ExistingWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.roamly.data.auth.SessionManager
 import com.example.roamly.data.local.RoomTravelStore
 import com.example.roamly.data.model.ItineraryActivity
 import com.example.roamly.data.model.ItineraryDay
+import com.example.roamly.data.sync.ItineraryUploadWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import java.util.concurrent.TimeUnit
 
 class ItineraryRepository(
     context: Context
 ) {
+
+    private val appContext = context.applicationContext
+
     private val userId =
-        SessionManager(context).getUserId()
+        SessionManager(appContext).getUserId()
             ?: throw IllegalStateException(
                 "Sign in to access itineraries."
             )
 
-    private val store = RoomTravelStore(context)
+    private val store = RoomTravelStore(appContext)
 
     private val preferenceName =
         "roamly_itinerary_$userId"
+
+    init {
+        requestUpload()
+    }
 
     fun getItineraryDays(
         holidayId: Int
@@ -52,6 +67,8 @@ class ItineraryRepository(
                 "$holidayId:"
             )
         }
+
+        requestUpload()
     }
 
     fun getItineraryActivities(
@@ -83,6 +100,8 @@ class ItineraryRepository(
                 "$holidayId:"
             )
         }
+
+        requestUpload()
     }
 
     fun deleteItinerary(
@@ -97,5 +116,30 @@ class ItineraryRepository(
             holidayId,
             emptyList()
         )
+    }
+
+    private fun requestUpload() {
+        val request =
+            OneTimeWorkRequestBuilder<ItineraryUploadWorker>()
+                .setConstraints(
+                    Constraints.Builder()
+                        .setRequiredNetworkType(
+                            NetworkType.CONNECTED
+                        )
+                        .build()
+                )
+                .setBackoffCriteria(
+                    BackoffPolicy.EXPONENTIAL,
+                    30,
+                    TimeUnit.SECONDS
+                )
+                .build()
+
+        WorkManager.getInstance(appContext)
+            .enqueueUniqueWork(
+                "roamly_itinerary_upload",
+                ExistingWorkPolicy.APPEND_OR_REPLACE,
+                request
+            )
     }
 }

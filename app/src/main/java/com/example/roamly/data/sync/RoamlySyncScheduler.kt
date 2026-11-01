@@ -20,27 +20,18 @@ object RoamlySyncScheduler {
     private const val IMMEDIATE_NAME =
         "roamly_connection_sync"
 
-    private val networkConstraints =
+    private val constraints =
         Constraints.Builder()
-            .setRequiredNetworkType(
-                NetworkType.CONNECTED
-            )
+            .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-    fun schedule(
-        context: Context
-    ) {
-        val manager =
-            WorkManager.getInstance(
-                context.applicationContext
-            )
-
-        val periodicRequest =
+    fun schedule(context: Context) {
+        val request =
             PeriodicWorkRequestBuilder<RoamlySyncWorker>(
                 15,
                 TimeUnit.MINUTES
             )
-                .setConstraints(networkConstraints)
+                .setConstraints(constraints)
                 .setBackoffCriteria(
                     BackoffPolicy.EXPONENTIAL,
                     30,
@@ -48,21 +39,21 @@ object RoamlySyncScheduler {
                 )
                 .build()
 
-        manager.enqueueUniquePeriodicWork(
+        WorkManager.getInstance(
+            context.applicationContext
+        ).enqueueUniquePeriodicWork(
             PERIODIC_NAME,
             ExistingPeriodicWorkPolicy.KEEP,
-            periodicRequest
+            request
         )
 
         requestNow(context)
     }
 
-    fun requestNow(
-        context: Context
-    ) {
+    fun requestNow(context: Context) {
         val request =
             OneTimeWorkRequestBuilder<RoamlySyncWorker>()
-                .setConstraints(networkConstraints)
+                .setConstraints(constraints)
                 .setBackoffCriteria(
                     BackoffPolicy.EXPONENTIAL,
                     30,
@@ -74,8 +65,11 @@ object RoamlySyncScheduler {
             context.applicationContext
         ).enqueueUniqueWork(
             IMMEDIATE_NAME,
-            ExistingWorkPolicy.KEEP,
+            ExistingWorkPolicy.APPEND_OR_REPLACE,
             request
         )
+
+        PackingRestoreWorker.request(context)
+        DocumentSyncWorker.request(context)
     }
 }

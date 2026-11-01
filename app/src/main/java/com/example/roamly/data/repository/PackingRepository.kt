@@ -6,22 +6,28 @@ import com.example.roamly.data.auth.SessionManager
 import com.example.roamly.data.local.RoomTravelStore
 import com.example.roamly.data.model.PackingItem
 import com.example.roamly.data.model.PackingList
+import com.example.roamly.data.sync.PackingRestoreWorker
+import com.example.roamly.data.sync.RoamlySyncScheduler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
-class PackingRepository(
-    context: Context
-) {
+class PackingRepository(context: Context) {
+
+    private val appContext = context.applicationContext
+
     private val userId =
-        SessionManager(context).getUserId()
+        SessionManager(appContext).getUserId()
             ?: throw IllegalStateException(
                 "Sign in to access packing lists."
             )
 
-    private val store = RoomTravelStore(context)
+    private val store = RoomTravelStore(appContext)
 
-    private val preferenceName =
-        "roamly_packing_$userId"
+    private val preferenceName = "roamly_packing_$userId"
+
+    init {
+        PackingRestoreWorker.request(appContext)
+    }
 
     fun getPackingLists(): MutableList<PackingList> =
         runBlocking(Dispatchers.IO) {
@@ -34,9 +40,7 @@ class PackingRepository(
             )
         }
 
-    fun savePackingLists(
-        packingLists: List<PackingList>
-    ) {
+    fun savePackingLists(packingLists: List<PackingList>) {
         runBlocking(Dispatchers.IO) {
             store.replace(
                 "packing_list",
@@ -47,6 +51,8 @@ class PackingRepository(
                 { it.packingListId }
             )
         }
+
+        RoamlySyncScheduler.requestNow(appContext)
     }
 
     fun getPackingItems(): MutableList<PackingItem> =
@@ -60,9 +66,7 @@ class PackingRepository(
             )
         }
 
-    fun savePackingItems(
-        packingItems: List<PackingItem>
-    ) {
+    fun savePackingItems(packingItems: List<PackingItem>) {
         runBlocking(Dispatchers.IO) {
             store.replace(
                 "packing_item",
@@ -73,5 +77,7 @@ class PackingRepository(
                 { it.packingItemId }
             )
         }
+
+        RoamlySyncScheduler.requestNow(appContext)
     }
 }

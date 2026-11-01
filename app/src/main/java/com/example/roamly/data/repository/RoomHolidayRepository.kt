@@ -8,6 +8,7 @@ import com.example.roamly.data.local.OfflineHolidayEntity
 import com.example.roamly.data.local.OfflineTravelRecordEntity
 import com.example.roamly.data.local.RoamlyOfflineDatabase
 import com.example.roamly.data.model.Holiday
+import com.example.roamly.data.sync.RoamlySyncScheduler
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
@@ -23,22 +24,24 @@ class RoomHolidayRepository(
     context: Context
 ) {
 
+    private val appContext = context.applicationContext
+
     private val userId =
-        SessionManager(context).getUserId()
+        SessionManager(appContext).getUserId()
             ?.takeIf { it.isNotBlank() }
             ?: throw IllegalStateException(
                 "Sign in to access holidays."
             )
 
     private val preferences =
-        context.getSharedPreferences(
+        appContext.getSharedPreferences(
             "roamly_holidays_$userId",
             Context.MODE_PRIVATE
         )
 
     private val database =
         RoamlyOfflineDatabase.getInstance(
-            context.applicationContext
+            appContext
         )
 
     private val holidayDao =
@@ -84,7 +87,7 @@ class RoomHolidayRepository(
     ): Holiday {
         ensureMigrated()
 
-        return database.withTransaction {
+        val createdHoliday = database.withTransaction {
             val highestHolidayId =
                 holidayDao.getHolidays(userId)
                     .maxOfOrNull {
@@ -105,17 +108,21 @@ class RoomHolidayRepository(
                     highestDeletedId
                 ) + 1
 
-            val createdHoliday =
+            val created =
                 holiday.copy(
                     holidayId = nextId
                 )
 
             holidayDao.saveHoliday(
-                createEntity(createdHoliday)
+                createEntity(created)
             )
 
-            createdHoliday
+            created
         }
+
+        RoamlySyncScheduler.requestNow(appContext)
+
+        return createdHoliday
     }
 
     suspend fun updateHoliday(
@@ -139,6 +146,8 @@ class RoomHolidayRepository(
                 )
             )
         }
+
+        RoamlySyncScheduler.requestNow(appContext)
     }
 
     suspend fun deleteHoliday(
@@ -146,7 +155,7 @@ class RoomHolidayRepository(
     ): Boolean {
         ensureMigrated()
 
-        return database.withTransaction {
+        val deleted = database.withTransaction {
             val existing =
                 holidayDao.getHolidayById(
                     userId,
@@ -168,6 +177,12 @@ class RoomHolidayRepository(
                 true
             }
         }
+
+        if (deleted) {
+            RoamlySyncScheduler.requestNow(appContext)
+        }
+
+        return deleted
     }
 
     private suspend fun ensureMigrated() {
@@ -292,8 +307,7 @@ class RoomHolidayRepository(
             startDate = holiday.startDate,
             endDate = holiday.endDate,
             holidayJson = gson.toJson(holiday),
-            updatedAtMillis =
-                System.currentTimeMillis(),
+            updatedAtMillis = System.currentTimeMillis(),
             needsSync = true
         )
     }
