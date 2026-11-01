@@ -1,5 +1,7 @@
+
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.ksp)
     id("com.google.gms.google-services")
 }
 
@@ -46,7 +48,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -74,17 +75,9 @@ dependencies {
 
     implementation("com.google.firebase:firebase-auth")
 
+    implementation("com.google.firebase:firebase-messaging")
 
-    implementation("com.google.firebase:firebase-messaging"
-    )
-
-
-    implementation("androidx.biometric:biometric:1.1.0"
-    )
-
-    implementation(libs.androidx.appcompat)
-
-    implementation("com.google.firebase:firebase-auth")
+    implementation("androidx.biometric:biometric:1.1.0")
 
     implementation(
         "androidx.credentials:credentials:1.3.0"
@@ -97,6 +90,9 @@ dependencies {
     implementation(
         "com.google.android.libraries.identity.googleid:googleid:1.1.1"
     )
+
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
 
     testImplementation(libs.junit)
 
