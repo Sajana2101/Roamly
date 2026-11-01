@@ -44,20 +44,25 @@ class RoamlySyncWorker(
                 return Result.retry()
             }
 
-            val currentUser =
-                sessions.getSession()?.userId
-
-            if (currentUser != session.userId) {
+            if (
+                sessions.getSession()?.userId !=
+                session.userId
+            ) {
                 return Result.success()
             }
 
-            if (!ENABLE_REMOTE_WRITES) {
-                Log.i(
+            val reconciliation =
+                SyncAttemptReconciler(
+                    applicationContext
+                ).reconcile()
+
+            if (reconciliation.unresolved > 0) {
+                Log.w(
                     TAG,
-                    "Background sync ready; uploads awaiting reconciliation"
+                    "${reconciliation.unresolved} creation attempts require review"
                 )
 
-                return Result.success()
+                return Result.failure()
             }
 
             val holidays =
@@ -97,7 +102,7 @@ class RoamlySyncWorker(
 
             Log.i(
                 TAG,
-                "Background sync complete"
+                "Background synchronization completed"
             )
 
             Result.success()
@@ -106,7 +111,7 @@ class RoamlySyncWorker(
         } catch (error: Exception) {
             Log.e(
                 TAG,
-                "Background sync failed",
+                "Background synchronization failed",
                 error
             )
 
@@ -116,6 +121,5 @@ class RoamlySyncWorker(
 
     companion object {
         private const val TAG = "RoamlySync"
-        private const val ENABLE_REMOTE_WRITES = false
     }
 }

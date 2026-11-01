@@ -237,7 +237,7 @@ class HolidaySyncUploader(
         )
 
         if (!response.isSuccessful) {
-            if (response.code() in 400..499) {
+            if (response.code() in 400..499 && response.code() !in listOf(408, 409, 429)) {
                 recordDao.deleteRecord(
                     userId,
                     CREATE_ATTEMPT_TYPE,
