@@ -13,12 +13,14 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import com.example.roamly.MainActivity
 import com.example.roamly.R
 import com.example.roamly.data.model.AccommodationDetails
 import com.example.roamly.data.model.FlightDetails
 import com.example.roamly.data.model.Holiday
-import com.example.roamly.data.repository.HolidayRepository
+import com.example.roamly.data.repository.RoomHolidayRepository
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
@@ -31,7 +33,7 @@ class EditHolidayFragment :
     Fragment(R.layout.fragment_edit_holiday) {
 
     private lateinit var holidayRepository:
-            HolidayRepository
+            RoomHolidayRepository
 
     private lateinit var currentHoliday:
             Holiday
@@ -163,7 +165,7 @@ class EditHolidayFragment :
             false
 
         holidayRepository =
-            HolidayRepository(
+            RoomHolidayRepository(
                 requireContext()
                     .applicationContext
             )
@@ -383,6 +385,9 @@ class EditHolidayFragment :
     }
 
     private fun loadHoliday() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+
         val holiday =
             holidayRepository
                 .getHolidayById(
@@ -396,7 +401,7 @@ class EditHolidayFragment :
                     )
                 .showHome()
 
-            return
+            return@launch
         }
 
         currentHoliday =
@@ -444,7 +449,19 @@ class EditHolidayFragment :
         loadCoverImage(
             holiday
         )
-    }
+    
+            } catch (error: Exception) {
+                android.util.Log.e("RoamlyRoom", "Could not load holiday", error)
+                if (isAdded) {
+                    android.widget.Toast.makeText(
+                        requireContext(),
+                        "Could not load holiday",
+                        android.widget.Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+}
 
     private fun loadAccommodation(
         holiday: Holiday
@@ -927,7 +944,11 @@ class EditHolidayFragment :
                     returnFlight
             )
 
-        holidayRepository
+        
+        saveChangesButton.isEnabled = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+holidayRepository
             .updateHoliday(
                 updatedHoliday
             )
@@ -952,7 +973,21 @@ class EditHolidayFragment :
             .showHolidayDetails(
                 holidayId
             )
-    }
+    
+            } catch (error: Exception) {
+                android.util.Log.e("RoamlyRoom", "Could not update holiday", error)
+                if (isAdded) {
+                    android.widget.Toast.makeText(
+                        requireContext(),
+                        "Could not update holiday",
+                        android.widget.Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } finally {
+                if (isAdded) saveChangesButton.isEnabled = true
+            }
+        }
+}
 
     private fun validateMainHolidayDetails(
         name: String,

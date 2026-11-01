@@ -13,12 +13,14 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import com.example.roamly.MainActivity
 import com.example.roamly.R
 import com.example.roamly.data.model.AccommodationDetails
 import com.example.roamly.data.model.FlightDetails
 import com.example.roamly.data.model.Holiday
-import com.example.roamly.data.repository.HolidayRepository
+import com.example.roamly.data.repository.RoomHolidayRepository
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
@@ -31,7 +33,7 @@ class AddHolidayFragment :
     Fragment(R.layout.fragment_add_holiday) {
 
     private lateinit var holidayRepository:
-            HolidayRepository
+            RoomHolidayRepository
 
     private lateinit var nameLayout:
             TextInputLayout
@@ -147,7 +149,7 @@ class AddHolidayFragment :
         dateFormat.isLenient = false
 
         holidayRepository =
-            HolidayRepository(
+            RoomHolidayRepository(
                 requireContext()
                     .applicationContext
             )
@@ -730,9 +732,7 @@ class AddHolidayFragment :
 
         val holiday =
             Holiday(
-                holidayId =
-                    holidayRepository
-                        .getNextHolidayId(),
+                holidayId = 0,
                 name =
                     name,
                 location =
@@ -760,14 +760,15 @@ class AddHolidayFragment :
                     returnFlight
             )
 
-        holidayRepository
-            .addHoliday(
-                holiday
-            )
+        
+        createHolidayButton.isEnabled = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+val savedHoliday = holidayRepository.createHoliday(holiday)
 
         Log.i(
             "RoamlyHoliday",
-            "Holiday created: ${holiday.holidayId}"
+            "Holiday created: ${savedHoliday.holidayId}"
         )
 
         Toast.makeText(
@@ -783,7 +784,21 @@ class AddHolidayFragment :
                         as MainActivity
                 )
             .showHome()
-    }
+    
+            } catch (error: Exception) {
+                android.util.Log.e("RoamlyRoom", "Could not create holiday", error)
+                if (isAdded) {
+                    android.widget.Toast.makeText(
+                        requireContext(),
+                        "Could not save holiday",
+                        android.widget.Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } finally {
+                if (isAdded) createHolidayButton.isEnabled = true
+            }
+        }
+}
 
     private fun validateMainHolidayDetails(
         name: String,

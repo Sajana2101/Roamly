@@ -14,11 +14,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import com.example.roamly.R
 import com.example.roamly.data.model.Holiday
 import com.example.roamly.data.model.ItineraryActivity
 import com.example.roamly.data.model.ItineraryDay
-import com.example.roamly.data.repository.HolidayRepository
+import com.example.roamly.data.repository.RoomHolidayRepository
 import com.example.roamly.data.repository.ItineraryRepository
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -30,7 +32,7 @@ import java.util.Locale
 
 class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
-    private lateinit var holidayRepository: HolidayRepository
+    private lateinit var holidayRepository: RoomHolidayRepository
     private lateinit var itineraryRepository: ItineraryRepository
     private lateinit var holidaysContainer: LinearLayout
     private lateinit var daysContainer: LinearLayout
@@ -62,7 +64,7 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         )
 
         holidayRepository =
-            HolidayRepository(
+            RoomHolidayRepository(
                 requireContext()
                     .applicationContext
             )
@@ -145,6 +147,9 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
     }
 
     private fun reloadHolidays() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+
         val loadedHolidays =
             holidayRepository
                 .getHolidays()
@@ -161,7 +166,7 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
         if (holidays.isEmpty()) {
             showNoHolidayState()
-            return
+            return@launch
         }
 
         if (
@@ -178,7 +183,19 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         selectHoliday(
             selectedHolidayId
         )
-    }
+    
+            } catch (error: Exception) {
+                android.util.Log.e("RoamlyRoom", "Could not load holidays", error)
+                if (isAdded) {
+                    android.widget.Toast.makeText(
+                        requireContext(),
+                        "Could not load holidays",
+                        android.widget.Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+}
 
     private fun renderHolidayCards() {
         holidaysContainer.removeAllViews()

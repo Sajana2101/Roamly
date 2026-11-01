@@ -9,11 +9,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import com.example.roamly.MainActivity
 import com.example.roamly.R
 import com.example.roamly.data.model.FlightDetails
 import com.example.roamly.data.model.Holiday
-import com.example.roamly.data.repository.HolidayRepository
+import com.example.roamly.data.repository.RoomHolidayRepository
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.SimpleDateFormat
@@ -25,7 +27,7 @@ class HolidayDetailsFragment :
     Fragment(R.layout.fragment_holiday_details) {
 
     private lateinit var holidayRepository:
-            HolidayRepository
+            RoomHolidayRepository
 
     private var holidayId:
             Int = -1
@@ -54,7 +56,7 @@ class HolidayDetailsFragment :
         )
 
         holidayRepository =
-            HolidayRepository(
+            RoomHolidayRepository(
                 requireContext()
                     .applicationContext
             )
@@ -128,6 +130,9 @@ class HolidayDetailsFragment :
     private fun loadHoliday(
         view: View
     ) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+
         val holiday =
             holidayRepository
                 .getHolidayById(
@@ -142,7 +147,7 @@ class HolidayDetailsFragment :
                     )
                 .showHome()
 
-            return
+            return@launch
         }
 
         bindMainHolidayDetails(
@@ -159,7 +164,19 @@ class HolidayDetailsFragment :
             view,
             holiday
         )
-    }
+    
+            } catch (error: Exception) {
+                android.util.Log.e("RoamlyRoom", "Could not load holiday", error)
+                if (isAdded) {
+                    android.widget.Toast.makeText(
+                        requireContext(),
+                        "Could not load holiday",
+                        android.widget.Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+}
 
     private fun bindMainHolidayDetails(
         view: View,
@@ -770,11 +787,11 @@ class HolidayDetailsFragment :
     }
 
     private fun deleteHoliday() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
 
-        holidayRepository
-            .deleteHoliday(
-                holidayId
-            )
+
+        val deleted = holidayRepository.deleteHoliday(holidayId); if (!deleted) throw IllegalStateException("Holiday not found.")
 
         Log.i(
             "RoamlyHoliday",
@@ -794,7 +811,19 @@ class HolidayDetailsFragment :
                         as MainActivity
                 )
             .showHome()
-    }
+    
+            } catch (error: Exception) {
+                android.util.Log.e("RoamlyRoom", "Could not delete holiday", error)
+                if (isAdded) {
+                    android.widget.Toast.makeText(
+                        requireContext(),
+                        "Could not delete holiday",
+                        android.widget.Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+}
 
     companion object {
 

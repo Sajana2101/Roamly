@@ -63,6 +63,8 @@ object HolidayRoomMirror {
                 Context.MODE_PRIVATE
             )
 
+        if (preferences.getBoolean("room_holidays_migrated_v1", false)) return
+
         val json = preferences.getString(
             "holidays",
             null
