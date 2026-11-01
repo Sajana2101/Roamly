@@ -1,6 +1,8 @@
+
 package com.example.roamly.data.auth
 
 import android.content.Context
+import com.example.roamly.data.sync.RoamlySyncScheduler
 
 data class RoamlySession(
     val accessToken: String,
@@ -11,10 +13,9 @@ data class RoamlySession(
 )
 
 class SessionManager(
-    context: Context
+    private val context: Context
 ) {
 
-    // Persists the authenticated session so the user remains signed in after the app is closed and opened again
     private val preferences =
         context.getSharedPreferences(
             PREFERENCES_NAME,
@@ -25,7 +26,6 @@ class SessionManager(
         accessToken: String,
         user: RoamlyAuthUser
     ) {
-
         preferences
             .edit()
             .putString(
@@ -49,6 +49,8 @@ class SessionManager(
                 user.ssoProvider
             )
             .apply()
+
+        RoamlySyncScheduler.requestNow(context)
     }
 
     fun hasSession(): Boolean {
@@ -122,7 +124,6 @@ class SessionManager(
     }
 
     fun getAccessToken(): String? {
-
         return preferences.getString(
             KEY_ACCESS_TOKEN,
             null
@@ -130,7 +131,6 @@ class SessionManager(
     }
 
     fun getUserId(): String? {
-
         return preferences.getString(
             KEY_USER_ID,
             null
@@ -138,7 +138,6 @@ class SessionManager(
     }
 
     fun getName(): String? {
-
         return preferences.getString(
             KEY_NAME,
             null
@@ -146,7 +145,6 @@ class SessionManager(
     }
 
     fun getEmail(): String? {
-
         return preferences.getString(
             KEY_EMAIL,
             null
@@ -156,7 +154,6 @@ class SessionManager(
     fun updateName(
         name: String
     ) {
-
         preferences
             .edit()
             .putString(
@@ -167,7 +164,6 @@ class SessionManager(
     }
 
     fun clearSession() {
-
         preferences
             .edit()
             .clear()

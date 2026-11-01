@@ -103,4 +103,5 @@ dependencies {
     androidTestImplementation(
         libs.androidx.espresso.core
     )
+    implementation("androidx.work:work-runtime-ktx:2.12.0")
 }
