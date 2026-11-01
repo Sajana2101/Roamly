@@ -1,123 +1,77 @@
+
 package com.example.roamly.data.repository
 
 import android.content.Context
 import com.example.roamly.data.auth.SessionManager
+import com.example.roamly.data.local.RoomTravelStore
 import com.example.roamly.data.model.PackingItem
 import com.example.roamly.data.model.PackingList
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 class PackingRepository(
     context: Context
 ) {
-
     private val userId =
-        SessionManager(
-            context
-        ).getUserId()
-            ?: "guest"
+        SessionManager(context).getUserId()
+            ?: throw IllegalStateException(
+                "Sign in to access packing lists."
+            )
 
-    private val sharedPreferences =
-        context.getSharedPreferences(
-            "roamly_packing_${userId}",
-            Context.MODE_PRIVATE
-        )
+    private val store = RoomTravelStore(context)
 
-    private val gson =
-        Gson()
+    private val preferenceName =
+        "roamly_packing_$userId"
 
-    fun getPackingLists():
-            MutableList<PackingList> {
-
-        val json =
-            sharedPreferences.getString(
-                PACKING_LISTS_KEY,
-                null
-            ) ?: return mutableListOf()
-
-        return try {
-
-            val type =
-                object :
-                    TypeToken<MutableList<PackingList>>() {}
-                    .type
-
-            gson.fromJson<MutableList<PackingList>>(
-                json,
-                type
-            ) ?: mutableListOf()
-
-        } catch (_: Exception) {
-
-            mutableListOf()
+    fun getPackingLists(): MutableList<PackingList> =
+        runBlocking(Dispatchers.IO) {
+            store.read(
+                "packing_list",
+                preferenceName,
+                "packing_lists",
+                PackingList::class.java,
+                { it.packingListId }
+            )
         }
-    }
 
     fun savePackingLists(
-        packingLists:
-        List<PackingList>
+        packingLists: List<PackingList>
     ) {
-
-        sharedPreferences
-            .edit()
-            .putString(
-                PACKING_LISTS_KEY,
-                gson.toJson(
-                    packingLists
-                )
+        runBlocking(Dispatchers.IO) {
+            store.replace(
+                "packing_list",
+                preferenceName,
+                "packing_lists",
+                PackingList::class.java,
+                packingLists,
+                { it.packingListId }
             )
-            .apply()
-    }
-
-    fun getPackingItems():
-            MutableList<PackingItem> {
-
-        val json =
-            sharedPreferences.getString(
-                PACKING_ITEMS_KEY,
-                null
-            ) ?: return mutableListOf()
-
-        return try {
-
-            val type =
-                object :
-                    TypeToken<MutableList<PackingItem>>() {}
-                    .type
-
-            gson.fromJson<MutableList<PackingItem>>(
-                json,
-                type
-            ) ?: mutableListOf()
-
-        } catch (_: Exception) {
-
-            mutableListOf()
         }
     }
 
-    fun savePackingItems(
-        packingItems:
-        List<PackingItem>
-    ) {
-
-        sharedPreferences
-            .edit()
-            .putString(
-                PACKING_ITEMS_KEY,
-                gson.toJson(
-                    packingItems
-                )
+    fun getPackingItems(): MutableList<PackingItem> =
+        runBlocking(Dispatchers.IO) {
+            store.read(
+                "packing_item",
+                preferenceName,
+                "packing_items",
+                PackingItem::class.java,
+                { it.packingItemId }
             )
-            .apply()
-    }
+        }
 
-    companion object {
-
-        private const val PACKING_LISTS_KEY =
-            "packing_lists"
-
-        private const val PACKING_ITEMS_KEY =
-            "packing_items"
+    fun savePackingItems(
+        packingItems: List<PackingItem>
+    ) {
+        runBlocking(Dispatchers.IO) {
+            store.replace(
+                "packing_item",
+                preferenceName,
+                "packing_items",
+                PackingItem::class.java,
+                packingItems,
+                { it.packingItemId }
+            )
+        }
     }
 }
