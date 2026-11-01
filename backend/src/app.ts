@@ -16,6 +16,7 @@ import itinerariesRouter from "./routes/itineraries.routes";
 import packingRouter from "./routes/packing.routes";
 import remindersRouter from "./routes/reminders.routes";
 import settingsRouter from "./routes/settings.routes";
+import travelNotesRouter from "./routes/travelNotes.routes";
 import usersRouter from "./routes/users.routes";
 
 dotenv.config();
@@ -37,6 +38,7 @@ app.use("/api/checklists", checklistsRouter);
 app.use("/api/documents", documentLifecycleRouter);
 app.use("/api/documents", documentFilesRouter);
 app.use("/api/documents", documentsRouter);
+app.use("/api/travel-notes", travelNotesRouter);
 app.use("/api/reminders", remindersRouter);
 app.use("/api/currency", currencyRouter);
 
