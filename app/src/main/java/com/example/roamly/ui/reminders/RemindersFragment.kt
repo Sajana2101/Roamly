@@ -11,18 +11,24 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roamly.R
+import com.example.roamly.data.model.Holiday
 import com.example.roamly.data.model.Reminder
 import com.example.roamly.data.reminders.ReminderAlarmScheduler
 import com.example.roamly.data.reminders.ReminderLocalStore
-import com.example.roamly.data.repository.HolidayRepository
+import com.example.roamly.data.repository.RoomHolidayRepository
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -32,7 +38,8 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
 
     private lateinit var reminderAdapter: ReminderAdapter
     private lateinit var reminderStore: ReminderLocalStore
-    private lateinit var holidayRepository: HolidayRepository
+    private lateinit var holidayRepository: RoomHolidayRepository
+    private var holidayNamesById: Map<Int, String> = emptyMap()
 
     override fun onViewCreated(
         view: View,
@@ -41,22 +48,20 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
         super.onViewCreated(view, savedInstanceState)
 
         reminderStore = ReminderLocalStore(requireContext())
-        holidayRepository = HolidayRepository(requireContext())
+        holidayRepository = RoomHolidayRepository(requireContext())
 
         val recyclerView = view.findViewById<RecyclerView>(
             R.id.remindersRecyclerView
         )
 
         reminderAdapter = ReminderAdapter(
-            onEdit = { showReminderDialog(it) },
+            onEdit = { loadAndShowReminderDialog(it) },
             onDelete = { confirmDeleteReminder(it) },
             onEnabledChange = { reminder, enabled ->
                 updateReminderEnabled(reminder, enabled)
             },
             holidayNameForId = { holidayId ->
-                holidayId?.let {
-                    holidayRepository.getHolidayById(it)?.name
-                }
+                holidayId?.let { holidayNamesById[it] }
             }
         )
 
@@ -68,7 +73,7 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
         view.findViewById<MaterialButton>(
             R.id.btnAddReminder
         ).setOnClickListener {
-            showReminderDialog()
+            loadAndShowReminderDialog()
         }
 
         reminderStore.getReminders().forEach {
@@ -76,6 +81,69 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
         }
 
         refreshReminderList()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshHolidayNames()
+    }
+
+    private fun refreshHolidayNames() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val holidays = withContext(Dispatchers.IO) {
+                    holidayRepository.getHolidays()
+                }
+
+                holidayNamesById = holidays.associate {
+                    it.holidayId to it.name
+                }
+
+                refreshReminderList()
+            } catch (error: CancellationException) {
+                throw error
+            } catch (error: Exception) {
+                if (isAdded) {
+                    showMessage(
+                        "Unable to load holidays: ${error.message ?: "Unknown error"}"
+                    )
+                }
+            }
+        }
+    }
+
+    private fun loadAndShowReminderDialog(
+        existingReminder: Reminder? = null
+    ) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val holidays = withContext(Dispatchers.IO) {
+                    holidayRepository.getHolidays()
+                        .sortedBy {
+                            it.name.lowercase(Locale.getDefault())
+                        }
+                }
+
+                holidayNamesById = holidays.associate {
+                    it.holidayId to it.name
+                }
+
+                if (isAdded && view != null) {
+                    showReminderDialog(
+                        existingReminder,
+                        holidays
+                    )
+                }
+            } catch (error: CancellationException) {
+                throw error
+            } catch (error: Exception) {
+                if (isAdded) {
+                    showMessage(
+                        "Unable to load holidays: ${error.message ?: "Unknown error"}"
+                    )
+                }
+            }
+        }
     }
 
     private fun refreshReminderList() {
@@ -100,7 +168,8 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
     }
 
     private fun showReminderDialog(
-        existingReminder: Reminder? = null
+        existingReminder: Reminder?,
+        holidays: List<Holiday>
     ) {
         val dialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.dialog_reminder, null)
@@ -140,9 +209,6 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
             dialogView.findViewById<SwitchMaterial>(
                 R.id.reminderEnabledSwitch
             )
-
-        val holidays = holidayRepository.getHolidays()
-            .sortedBy { it.name.lowercase(Locale.getDefault()) }
 
         var selectedHolidayId = existingReminder?.holidayId
         var selectedDate: Calendar? = null
@@ -294,7 +360,9 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
                     holidayId == null ||
                     holidays.none { it.holidayId == holidayId }
                 ) {
-                    showMessage(getString(R.string.reminders_holiday_required))
+                    showMessage(
+                        getString(R.string.reminders_holiday_required)
+                    )
                     return@setOnClickListener
                 }
 
@@ -338,17 +406,21 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
 
                 val currentReminders = reminderStore.getReminders()
 
-                val updatedReminders = if (existingReminder == null) {
-                    currentReminders + reminder
-                } else {
-                    currentReminders.map {
-                        if (it.reminderId == existingReminder.reminderId) {
-                            reminder
-                        } else {
-                            it
+                val updatedReminders =
+                    if (existingReminder == null) {
+                        currentReminders + reminder
+                    } else {
+                        currentReminders.map {
+                            if (
+                                it.reminderId ==
+                                existingReminder.reminderId
+                            ) {
+                                reminder
+                            } else {
+                                it
+                            }
                         }
                     }
-                }
 
                 reminderStore.saveReminders(updatedReminders)
 
@@ -382,7 +454,9 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
             .setPositiveButton(R.string.reminders_delete) { _, _ ->
                 val updatedReminders = reminderStore
                     .getReminders()
-                    .filterNot { it.reminderId == reminder.reminderId }
+                    .filterNot {
+                        it.reminderId == reminder.reminderId
+                    }
 
                 reminderStore.saveReminders(updatedReminders)
 
@@ -410,15 +484,18 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
             return
         }
 
-        val updatedReminder = reminder.copy(isEnabled = enabled)
+        val updatedReminder = reminder.copy(
+            isEnabled = enabled
+        )
 
-        val updatedReminders = reminderStore.getReminders().map {
-            if (it.reminderId == reminder.reminderId) {
-                updatedReminder
-            } else {
-                it
+        val updatedReminders =
+            reminderStore.getReminders().map {
+                if (it.reminderId == reminder.reminderId) {
+                    updatedReminder
+                } else {
+                    it
+                }
             }
-        }
 
         reminderStore.saveReminders(updatedReminders)
 
