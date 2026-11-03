@@ -38,6 +38,14 @@
           }
         },
         {
+          "client_id": "417669814711-nr6enh8lf8cnmso0f9e3aprro6glbhnh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.roamly",
+            "certificate_hash": "5ab21105c62b25da87c6a3ea614eeea9cb38c4b9"
+          }
+        },
+        {
           "client_id": "417669814711-qcqkpih0u5c1vac0de4o91ep8hn5tgg1.apps.googleusercontent.com",
           "client_type": 3
         }
