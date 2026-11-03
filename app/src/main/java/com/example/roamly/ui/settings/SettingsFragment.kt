@@ -143,6 +143,7 @@ class SettingsFragment :
 
         emailInput.alpha =
             0.75f
+
         viewLifecycleOwner
             .lifecycleScope
             .launch {
@@ -183,6 +184,14 @@ class SettingsFragment :
                             }
                     }
             }
+
+        //Restores account-backed Settings when cloud data is available.
+// if the API cannot be reached, the local DataStore values remain in use
+        settingsViewModel
+            .refreshFromCloud(
+                sessionManager
+                    .getAccessToken()
+            )
 
         languageCard
             .setOnClickListener {
@@ -340,10 +349,23 @@ class SettingsFragment :
                         homeCurrency =
                             homeCurrency,
                         notificationsEnabled =
-                            notificationsEnabled
-                    )
+                            notificationsEnabled,
+                        accessToken =
+                            sessionManager
+                                .getAccessToken()
+                    ) {
+                            cloudSaved ->
 
-                showSaveConfirmation()
+                        if (
+                            isAdded
+                        ) {
+
+                            showSaveConfirmation(
+                                cloudSaved
+                            )
+                        }
+                    }
+
             }
 
         signOutButton
@@ -431,7 +453,9 @@ class SettingsFragment :
         }
     }
 
-    private fun showSaveConfirmation() {
+    private fun showSaveConfirmation(
+        cloudSaved: Boolean
+    ) {
 
         val dialog =
             AlertDialog
@@ -442,7 +466,17 @@ class SettingsFragment :
                     "Settings Saved"
                 )
                 .setMessage(
-                    "Your settings have been updated successfully."
+                    if (
+                        cloudSaved
+                    ) {
+
+                        "Your settings have been saved to this device and your Roamly account."
+
+                    } else {
+
+                        "Your settings have been saved on this device. " +
+                                "The cloud copy could not be updated."
+                    }
                 )
                 .setPositiveButton(
                     "OK",
