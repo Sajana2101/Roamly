@@ -10,6 +10,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roamly.R
 import com.example.roamly.data.model.PackingList
+import android.graphics.Color
+import android.widget.ImageView
+import com.google.android.material.card.MaterialCardView
 
 // Holds the views for one packing list
 class PackingListAdapter(
@@ -27,6 +30,9 @@ class PackingListAdapter(
         val description: TextView = view.findViewById(R.id.txtPackingListDescription)
         val progressBar: ProgressBar = view.findViewById(R.id.packingListProgressBar)
         val progressText: TextView = view.findViewById(R.id.txtPackingListProgress)
+
+        val icon: ImageView = view.findViewById(R.id.imgPackingListIcon)
+        val iconCard: MaterialCardView = view.findViewById(R.id.cardPackingListIcon)
 
     }
 
@@ -50,6 +56,9 @@ class PackingListAdapter(
         Log.d("PackingAdapter", "onBindViewHolder called for ${packingLists[position].name}")
 
         holder.name.text = packingList.name
+
+        applyPackingListIconStyle( packingList.name, holder.icon,holder.iconCard)
+
         holder.description.text = packingList.description ?: "No description"
         // get progress for this specific packing list
         val progress =  progressMap[packingList.packingListId]
@@ -81,6 +90,8 @@ class PackingListAdapter(
         }
     }
 
+
+
     // Returns the number of packing lists
     override fun getItemCount(): Int {
         return packingLists.size
@@ -100,4 +111,44 @@ class PackingListAdapter(
         progressMap = newProgressMap
         notifyDataSetChanged()
     }
+
+
+    // adds the icon-selection function
+    private fun applyPackingListIconStyle(name: String, iconView: ImageView,iconCard: MaterialCardView
+    ) {
+
+        val (icon, tint, background) = when {
+                    name.contains("clothing", ignoreCase = true) ||
+                    name.contains("outfit", ignoreCase = true) ||
+                    name.contains("shoes", ignoreCase = true) -> {
+                Triple(R.drawable.ic_clothing, "#2F8FD8", "#E5F2FD")
+            }
+
+            name.contains("toiletries", ignoreCase = true) ||
+                    name.contains("hygiene", ignoreCase = true) -> {
+                Triple(R.drawable.ic_toiletries, "#3E9B7C", "#E5F5EF")
+            }
+
+            name.contains("electronics", ignoreCase = true) ||
+                    name.contains("gadgets", ignoreCase = true) -> {
+                Triple(R.drawable.ic_electronics, "#7867B8", "#EEEAF8")
+            }
+
+            name.contains("document", ignoreCase = true) ||
+                    name.contains("passport", ignoreCase = true) ||
+                    name.contains("travel essentials", ignoreCase = true) -> {
+                Triple(R.drawable.ic_document, "#D99032", "#FFF2DF")
+            }
+
+            else -> {
+                Triple(R.drawable.ic_backpack, "#2F8FD8", "#E5F2FD")
+            }
+        }
+
+        iconView.setImageResource(icon)
+        iconView.setColorFilter(Color.parseColor(tint))
+        iconCard.setCardBackgroundColor(Color.parseColor(background))
+    }
+
+
 }
