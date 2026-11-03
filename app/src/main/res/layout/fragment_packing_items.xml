@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -54,32 +55,37 @@
         <ImageButton
             android:id="@+id/btnEditPackingList"
             android:layout_width="40dp"
-            android:layout_height="35dp"
+            android:layout_height="45dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/edit_packing_list"
             android:scaleType="centerInside"
-            android:src="@drawable/imgedit"
+            android:padding="10dp"
+            android:src="@drawable/ic_edit"
+            app:tint="#266FAD"
             tools:ignore="TouchTargetSizeCheck" />
 
         <!-- Delete packing list -->
         <ImageButton
             android:id="@+id/btnDeletePackingList"
             android:layout_width="40dp"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/delete_packing_list"
             android:scaleType="centerInside"
-            android:src="@drawable/imgdelete"
+            android:padding="10dp"
+            android:src="@drawable/ic_delete"
+            app:tint="#D95C5C"
             tools:ignore="TouchTargetSizeCheck" />
 
         <!-- Add packing item -->
         <ImageButton
             android:id="@+id/btnAddPackingItem"
             android:layout_width="40dp"
-            android:layout_height="35dp"
+            android:layout_height="45dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="centerInside"
-            android:src="@drawable/imgplus"
+            android:padding="10dp"
+            android:src="@drawable/ic_add"
             tools:ignore="HardcodedText,TouchTargetSizeCheck" />
 
     </LinearLayout>
