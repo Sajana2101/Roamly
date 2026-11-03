@@ -1,6 +1,5 @@
 package com.example.roamly.ui.settings
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -15,6 +14,14 @@ import com.example.roamly.MainActivity
 import com.example.roamly.R
 import com.example.roamly.data.auth.SessionManager
 import com.google.firebase.auth.FirebaseAuth
+//imports for part 3
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.example.roamly.data.settings.SettingsPreferencesRepository
+import com.example.roamly.data.settings.settingsDataStore
+import kotlinx.coroutines.launch
 
 class SettingsFragment :
     Fragment(
@@ -27,6 +34,17 @@ class SettingsFragment :
     private lateinit var firebaseAuth:
             FirebaseAuth
 
+    private val settingsViewModel:
+            SettingsViewModel by viewModels {
+
+        SettingsViewModel.Factory(
+            SettingsPreferencesRepository(
+                requireContext()
+                    .settingsDataStore
+            )
+        )
+    }
+
     private var displayName =
         ""
 
@@ -35,6 +53,9 @@ class SettingsFragment :
 
     private var language =
         "English"
+
+    private var homeCurrency =
+        "ZAR"
 
     private var notificationsEnabled =
         true
@@ -59,8 +80,6 @@ class SettingsFragment :
 
         loadAuthenticatedUser()
 
-        loadSavedSettings()
-
         val nameInput =
             view.findViewById<EditText>(
                 R.id.etDisplayName
@@ -79,6 +98,16 @@ class SettingsFragment :
         val languageText =
             view.findViewById<TextView>(
                 R.id.txtLanguage
+            )
+
+        val currencyCard =
+            view.findViewById<LinearLayout>(
+                R.id.settingCurrency
+            )
+
+        val currencyText =
+            view.findViewById<TextView>(
+                R.id.txtCurrency
             )
 
         val notificationSwitch =
@@ -114,17 +143,46 @@ class SettingsFragment :
 
         emailInput.alpha =
             0.75f
+        viewLifecycleOwner
+            .lifecycleScope
+            .launch {
 
-        languageText.text =
-            language
+                viewLifecycleOwner
+                    .repeatOnLifecycle(
+                        Lifecycle.State.STARTED
+                    ) {
 
-        notificationSwitch.isChecked =
-            notificationsEnabled
+                        settingsViewModel
+                            .settings
+                            .collect { savedSettings ->
 
-        updateNotificationText(
-            notificationSwitch,
-            notificationStatus
-        )
+                                language =
+                                    savedSettings.language
+
+                                homeCurrency =
+                                    savedSettings.homeCurrency
+
+                                notificationsEnabled =
+                                    savedSettings.notificationsEnabled
+
+                                languageText.text =
+                                    language
+
+                                currencyText.text =
+                                    getCurrencyDisplayName(
+                                        homeCurrency
+                                    )
+
+                                notificationSwitch.isChecked =
+                                    notificationsEnabled
+
+                                updateNotificationText(
+                                    notificationSwitch,
+                                    notificationStatus
+                                )
+                            }
+                    }
+            }
 
         languageCard
             .setOnClickListener {
@@ -158,9 +216,8 @@ class SettingsFragment :
                         } else {
                             0
                         }
-                    ) {
-                            dialog,
-                            which ->
+                    ) { dialog,
+                        which ->
 
                         language =
                             languages[which]
@@ -173,10 +230,69 @@ class SettingsFragment :
                     .show()
             }
 
+        currencyCard
+            .setOnClickListener {
+
+                val currencyCodes =
+                    arrayOf(
+                        "ZAR",
+                        "USD",
+                        "EUR",
+                        "GBP",
+                        "AED",
+                        "JPY",
+                        "AUD",
+                        "CAD"
+                    )
+
+                val currencyNames =
+                    currencyCodes.map { code ->
+
+                        getCurrencyDisplayName(
+                            code
+                        )
+                    }.toTypedArray()
+
+                val selectedCurrency =
+                    currencyCodes.indexOf(
+                        homeCurrency
+                    )
+
+                AlertDialog
+                    .Builder(
+                        requireContext()
+                    )
+                    .setTitle(
+                        "Select Home Currency"
+                    )
+                    .setSingleChoiceItems(
+                        currencyNames,
+                        if (
+                            selectedCurrency >= 0
+                        ) {
+                            selectedCurrency
+                        } else {
+                            0
+                        }
+                    ) { dialog,
+                        which ->
+
+                        homeCurrency =
+                            currencyCodes[which]
+
+                        currencyText.text =
+                            getCurrencyDisplayName(
+                                homeCurrency
+                            )
+
+                        dialog.dismiss()
+                    }
+                    .show()
+            }
+
         notificationSwitch
-            .setOnCheckedChangeListener {
-                    _,
-                    isChecked ->
+            .setOnCheckedChangeListener { _,
+                                          isChecked ->
 
                 notificationsEnabled =
                     isChecked
@@ -212,7 +328,20 @@ class SettingsFragment :
                     notificationSwitch
                         .isChecked
 
-                saveSettings()
+                sessionManager
+                    .updateName(
+                        displayName
+                    )
+
+                settingsViewModel
+                    .saveSettings(
+                        language =
+                            language,
+                        homeCurrency =
+                            homeCurrency,
+                        notificationsEnabled =
+                            notificationsEnabled
+                    )
 
                 showSaveConfirmation()
             }
@@ -249,52 +378,6 @@ class SettingsFragment :
                         ?: ""
     }
 
-    private fun loadSavedSettings() {
-
-        val preferences =
-            requireContext()
-                .getSharedPreferences(
-                    SETTINGS_PREFERENCES,
-                    Context.MODE_PRIVATE
-                )
-
-        language =
-            preferences.getString(
-                KEY_LANGUAGE,
-                "English"
-            ) ?: "English"
-
-        notificationsEnabled =
-            preferences.getBoolean(
-                KEY_NOTIFICATIONS,
-                true
-            )
-    }
-
-    private fun saveSettings() {
-
-        sessionManager
-            .updateName(
-                displayName
-            )
-
-        requireContext()
-            .getSharedPreferences(
-                SETTINGS_PREFERENCES,
-                Context.MODE_PRIVATE
-            )
-            .edit()
-            .putString(
-                KEY_LANGUAGE,
-                language
-            )
-            .putBoolean(
-                KEY_NOTIFICATIONS,
-                notificationsEnabled
-            )
-            .apply()
-    }
-
     private fun updateNotificationText(
         notificationSwitch: Switch,
         notificationStatus: TextView
@@ -311,6 +394,40 @@ class SettingsFragment :
 
             notificationStatus.text =
                 "Travel reminders are turned off"
+        }
+    }
+
+    private fun getCurrencyDisplayName(
+        currencyCode: String
+    ): String {
+
+        return when (
+            currencyCode
+        ) {
+
+            "USD" ->
+                "USD - US Dollar"
+
+            "EUR" ->
+                "EUR - Euro"
+
+            "GBP" ->
+                "GBP - British Pound"
+
+            "AED" ->
+                "AED - UAE Dirham"
+
+            "JPY" ->
+                "JPY - Japanese Yen"
+
+            "AUD" ->
+                "AUD - Australian Dollar"
+
+            "CAD" ->
+                "CAD - Canadian Dollar"
+
+            else ->
+                "ZAR - South African Rand"
         }
     }
 
@@ -438,17 +555,5 @@ class SettingsFragment :
 
         button.alpha =
             1f
-    }
-
-    companion object {
-
-        private const val SETTINGS_PREFERENCES =
-            "roamly_settings"
-
-        private const val KEY_LANGUAGE =
-            "language"
-
-        private const val KEY_NOTIFICATIONS =
-            "notifications_enabled"
     }
 }
