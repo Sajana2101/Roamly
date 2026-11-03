@@ -22,6 +22,9 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
+import com.example.roamly.data.settings.SettingsPreferencesRepository
+import com.example.roamly.data.settings.settingsDataStore
+import kotlinx.coroutines.flow.first
 
 class CurrencyFragment :
     Fragment(R.layout.fragment_currency) {
@@ -127,6 +130,8 @@ class CurrencyFragment :
 
         setupCurrencyDropdowns()
 
+        applySavedHomeCurrency()
+
         // Changing the entered amount removes the previous conversion result.
         etAmount.doAfterTextChanged {
 
@@ -203,6 +208,29 @@ class CurrencyFragment :
                 selectedCurrency
             )
         }
+    }
+    // this loads the user's saved home currency so the converter opens with their preference.
+    private fun applySavedHomeCurrency() {
+
+        viewLifecycleOwner
+            .lifecycleScope
+            .launch {
+
+                val repository =
+                    SettingsPreferencesRepository(
+                        requireContext()
+                            .settingsDataStore
+                    )
+
+                val savedSettings =
+                    repository
+                        .settings
+                        .first()
+
+                viewModel.applyHomeCurrency(
+                    savedSettings.homeCurrency
+                )
+            }
     }
 
     // Reads and validates the entered amount before creating the conversion request

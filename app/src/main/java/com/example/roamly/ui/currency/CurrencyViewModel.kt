@@ -143,6 +143,64 @@ class CurrencyViewModel : ViewModel() {
         )
     }
 
+    //applies the home currency saved in Settings when the Currency screen opens
+    fun applyHomeCurrency(
+        currencyCode: String
+    ) {
+
+        val savedHomeCurrency =
+            currencies.firstOrNull {
+                it.code.equals(
+                    currencyCode,
+                    ignoreCase = true
+                )
+            }
+                ?: return
+
+        val currentState =
+            _uiState.value
+
+        // Prevents the source and destination currencies from starting as the same value.
+        val destinationCurrency =
+            if (
+                currentState.toCurrency.code ==
+                savedHomeCurrency.code
+            ) {
+
+                currencies.first {
+                    it.code ==
+                            if (
+                                savedHomeCurrency.code == "ZAR"
+                            ) {
+                                "EUR"
+                            } else {
+                                "ZAR"
+                            }
+                }
+
+            } else {
+
+                currentState.toCurrency
+            }
+
+        _uiState.value =
+            currentState.copy(
+                fromCurrency =
+                    savedHomeCurrency,
+                toCurrency =
+                    destinationCurrency,
+                result =
+                    null,
+                errorMessage =
+                    null
+            )
+
+        Log.d(
+            TAG,
+            "Home currency applied: ${savedHomeCurrency.code}"
+        )
+    }
+
     // Reverses the source and destination currencies without needing the user to select them again
     fun swapCurrencies() {
 
