@@ -121,7 +121,7 @@ class PackingListAdapter(
                     name.contains("clothing", ignoreCase = true) ||
                     name.contains("outfit", ignoreCase = true) ||
                     name.contains("shoes", ignoreCase = true) -> {
-                Triple(R.drawable.ic_clothing, "#2F8FD8", "#E5F2FD")
+                Triple(R.drawable.ic_apparel, "#2F8FD8", "#E5F2FD")
             }
 
             name.contains("toiletries", ignoreCase = true) ||
@@ -141,7 +141,7 @@ class PackingListAdapter(
             }
 
             else -> {
-                Triple(R.drawable.ic_backpack, "#2F8FD8", "#E5F2FD")
+                Triple(R.drawable.ic_baggage, "#2F8FD8", "#E5F2FD")
             }
         }
 
