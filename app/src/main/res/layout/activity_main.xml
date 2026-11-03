@@ -258,6 +258,11 @@
         android:layout_gravity="start"
         android:background="@color/roamly_white"
         android:fitsSystemWindows="true"
-        app:menu="@menu/drawer_menu" />
+        app:menu="@menu/drawer_menu"
+        app:itemVerticalPadding="18dp"
+        app:itemHorizontalPadding="20dp"
+        app:itemIconPadding="18dp"
+        app:itemIconSize="26dp"
+        app:itemTextAppearance="@style/DrawerMenuText" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

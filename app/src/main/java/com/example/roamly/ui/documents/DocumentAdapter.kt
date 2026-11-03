@@ -1,13 +1,16 @@
 package com.example.roamly.ui.documents
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roamly.R
 import com.example.roamly.data.model.TravelDocument
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -60,6 +63,11 @@ class DocumentAdapter(
         return DocumentViewHolder(
             view
         )
+
+
+
+
+
     }
 
     override fun onBindViewHolder(
@@ -88,9 +96,14 @@ class DocumentAdapter(
             itemView
         ) {
 
-        private val typeTextView =
-            itemView.findViewById<TextView>(
-                R.id.documentTypeTextView
+        private val typeIcon =
+            itemView.findViewById<ImageView>(
+                R.id.documentTypeIcon
+            )
+
+        private val typeIconCard =
+            itemView.findViewById<MaterialCardView>(
+                R.id.documentTypeIconCard
             )
 
         private val nameTextView =
@@ -128,10 +141,11 @@ class DocumentAdapter(
                 (TravelDocument) -> Unit
         ) {
 
-            typeTextView.text =
-                getFileType(
-                    document
-                )
+            applyDocumentTypeIcon(
+                document.documentType.orEmpty(),
+                typeIcon,
+                typeIconCard
+            )
 
             nameTextView.text =
                 document.displayName
@@ -173,6 +187,43 @@ class DocumentAdapter(
                     )
                 }
         }
+
+
+        //display icons for each document category
+        private fun applyDocumentTypeIcon(
+            type: String,
+            iconView: ImageView,
+            iconCard: MaterialCardView
+        ) {
+            val (icon, tint, background) = when {
+                type.contains("identification", ignoreCase = true) ->
+                    Triple(R.drawable.ic_identification, "#2F8FD8", "#E5F2FD")
+
+                type.contains("visa", ignoreCase = true) ->
+                    Triple(R.drawable.ic_visa, "#7867B8", "#EEEAF8")
+
+                type.contains("flight", ignoreCase = true) ->
+                    Triple(R.drawable.ic_flight, "#2F8FD8", "#E5F2FD")
+
+                type.contains("accommodation", ignoreCase = true) ->
+                    Triple(R.drawable.ic_accomodation, "#3E9B7C", "#E5F5EF")
+
+                type.contains("insurance", ignoreCase = true) ->
+                    Triple(R.drawable.ic_insurance, "#3E9B7C", "#E5F5EF")
+
+                type.contains("booking", ignoreCase = true) ->
+                    Triple(R.drawable.ic_booking, "#D99032", "#FFF2DF")
+
+                else ->
+                    Triple(R.drawable.ic_other, "#64748B", "#EEF2F6")
+            }
+
+            iconView.setImageResource(icon)
+            iconView.setColorFilter(Color.parseColor(tint))
+            iconCard.setCardBackgroundColor(Color.parseColor(background))
+        }
+
+
 
         private fun buildDetails(
             document: TravelDocument

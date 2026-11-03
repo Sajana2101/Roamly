@@ -42,6 +42,11 @@ class PackingItemsFragment : Fragment(R.layout.fragment_packing_items) {
         val progressBar = view.findViewById<ProgressBar>(R.id.packingProgressBar)
         val packingProgress = view.findViewById<TextView>(R.id.txtPackingProgress)
 
+        // the back button to go from packing items to packing list page
+        view.findViewById<TextView>(R.id.allListsButton).setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
         // Get the selected packing list information
         val packingListId = arguments?.getString("packingListId") ?: ""
         val packingListName = arguments?.getString("packingListName") ?: "Packing List"

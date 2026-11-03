@@ -10,15 +10,18 @@
 
     <!-- Back to all lists -->
     <TextView
+        android:id="@+id/allListsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="All Lists"
+        android:text=" ‹ All Lists"
+        android:textSize="15sp"
         android:textColor="#3F51B5"
-        android:textSize="10sp"
         android:textStyle="bold"
-        android:letterSpacing="0.1"
-        android:layout_marginBottom="9dp"
-        tools:ignore="HardcodedText,SmallSp" />
+        android:paddingVertical="10dp"
+        android:paddingEnd="12dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground" />
 
     <!-- Small page label -->
     <TextView
