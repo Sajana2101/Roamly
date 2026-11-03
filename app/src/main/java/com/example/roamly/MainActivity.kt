@@ -11,7 +11,9 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             DrawerLayout
 
     private lateinit var navigationView:
-            NavigationView
+            FrameLayout
 
     private lateinit var firebaseAuth:
             FirebaseAuth
@@ -113,6 +115,76 @@ class MainActivity : AppCompatActivity() {
         externalFilePickerOpen = false
     }
 
+    private fun setupDrawerMenu() {
+
+        // Currency Converter
+        val currencyRow = navigationView.findViewById<LinearLayout>(R.id.menuCurrencyRow)
+
+        currencyRow.findViewById<ImageView>(R.id.drawerIcon)
+            .setImageResource(R.drawable.ic_currency_exchange)
+
+        currencyRow.findViewById<ImageView>(R.id.drawerIcon)
+            .setColorFilter(Color.parseColor("#3F51B5"))
+
+        currencyRow.findViewById<FrameLayout>(R.id.drawerIconBackground)
+            .setBackgroundResource(R.drawable.bg_drawer_currency)
+
+        currencyRow.findViewById<TextView>(R.id.drawerTitle).text = "Currency Converter"
+        currencyRow.findViewById<TextView>(R.id.drawerDescription).text =
+            "Convert currencies for your travels"
+
+        currencyRow.setOnClickListener {
+            openMainFragment(CurrencyFragment(), "Currency Converter")
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+
+
+        // Notifications & Reminders
+        val remindersRow = navigationView.findViewById<LinearLayout>(R.id.menuRemindersRow)
+
+        remindersRow.findViewById<ImageView>(R.id.drawerIcon)
+            .setImageResource(R.drawable.ic_notificationbell)
+
+        remindersRow.findViewById<ImageView>(R.id.drawerIcon)
+            .setColorFilter(Color.parseColor("#9C27B0"))
+
+        remindersRow.findViewById<FrameLayout>(R.id.drawerIconBackground)
+            .setBackgroundResource(R.drawable.bg_drawer_reminders)
+
+        remindersRow.findViewById<TextView>(R.id.drawerTitle).text =
+            "Notifications & Reminders"
+
+        remindersRow.findViewById<TextView>(R.id.drawerDescription).text =
+            "Keep track of important travel reminders"
+
+        remindersRow.setOnClickListener {
+            openMainFragment(RemindersFragment(), "Notifications & Reminders")
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+
+
+        // Settings
+        val settingsRow = navigationView.findViewById<LinearLayout>(R.id.menuSettingsRow)
+
+        settingsRow.findViewById<ImageView>(R.id.drawerIcon)
+            .setImageResource(R.drawable.ic_settings)
+
+        settingsRow.findViewById<ImageView>(R.id.drawerIcon)
+            .setColorFilter(Color.parseColor("#4CAF50"))
+
+        settingsRow.findViewById<FrameLayout>(R.id.drawerIconBackground)
+            .setBackgroundResource(R.drawable.bg_drawer_settings)
+
+        settingsRow.findViewById<TextView>(R.id.drawerTitle).text = "Settings"
+        settingsRow.findViewById<TextView>(R.id.drawerDescription).text =
+            "Customise your Roamly experience"
+
+        settingsRow.setOnClickListener {
+            openMainFragment(SettingsFragment(), "Settings")
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+    }
+
 
     private val notificationPermissionLauncher =
         registerForActivityResult(
@@ -156,6 +228,7 @@ class MainActivity : AppCompatActivity() {
             findViewById(
                 R.id.navigationView
             )
+        setupDrawerMenu()
 
         firebaseAuth =
             FirebaseAuth.getInstance()
@@ -194,45 +267,7 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-        navigationView
-            .setNavigationItemSelectedListener {
-                    item ->
 
-                when (
-                    item.itemId
-                ) {
-
-                    R.id.menu_currency -> {
-
-                        openMainFragment(
-                            CurrencyFragment(),
-                            "Currency Converter"
-                        )
-                    }
-
-                    R.id.menu_reminders -> {
-
-                        openMainFragment(
-                            RemindersFragment(),
-                            "Notifications & Reminders"
-                        )
-                    }
-
-                    R.id.menu_settings -> {
-
-                        openMainFragment(
-                            SettingsFragment(),
-                            "Settings"
-                        )
-                    }
-                }
-
-                drawerLayout.closeDrawer(
-                    GravityCompat.START
-                )
-
-                true
-            }
 
         if (
             savedInstanceState == null

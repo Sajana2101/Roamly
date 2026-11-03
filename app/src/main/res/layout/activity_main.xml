@@ -251,18 +251,18 @@
 
     </LinearLayout>
 
-    <com.google.android.material.navigation.NavigationView
+
+    <FrameLayout
         android:id="@+id/navigationView"
         android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/roamly_white"
-        android:fitsSystemWindows="true"
-        app:menu="@menu/drawer_menu"
-        app:itemVerticalPadding="18dp"
-        app:itemHorizontalPadding="20dp"
-        app:itemIconPadding="18dp"
-        app:itemIconSize="26dp"
-        app:itemTextAppearance="@style/DrawerMenuText" />
+        android:elevation="8dp">
+
+        <include layout="@layout/drawer_content" />
+
+    </FrameLayout>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
