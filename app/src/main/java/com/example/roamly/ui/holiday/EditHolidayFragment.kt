@@ -28,6 +28,8 @@ import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+// part 3 import for multi-language support
+import com.example.roamly.data.settings.TripTypeMapper
 
 class EditHolidayFragment :
     Fragment(R.layout.fragment_edit_holiday) {
@@ -414,7 +416,10 @@ class EditHolidayFragment :
 
         tripTypeAutoComplete
             .setText(
-                holiday.tripType,
+                TripTypeMapper.toDisplayName(
+                    requireContext(),
+                    holiday.tripType
+                ),
                 false
             )
 
@@ -455,7 +460,7 @@ class EditHolidayFragment :
                 if (isAdded) {
                     android.widget.Toast.makeText(
                         requireContext(),
-                        "Could not load holiday",
+                        getString(R.string.could_not_load_holiday),
                         android.widget.Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -662,11 +667,17 @@ class EditHolidayFragment :
                 ?.trim()
                 .orEmpty()
 
-        val tripType =
+        val selectedTripType =
             tripTypeAutoComplete.text
                 ?.toString()
                 ?.trim()
                 .orEmpty()
+
+        val tripType =
+            TripTypeMapper.toStoredValue(
+                requireContext(),
+                selectedTripType
+            )
 
         val country =
             countryEditText.text
@@ -979,7 +990,7 @@ holidayRepository
                 if (isAdded) {
                     android.widget.Toast.makeText(
                         requireContext(),
-                        "Could not update holiday",
+                        getString(R.string.could_not_update_holiday),
                         android.widget.Toast.LENGTH_SHORT
                     ).show()
                 }

@@ -64,6 +64,6 @@
         android:layout_gravity="center_vertical"
         android:src="@drawable/ic_forwardarrow"
         app:tint="#9AA3AA"
-        android:contentDescription="Open menu item" />
+        android:contentDescription="@string/open_menu_item" />
 
 </LinearLayout>

@@ -37,7 +37,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:contentDescription="Edit trip"
+                    android:contentDescription="@string/edit_holiday"
                     android:src="@drawable/ic_nav_itinerary"
                     app:tint="#2F80D1" />
 
@@ -53,7 +53,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Update your trip"
+                    android:text="@string/update_trip"
                     android:textColor="#102B46"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -62,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="Keep your holiday information accurate and up to date."
+                    android:text="@string/update_trip_description"
                     android:textColor="#8492A3"
                     android:textSize="12sp" />
 
@@ -91,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.12"
-                    android:text="TRIP COVER"
+                    android:text="@string/trip_cover"
                     android:textColor="#8795A6"
                     android:textSize="10sp"
                     android:textStyle="bold" />
@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="Holiday Image"
+                    android:text="@string/holiday_image"
                     android:textColor="#102B46"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -153,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.12"
-                    android:text="GENERAL"
+                    android:text="@string/general_section"
                     android:textColor="#8795A6"
                     android:textSize="10sp"
                     android:textStyle="bold" />
@@ -162,7 +162,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="Trip Information"
+                    android:text="@string/trip_information"
                     android:textColor="#102B46"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -333,7 +333,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.12"
-                    android:text="STAY"
+                    android:text="@string/stay_section"
                     android:textColor="#8795A6"
                     android:textSize="10sp"
                     android:textStyle="bold" />
@@ -383,7 +383,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.12"
-                    android:text="FLIGHTS"
+                    android:text="@string/flights_section"
                     android:textColor="#8795A6"
                     android:textSize="10sp"
                     android:textStyle="bold" />
@@ -427,7 +427,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="18dp"
-            android:text="✓  Save Changes"
+            android:text="@string/save_changes"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="14sp"

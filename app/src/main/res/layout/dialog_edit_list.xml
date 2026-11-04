@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EDIT PACKING LIST"
+        android:text="@string/edit_packing_list_label"
         android:textColor="#5E8FC2"
         android:textSize="10sp"
         android:textStyle="bold"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:text="Edit List"
+        android:text="@string/edit_list"
         android:textColor="#172B3A"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:text="Update your packing list details"
+        android:text="@string/edit_packing_list_description"
         android:textColor="#7B8794"
         android:textSize="12sp" />
 
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="LIST NAME"
+        android:text="@string/list_name_label"
         android:textColor="#344554"
         android:textSize="12sp"
         android:textStyle="bold" />
@@ -65,7 +65,7 @@
             android:id="@+id/etListName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="e.g. Electronics"
+            android:hint="@string/example_electronics"
             android:inputType="textCapSentences" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -75,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        android:text="DESCRIPTION"
+        android:text="@string/description_label"
         android:textColor="#344554"
         android:textSize="12sp"
         android:textStyle="bold" />
@@ -96,7 +96,7 @@
             android:id="@+id/etListDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="e.g. Chargers and Devices"
+            android:hint="@string/example_chargers_devices"
             android:inputType="textCapSentences"
             android:minLines="2"
             android:gravity="top" />
@@ -115,7 +115,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:textAllCaps="false"
             android:textColor="#344554"
             app:backgroundTint="#F4F6F8"
@@ -130,7 +130,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Save Changes"
+            android:text="@string/save_changes"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textStyle="bold"

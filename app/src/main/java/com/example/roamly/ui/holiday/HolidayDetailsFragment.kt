@@ -22,6 +22,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
+//multi-language support
+import com.example.roamly.data.settings.TripTypeMapper
 
 class HolidayDetailsFragment :
     Fragment(R.layout.fragment_holiday_details) {
@@ -170,7 +172,7 @@ class HolidayDetailsFragment :
                 if (isAdded) {
                     android.widget.Toast.makeText(
                         requireContext(),
-                        "Could not load holiday",
+                        getString(R.string.could_not_load_holiday),
                         android.widget.Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -220,8 +222,14 @@ class HolidayDetailsFragment :
         titleTextView.text =
             holiday.name
 
+        val translatedTripType =
+            TripTypeMapper.toDisplayName(
+                requireContext(),
+                holiday.tripType
+            )
+
         tripTypeTextView.text =
-            "✦ ${holiday.tripType}"
+            "✦ $translatedTripType"
 
         locationTextView.text =
             "📍 ${holiday.location}"
@@ -817,7 +825,7 @@ class HolidayDetailsFragment :
                 if (isAdded) {
                     android.widget.Toast.makeText(
                         requireContext(),
-                        "Could not delete holiday",
+                        getString(R.string.could_not_delete_holiday),
                         android.widget.Toast.LENGTH_SHORT
                     ).show()
                 }

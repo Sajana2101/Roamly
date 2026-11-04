@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="trip_types">
+        <item>Ukungcebeleka</item>
+        <item>Ibhizinisi</item>
+        <item>Umndeni</item>
+        <item>Ezothando</item>
+        <item>Uhambo lokuzidela</item>
+        <item>Uhambo lomgwaqo</item>
+        <item>Ukuhamba wedwa</item>
+        <item>Okunye</item>
+    </string-array>
+
+    <string-array name="document_types">
+        <item>Umazisi</item>
+        <item>I-visa</item>
+        <item>Ithikithi lendiza</item>
+        <item>Indawo yokuhlala</item>
+        <item>Umshwalense</item>
+        <item> Ukubhukha</item>
+        <item>Okunye</item>
+    </string-array>
+
+</resources>

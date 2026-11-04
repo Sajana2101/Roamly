@@ -123,7 +123,7 @@ class PackingFragment : Fragment(R.layout.fragment_packing) {
                 // Make sure a list name was entered
                 if (name.isEmpty()) {
 
-                    nameInput.error = "Please enter a list name"
+                    nameInput.error = getString(R.string.packing_name_required)
                     return@setOnClickListener
                 }
 
@@ -187,9 +187,9 @@ class PackingFragment : Fragment(R.layout.fragment_packing) {
                         if (error != null) {
 
                             AlertDialog.Builder(requireContext())
-                                .setTitle("Error")
+                                .setTitle(getString(R.string.error_title))
                                 .setMessage(error)
-                                .setPositiveButton("OK", null)
+                                .setPositiveButton(getString(R.string.ok), null)
                                 .show()
 
                             viewModel.clearErrorMessage()

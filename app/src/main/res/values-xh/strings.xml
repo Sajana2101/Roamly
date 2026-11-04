@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App -->
+    <string name="app_name" translatable="false">Roamly</string>
+
+    <!-- Temporary fragment placeholder -->
+    <string name="hello_blank_fragment">Molo kwicandelo elingenanto</string>
+
+    <!-- Shared Navigation -->
+    <string name="home">Ikhaya</string>
+    <string name="itinerary">Isicwangciso sohambo</string>
+    <string name="add_holiday">Yongeza Iholide</string>
+    <string name="packing">Ukupakisha</string>
+    <string name="documents">Amaxwebhu</string>
+    <string name="notifications_reminders">Izaziso Nezikhumbuzo</string>
+    <string name="settings">Iisetingi</string>
+    <string name="drawer_open">Vula imenyu yokukhangela</string>
+    <string name="drawer_close">Vala imenyu yokukhangela</string>
+    <string name="app_drawer_heading">USAPHOLO LOHAMBO</string>
+    <string name="menu">Imenyu</string>
+    <string name="open_menu_item">Vula into yemenyu</string>
+
+    <!-- General -->
+    <string name="ok">Kulungile</string>
+    <string name="cancel">Rhoxisa</string>
+    <string name="delete">Cima</string>
+    <string name="edit">Hlela</string>
+    <string name="save_changes">Gcina Utshintsho</string>
+    <string name="description">Inkcazelo</string>
+    <string name="error_title">Impazamo</string>
+    <string name="navigate_back">Buyela emva</string>
+
+    <!-- Itinerary -->
+    <string name="itinerary_day">USUKU LWESICWANGCISO SOHAMBO</string>
+    <string name="add_day">Yongeza Usuku</string>
+    <string name="add_another_day_to_this_itinerary">Yongeza olunye usuku kwesi sicwangciso sohambo.</string>
+    <string name="day_number">Inombolo yoSuku</string>
+    <string name="e_g_5">umz. 5</string>
+    <string name="date">Umhla</string>
+    <string name="yyyy_mm_dd">yyyy/mm/dd</string>
+    <string name="add_day2">+ Yongeza Usuku</string>
+
+    <string name="your_plans">IZICWANGCISO ZAKHO</string>
+    <string name="my_itineraries">Izicwangciso Zam Zohambo</string>
+    <string name="keep_every_day_of_your_trip_organised">Gcina usuku ngalunye lohambo lwakho lucwangciswe kakuhle.</string>
+
+    <!-- Itinerary sample content -->
+    <string name="honeymoon">Uhambo lwasemva komtshato</string>
+    <string name="greece">IGrisi</string>
+    <string name="business_trip">Uhambo Lomsebenzi</string>
+    <string name="cape_town">IKapa</string>
+    <string name="family_vacation">Iholide Yosapho</string>
+    <string name="durban">IDurban</string>
+
+    <string name="selected_trip">UHLELO OLUKHETHIWEYO</string>
+    <string name="honeymoon2">Uhambo lwasemva komtshato</string>
+    <string name="_12_sep_20_sep_2026">12 Sep – 20 Sep 2026</string>
+    <string name="delete_itinerary">Cima isicwangciso sohambo</string>
+    <string name="x">×</string>
+
+    <string name="daily_plan">ISICWANGCISO SEMIHLA NGEMIHLA</string>
+    <string name="select_a_day">Khetha usuku</string>
+    <string name="day">+ Usuku</string>
+    <string name="dayitinerary">USUKU</string>
+    <string name="delete_selected_day">Cima usuku olukhethiweyo</string>
+    <string name="xx">×</string>
+    <string name="add_activity">Yongeza umsebenzi</string>
+    <string name="plus">+</string>
+
+    <!-- Legacy itinerary sample content; retain until references are checked -->
+    <string name="day_1">Usuku 1</string>
+    <string name="_12_sep">12 Sep</string>
+    <string name="sat">Mgq</string>
+    <string name="day_2">Usuku 2</string>
+    <string name="_13_sep">13 Sep</string>
+    <string name="sun">Caw</string>
+    <string name="day_3">Usuku 3</string>
+    <string name="_14_sep">14 Sep</string>
+    <string name="mon">Mvulo</string>
+    <string name="day_4">Usuku 4</string>
+    <string name="_15_sep">15 Sep</string>
+    <string name="tue">Lwesibini</string>
+    <string name="saturday_12_september">Mgqibelo, 12 Septemba</string>
+    <string name="_08_30">08:30</string>
+    <string name="planearrowlogo">✈</string>
+    <string name="flight_to_athens">Inqwelo-moya eya e-Athens</string>
+    <string name="jnb_ath">JNB → ATH</string>
+    <string name="edititenary">Hlela</string>
+    <string name="deleteflight">Cima</string>
+    <string name="_19_30">19:30</string>
+    <string name="timelinelogo">⌂</string>
+    <string name="hotel_check_in">Ukungena Ehotele</string>
+    <string name="andronis_boutique_hotel">Andronis Boutique Hotel</string>
+    <string name="_19_30_20_00">19:30 – 20:00</string>
+    <string name="editdestination">Hlela</string>
+    <string name="deletedestination">Cima</string>
+    <string name="day_1itemitinerary">Usuku 1</string>
+    <string name="_12_sep_itemitinerary">12 Sep</string>
+    <string name="sat_itemitinerary">Mgq</string>
+
+    <!-- Itinerary Dialogs -->
+    <string name="warningmark">!</string>
+    <string name="delete_day">Ucime Usuku?</string>
+    <string name="are_you_sure_you_want_to_delete_this_day">Uqinisekile ukuba ufuna ukucima olu suku?</string>
+    <string name="cancel_deleteday">Rhoxisa</string>
+
+    <string name="new_activity">UMSEBENZI OMTSHA</string>
+    <string name="add_itinerary_activity">Yongeza Umsebenzi</string>
+    <string name="add_an_activity_to_your_itinerary">Yongeza umsebenzi kwisicwangciso sakho sohambo.</string>
+    <string name="add_activity_task">+ Yongeza Umsebenzi</string>
+    <string name="cancel_activity">Rhoxisa</string>
+    <string name="e_g_sunset_cruise">umz. Uhambo Ngenqanawa Ngexesha Lokutshona Kwelanga</string>
+    <string name="time">Ixesha</string>
+    <string name="select_itinerary_day">Usuku</string>
+    <string name="select_time">Khetha ixesha</string>
+    <string name="activity_title">Umsebenzi</string>
+    <string name="activity_title_label">Igama Lomsebenzi</string>
+    <string name="edit_activity_button">Hlela</string>
+
+    <!-- Itinerary Dynamic Labels -->
+    <string name="itinerary_day_number">Usuku %1$d</string>
+    <string name="itinerary_day_date">%1$s - %2$s</string>
+
+    <!-- Itinerary Empty States -->
+    <string name="itinerary_load_error">Akukwazekanga ukulayisha iiholide.</string>
+    <string name="itinerary_no_holidays">Akukho holide okwangoku. Qala ngokwenza iholide.</string>
+    <string name="itinerary_no_holidays_title">Akukho holide okwangoku</string>
+    <string name="itinerary_create_holiday_message">Yenza iholide kuqala ukuze wakhe isicwangciso sohambo.</string>
+    <string name="itinerary_no_day_selected">Akukho suku lukhethiweyo</string>
+    <string name="itinerary_no_activities">Akukho misebenzi yongeziweyo kolu suku.</string>
+
+    <!-- Itinerary Day Validation -->
+    <string name="itinerary_invalid_day_number">Faka inombolo yosuku echanekileyo.</string>
+    <string name="itinerary_duplicate_day_number">Le nombolo yosuku sele ikhona.</string>
+    <string name="itinerary_date_required">Nceda ukhethe umhla.</string>
+    <string name="itinerary_date_outside_holiday">Umhla kufuneka ube phakathi kwexesha leholide ekhethiweyo.</string>
+    <string name="itinerary_duplicate_date">Lo mhla sele ukhona kwisicwangciso sohambo.</string>
+
+    <!-- Itinerary Activity Validation -->
+    <string name="itinerary_time_required">Nceda ukhethe ixesha lomsebenzi.</string>
+    <string name="itinerary_activity_title_required">Nceda ufake igama lomsebenzi.</string>
+
+    <!-- Itinerary Edit Dialogs -->
+    <string name="edit_day">Hlela Usuku</string>
+    <string name="edit_day_description">Hlaziya usuku olukhethiweyo kwisicwangciso sohambo.</string>
+    <string name="edit_activity">Hlela Umsebenzi</string>
+    <string name="edit_activity_description">Hlaziya lo msebenzi kwisicwangciso sakho sohambo.</string>
+
+    <!-- Itinerary Delete Dialogs -->
+    <string name="delete_day_title">Ucime Usuku %1$d?</string>
+    <string name="delete_day_confirmation">Oku kuza kucima uSuku %1$d nayo yonke imisebenzi eyongezwe kulo suku.</string>
+    <string name="delete_activity_title">Ucime Umsebenzi?</string>
+    <string name="delete_activity_confirmation">Uqinisekile ukuba ufuna ukucima i-"%1$s"?</string>
+    <string name="delete_itinerary_title">Ucime Isicwangciso Sohambo?</string>
+    <string name="delete_itinerary_confirmation">Uqinisekile ukuba ufuna ukucima isicwangciso sohambo se-%1$s? Zonke iintsuku nemisebenzi ekwesi sicwangciso ziza kucinywa.</string>
+
+    <!-- Itinerary Success Messages -->
+    <string name="itinerary_day_added">Usuku %1$d longeziwe.</string>
+    <string name="itinerary_select_day_first">Nceda ukhethe usuku kuqala.</string>
+    <string name="itinerary_day_updated">Usuku luhlaziywe ngempumelelo.</string>
+    <string name="itinerary_day_deleted">Usuku %1$d lucinyiwe.</string>
+    <string name="itinerary_select_day_before_activity">Nceda ukhethe usuku ngaphambi kokongeza umsebenzi.</string>
+    <string name="itinerary_activity_added">%1$s wongeziwe.</string>
+    <string name="itinerary_activity_updated">Umsebenzi uhlaziywe ngempumelelo.</string>
+    <string name="itinerary_activity_deleted">%1$s ucinyiwe.</string>
+    <string name="itinerary_deleted">Isicwangciso sohambo se-%1$s sicinyiwe.</string>
+
+    <!-- Packing -->
+    <string name="packing_list">Uluhlu Lokupakisha</string>
+    <string name="prepare_everything_you_need_for_your_trip">Lungisa yonke into oyifunayo kuhambo lwakho.</string>
+    <string name="add_packing_list">Yongeza Uluhlu Lokupakisha</string>
+    <string name="your_packing_lists_will_appear_here">Uluhlu lwakho lokupakisha luza kuvela apha.</string>
+    <string name="packing_list_name">Igama Loluhlu Lokupakisha</string>
+    <string name="edit_packing_list">Hlela uluhlu lokupakisha</string>
+    <string name="packing_list_description">Inkcazelo Yoluhlu Lokupakisha</string>
+    <string name="delete_packing_list">Cima uluhlu lokupakisha</string>
+    <string name="delete_itinerary_activity">Cima</string>
+
+    <string name="packing_get_ready">LUNGISELELA</string>
+    <string name="my_packing_lists">Uluhlu Lwam Lokupakisha</string>
+    <string name="new_list">+ Uluhlu Olutsha</string>
+    <string name="packing_page_description">Lungiselela yonke into oyifunayo kuhambo lwakho</string>
+    <string name="packing_progress">%1$d / %2$d kupakishiwe</string>
+    <string name="packing_progress_empty">0 / 0 kupakishiwe</string>
+    <string name="no_description">Akukho nkcazelo</string>
+    <string name="packing_name_required">Nceda ufake igama loluhlu</string>
+    <string name="packing_create_error">Akukwazekanga ukwenza uluhlu lokupakisha.</string>
+    <string name="packing_list_not_found">Uluhlu lokupakisha alufumanekanga.</string>
+    <string name="packing_update_error">Akukwazekanga ukuhlaziya uluhlu lokupakisha.</string>
+    <string name="packing_delete_error">Akukwazekanga ukucima uluhlu lokupakisha.</string>
+    <string name="packing_load_items_error">Akukwazekanga ukulayisha izinto zokupakisha.</string>
+    <string name="packing_item_not_found">Into yokupakisha ayifumanekanga.</string>
+    <string name="packing_add_item_error">Akukwazekanga ukongeza into yokupakisha.</string>
+    <string name="packing_update_item_error">Akukwazekanga ukuhlaziya into yokupakisha.</string>
+    <string name="packing_delete_item_error">Akukwazekanga ukucima into yokupakisha.</string>
+    <string name="packing_load_lists_error">Akukwazekanga ukulayisha uluhlu lokupakisha.</string>
+
+    <!-- Create Packing List -->
+    <string name="new_packing_list_label">ULUHLU OLUTSHA LOKUPAKISHA</string>
+    <string name="create_list">Yenza Uluhlu</string>
+    <string name="create_packing_list_description">Yenza uluhlu olutsha lokupakisha kuhambo lwakho</string>
+    <string name="list_name_label">IGAMA LOLUHLU</string>
+    <string name="example_electronics">umz. Izixhobo Zombane</string>
+    <string name="description_label">INKCAZELO</string>
+    <string name="example_chargers_devices">umz. Iitshaja Nezixhobo</string>
+    <string name="create_list_button">+ Yenza Uluhlu</string>
+
+    <!-- Packing Items -->
+    <string name="packing_item_label">INTO YOKUPAKISHA</string>
+    <string name="add_packing_item">Yongeza Into Yokupakisha</string>
+    <string name="add_packing_item_description">Yongeza into kuluhlu lwakho lokupakisha</string>
+    <string name="item_name_label">IGAMA LENTO</string>
+    <string name="example_sunglasses">umz. Iiglasi Zelanga</string>
+    <string name="add_item_button">+ Yongeza Into</string>
+    <string name="packing_list_default_title">Uluhlu Lokupakisha</string>
+    <string name="packing_item_name_required">Nceda ufake igama lento</string>
+    <string name="packing_item_placeholder">Into yokupakisha</string>
+
+    <!-- Packing Delete Dialogs -->
+    <string name="delete_item_title">Ucime Into?</string>
+    <string name="delete_packing_list_title">Ucime Uluhlu Lokupakisha?</string>
+    <string name="delete_packing_list_confirmation">Uqinisekile ukuba ufuna ukucima i-"%1$s"?\n\nOku kuza kucima uluhlu nazo zonke izinto ezikulo.</string>
+    <string name="delete_packing_item_confirmation">Uqinisekile ukuba ufuna ukucima i-"%1$s"?</string>
+
+    <!-- Edit Packing -->
+    <string name="edit_packing_item_label">HLELA INTO YOKUPAKISHA</string>
+    <string name="edit_item">Hlela Into</string>
+    <string name="edit_packing_item_description">Hlaziya into yakho yokupakisha</string>
+    <string name="edit_packing_list_label">HLELA ULUHLU LOKUPAKISHA</string>
+    <string name="edit_list">Hlela Uluhlu</string>
+    <string name="edit_packing_list_description">Hlaziya iinkcukacha zoluhlu lwakho lokupakisha</string>
+    <string name="all_packing_lists">‹ Zonke Iintlobo Zoluhlu</string>
+    <string name="packing_list_section_label">ULUHLU LOKUPAKISHA</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_travel_money">IMALI YOHAMBO</string>
+    <string name="currency_converter">Isiguquli Semali</string>
+    <string name="currency_subtitle">Guqula imali ngokukhawuleza xa ucwangcisa okanye useluhambeni.</string>
+    <string name="currency_convert_label">GUQUla</string>
+    <string name="currency_calculator">Isibali Semali</string>
+    <string name="currency_amount">Isixa Semali</string>
+    <string name="currency_amount_hint">1000</string>
+    <string name="currency_from">Ukusuka</string>
+    <string name="currency_to">Ukuya</string>
+    <string name="currency_from_hint">Khetha imali yokuqala</string>
+    <string name="currency_to_hint">Khetha imali ekuya kuyo</string>
+    <string name="currency_swap">Tshintsha iimali</string>
+    <string name="currency_convert_button">Guqula Imali</string>
+    <string name="currency_converted_value">IXABISO ELIGUQUKILEYO</string>
+    <string name="currency_example_result">€50.00</string>
+    <string name="currency_example_summary">R1,000.00 ZAR = €50.00 EUR</string>
+    <string name="currency_example_rate">1 ZAR = 0.0500 EUR</string>
+    <string name="currency_mock_rates_note">Amaxabiso otshintshiselwano ovavanyo ngawethutyana de kuqhagamshelwe i-API yemali ye-Roamly esebenzayo.</string>
+    <string name="currency_invalid_amount">Faka isixa esingaphezulu kuka-0.</string>
+    <string name="currency_invalid_selection">Kufuneka ukhethe imali yokuqala kunye nemali ekuya kuyo ezisebenzayo.</string>
+    <string name="currency_conversion_failed">Ukuguqulwa kwemali akuphumelelanga.</string>
+
+    <!-- Authentication -->
+    <string name="login_title">Ngena</string>
+    <string name="login_welcome_back">WAMKELEKILE KWAKHONA</string>
+    <string name="login_subtitle">Ngena ukuze ufikelele kwiiholide zakho, uluhlu lokupakisha kunye namaxwebhu ohambo.</string>
+    <string name="email">Idilesi ye-imeyile</string>
+    <string name="password">Igama lokugqitha</string>
+    <string name="login_button">Ngena</string>
+    <string name="no_account">Awunayo iakhawunti?</string>
+    <string name="create_account">Yenza Iakhawunti</string>
+    <string name="register_title">Yenza iakhawunti yakho</string>
+    <string name="register_subtitle">Joyina i-Roamly uze uqalise ukucwangcisa uhambo lwakho olulandelayo</string>
+    <string name="full_name">Igama elipheleleyo</string>
+    <string name="confirm_password">Qinisekisa igama lokugqitha</string>
+    <string name="register_button">Yenza Iakhawunti</string>
+    <string name="already_have_account">Sele unayo iakhawunti?</string>
+    <string name="back_to_login">Ngena</string>
+
+    <string name="field_required">Le ndawo kufuneka igcwaliswe.</string>
+    <string name="invalid_email">Faka idilesi ye-imeyile esebenzayo.</string>
+    <string name="password_requirements">Igama lokugqitha kufuneka libe noonobumba abasibhozo ubuncinane, liquke unobumba omkhulu, omncinci kunye nenombolo.</string>
+    <string name="passwords_do_not_match">Amagama okugqitha awafani.</string>
+    <string name="name_too_short">Igama kufuneka libe noonobumba ababini ubuncinane.</string>
+    <string name="login_successful">Ungene ngempumelelo.</string>
+    <string name="registration_successful">Iakhawunti yenziwe ngempumelelo.</string>
+    <string name="authentication_error">Kukho into engahambanga kakuhle. Nceda uzame kwakhona.</string>
+    <string name="network_error">Akukwazekanga ukuqhagamshela kwi-Roamly. Jonga uqhagamshelo lwakho uze uzame kwakhona.</string>
+
+    <!-- Google Sign-in -->
+    <string name="roamly_logo_description">Ilogo ye-Roamly</string>
+    <string name="continue_securely_with_google">Qhubeka ngokukhuselekileyo nge-Google</string>
+    <string name="continue_with_google">Qhubeka nge-Google</string>
+    <string name="first_google_signin_note">Ukungena kwakho okokuqala nge-Google kuza kwenza iakhawunti yakho ye-Roamly ngokuzenzekelayo.</string>
+
+    <!-- Home Dashboard -->
+    <string name="my_holidays">Iiholide Zam</string>
+    <string name="holiday_dashboard_subtitle">Gcina zonke iihambo zakho ezizayo kwindawo enye.</string>
+    <string name="no_holidays_title">Akukho holide okwangoku</string>
+    <string name="no_holidays_message">Qalisa ukucwangcisa uhambo lwakho olulandelayo ngokwenza iholide yakho yokuqala.</string>
+    <string name="plan_first_holiday">Cwangcisa Iholide</string>
+    <string name="unable_to_load_saved_holidays">Akukwazekanga ukulayisha iiholide ezigciniweyo</string>
+
+    <!-- Holiday Card -->
+    <string name="holiday_location_format">%1$s, %2$s</string>
+    <string name="holiday_date_format">%1$s - %2$s</string>
+    <string name="holiday_countdown_days">Kusele iintsuku ezi-%1$d</string>
+    <string name="holiday_started">Uhambo luyaqhubeka</string>
+    <string name="holiday_finished">Uhambo lugqityiwe</string>
+    <string name="holiday_upcoming">Ezizayo</string>
+    <string name="holiday_in_progress">Luyaqhubeka</string>
+    <string name="holiday_completed">Lugqityiwe</string>
+    <string name="holiday_days_to_go">Kusele iintsuku ezi-%1$d</string>
+
+    <!-- Add Holiday -->
+    <string name="add_holiday_title">Cwangcisa Iholide Entsha</string>
+    <string name="add_holiday_subtitle">Yongeza iinkcukacha eziphambili zohambo lwakho oluzayo.</string>
+    <string name="holiday_name">Igama leholide</string>
+    <string name="trip_type">Uhlobo lohambo</string>
+    <string name="country">Ilizwe</string>
+    <string name="city">Isixeko</string>
+    <string name="start_date">Umhla Wokuqala</string>
+    <string name="end_date">Umhla Wokugqibela</string>
+    <string name="choose_cover_image">Khetha Umfanekiso Woqweqwe</string>
+    <string name="change_cover_image">Tshintsha Umfanekiso Woqweqwe</string>
+    <string name="cover_image_optional">Umfanekiso woqweqwe (awunyanzelekanga)</string>
+    <string name="create_holiday">Yenza Iholide</string>
+    <string name="holiday_created">Iholide yenziwe ngempumelelo.</string>
+    <string name="could_not_save_holiday">Akukwazekanga ukugcina iholide</string>
+    <string name="end_date_before_start">Umhla wokugqibela awunakuba ngaphambi komhla wokuqala.</string>
+    <string name="select_trip_type">Khetha uhlobo lohambo</string>
+    <string name="select_start_date">Khetha umhla wokuqala.</string>
+    <string name="select_end_date">Khetha umhla wokugqibela.</string>
+
+    <!-- Holiday Image and Trip Cover -->
+    <string name="trip_image_description">Uhambo</string>
+    <string name="plan_your_next_trip">Cwangcisa uhambo lwakho olulandelayo</string>
+    <string name="add_trip_details_description">Yongeza iinkcukacha ezibalulekileyo ngoku uze ugcine yonke into icwangciswe kwindawo enye.</string>
+    <string name="trip_cover">UMFANEKISO WOQWEQWE LOHAMBO</string>
+    <string name="holiday_image">Umfanekiso Weholide</string>
+    <string name="upload_trip_image">Layisha umfanekiso wohambo</string>
+    <string name="trip_image_help">Lo mfanekiso uza kuvela kwikhadi leholide nakwisihloko sohambo lwakho</string>
+
+    <!-- General Holiday Information -->
+    <string name="general_section">NGOKUBANZI</string>
+    <string name="trip_information">Iinkcukacha Zohambo</string>
+    <string name="holiday_title_label">Igama Leholide</string>
+    <string name="example_honeymoon">umz. Uhambo Lwasemva Komtshato</string>
+    <string name="trip_classification">Udidi Lohambo</string>
+    <string name="country_label">Ilizwe</string>
+    <string name="example_greece">umz. IGrisi</string>
+    <string name="city_label">Isixeko</string>
+    <string name="example_santorini">umz. ISantorini</string>
+    <string name="date_format_hint">yyyy/mm/dd</string>
+    <string name="stay_section">INDAWO YOKUHLALA</string>
+    <string name="flights_section">IINQWELO-MOYA</string>
+    <string name="save_holiday">✓ Gcina Iholide</string>
+
+    <!-- Holiday Details -->
+    <string name="holiday_details">Iinkcukacha Zeholide</string>
+    <string name="trip_details">Iinkcukacha Zohambo</string>
+    <string name="edit_holiday">Hlela Iholide</string>
+    <string name="delete_holiday">Cima Iholide</string>
+    <string name="back_to_holidays">Buyela Kwiiholide Zam</string>
+    <string name="delete_holiday_title">Ucime iholide?</string>
+    <string name="delete_holiday_message">Le holide iza kususwa ngokusisigxina.</string>
+    <string name="holiday_deleted">Iholide icinywe ngempumelelo.</string>
+    <string name="holiday_updated">Iholide ihlaziywe ngempumelelo.</string>
+    <string name="edit_holiday_title">Hlela Iholide</string>
+    <string name="edit_holiday_subtitle">Hlaziya iinkcukacha zolu hambo.</string>
+    <string name="update_trip">Hlaziya uhambo lwakho</string>
+    <string name="update_trip_description">Gcina iinkcukacha zeholide yakho zichanekile kwaye zihlaziyiwe.</string>
+    <string name="edit_trip">✎ Hlela Uhambo</string>
+    <string name="could_not_load_holiday">Akukwazekanga ukulayisha iholide.</string>
+    <string name="could_not_update_holiday">Akukwazekanga ukuhlaziya iholide.</string>
+    <string name="could_not_delete_holiday">Akukwazekanga ukucima iholide.</string>
+
+    <!-- Holiday Accommodation -->
+    <string name="holiday_accommodation_section">Indawo Yokuhlala</string>
+    <string name="holiday_accommodation_subtitle">Uza kuhlala phi?</string>
+    <string name="holiday_accommodation_name">Igama lendawo yokuhlala</string>
+    <string name="holiday_accommodation_location">Indawo ekuyo indawo yokuhlala</string>
+    <string name="holiday_accommodation_type">Uhlobo lwendawo yokuhlala</string>
+    <string name="holiday_check_in_date">Umhla wokungena</string>
+    <string name="holiday_check_in_time">Ixesha lokungena</string>
+    <string name="holiday_check_out_date">Umhla wokuphuma</string>
+    <string name="holiday_check_out_time">Ixesha lokuphuma</string>
+    <string name="holiday_invalid_accommodation_dates">Umhla wokuphuma awunakuba ngaphambi komhla wokungena.</string>
+
+    <!-- Accommodation Form Fields -->
+    <string name="accommodation_name_label">Igama Lendawo Yokuhlala</string>
+    <string name="example_accommodation_name">umz. Andronis Boutique Hotel</string>
+    <string name="accommodation_type_label">Uhlobo Lwendawo Yokuhlala</string>
+    <string name="example_accommodation_type">umz. Ihotele</string>
+    <string name="address_label">Idilesi</string>
+    <string name="example_accommodation_address">umz. IOia, ISantorini, IGrisi</string>
+    <string name="check_in_date">Umhla Wokungena</string>
+    <string name="check_out_date">Umhla Wokuphuma</string>
+    <string name="check_in_time">Ixesha Lokungena</string>
+    <string name="check_out_time">Ixesha Lokuphuma</string>
+
+    <!-- Holiday Flights -->
+    <string name="holiday_flying_switch">Ngaba uza kuhamba ngenqwelo-moya?</string>
+    <string name="holiday_flying_help">Vula oku ukuze wongeze iinkcukacha zenqwelo-moya yakho.</string>
+    <string name="holiday_flight_section">Iinkcukacha Zenqwelo-moya</string>
+    <string name="holiday_outbound_flight">Inqwelo-moya Yokuhamba</string>
+    <string name="holiday_return_flight">Inqwelo-moya Yokubuya</string>
+    <string name="holiday_airline">Inkampani Yeenqwelo-moya</string>
+    <string name="holiday_airport_route">Izikhululo Zeenqwelo-moya / indlela</string>
+    <string name="holiday_airport_route_hint">umz. JNB → CPT</string>
+    <string name="holiday_flight_date">Umhla Wokuhamba</string>
+    <string name="holiday_boarding_time">Ixesha Lokukhwela</string>
+    <string name="holiday_departure_time">Ixesha Lokusuka</string>
+    <string name="holiday_arrival_time">Ixesha Lokufika</string>
+    <string name="holiday_terminal_optional">Itheminali (ayinyanzelekanga)</string>
+    <string name="holiday_gate_optional">Isango Lokukhwela (alinyanzelekanga)</string>
+    <string name="holiday_return_flight_before_departure">Inqwelo-moya yokubuya ayinakuba ngaphambi kwenqwelo-moya yokuhamba.</string>
+
+    <!-- Flight Form Fields -->
+    <string name="outbound">YOKUHAMBA</string>
+    <string name="departure_flight">Inqwelo-moya Yokuhamba</string>
+    <string name="airline">Inkampani Yeenqwelo-moya</string>
+    <string name="example_airline">umz. Emirates</string>
+    <string name="airport_route">Indlela Yenqwelo-moya</string>
+    <string name="example_airport_code">umz. JHB</string>
+    <string name="flight_date">Umhla Wokuhamba</string>
+    <string name="boarding">Ukukhwela</string>
+    <string name="departure">Ukusuka</string>
+    <string name="arrival">Ukufika</string>
+    <string name="terminal">Itheminali</string>
+    <string name="gate">Isango</string>
+    <string name="optional">Akuyomfuneko</string>
+    <string name="returnflight">YOKUBUYA</string>
+    <string name="return_flight">Inqwelo-moya Yokubuya</string>
+    <string name="return_date">Umhla Wokubuya</string>
+
+    <!-- Holiday Details Display -->
+    <string name="holiday_view_accommodation_type">Uhlobo: %1$s</string>
+    <string name="holiday_view_accommodation_location">Indawo: %1$s</string>
+    <string name="holiday_view_check_in">Ukungena: %1$s ngo-%2$s</string>
+    <string name="holiday_view_check_out">Ukuphuma: %1$s ngo-%2$s</string>
+    <string name="holiday_view_route">Indlela: %1$s</string>
+    <string name="holiday_view_flight_date">Umhla: %1$s</string>
+    <string name="holiday_view_boarding_time">Ukukhwela: %1$s</string>
+    <string name="holiday_view_departure_time">Ukusuka: %1$s</string>
+    <string name="holiday_view_arrival_time">Ukufika: %1$s</string>
+    <string name="holiday_view_terminal">Itheminali: %1$s</string>
+    <string name="holiday_view_gate">Isango lokukhwela: %1$s</string>
+
+    <!-- Documents -->
+    <string name="new_document_label">UXWEBHU OLUTSHA</string>
+    <string name="upload_document_title">Layisha Uxwebhu</string>
+    <string name="add_travel_document_description">Yongeza ifayile ebalulekileyo yohambo.</string>
+    <string name="document_name_label">Igama Loxwebhu</string>
+    <string name="example_passport_copy">umz. Ikopi Yepaspoti</string>
+    <string name="document_type_label">Uhlobo Loxwebhu</string>
+    <string name="select_document_type">Khetha uhlobo loxwebhu</string>
+    <string name="file_label">Ifayile</string>
+    <string name="choose_file">Khetha Ifayile</string>
+    <string name="supported_document_formats">PDF, JPG, PNG, DOC nokunye</string>
+    <string name="notes_label">Amanqaku</string>
+    <string name="optional_notes">Amanqaku ongawakhetha</string>
+    <string name="upload_document_button">☁ Layisha</string>
+    <string name="document_details_label">IINKCUKACHA ZOXWEBHU</string>
+    <string name="edit_document_title">Hlela Uxwebhu</string>
+    <string name="update_document_description">Hlaziya iinkcukacha zolu xwebhu.</string>
+    <string name="current_file_label">Ifayile Yangoku</string>
+    <string name="replace_file_label">Faka Enye Ifayile</string>
+    <string name="optional_replace_file_help">Akuyomfuneko — shiya kungenanto ukuze ugcine ifayile yangoku.</string>
+
+    <string name="new_file_selected">Ifayile entsha: %1$s</string>
+    <string name="document_name_required">Faka igama loxwebhu</string>
+    <string name="document_type_required">Khetha uhlobo loxwebhu</string>
+    <string name="choose_file_to_upload">Khetha ifayile oza kuyilayisha.</string>
+    <string name="document_uploaded">Uxwebhu lulayishiwe.</string>
+    <string name="document_already_added">Le fayile sele yongeziwe.</string>
+    <string name="document_upload_error">Akukwazekanga ukulayisha uxwebhu.</string>
+    <string name="document_updated">Uxwebhu luhlaziyiwe.</string>
+    <string name="document_update_error">Akukwazekanga ukuhlaziya uxwebhu.</string>
+    <string name="open_document">Vula Uxwebhu</string>
+    <string name="no_compatible_document_app">Akukho app ehambelanayo efunyenweyo yokuvula olu xwebhu.</string>
+    <string name="document_access_permission_error">I-Roamly ayisenayo imvume yokufikelela kolu xwebhu.</string>
+    <string name="delete_document">Cima Uxwebhu</string>
+    <string name="delete_document_confirmation">Uqinisekile ukuba ufuna ukususa olu xwebhu kwi-Roamly?</string>
+    <string name="document_deleted">Uxwebhu lucinyiwe.</string>
+    <string name="open">Vula</string>
+    <string name="travel_document_default">Uxwebhu Lohambo</string>
+
+    <!-- Settings -->
+    <string name="select_language">Khetha Ulwimi</string>
+    <string name="select_home_currency">Khetha Imali Yasekhaya</string>
+    <string name="please_enter_name">Nceda ufake igama lakho</string>
+    <string name="receive_travel_reminders">Fumana izikhumbuzo zohambo</string>
+    <string name="travel_reminders_off">Izikhumbuzo zohambo zicinyiwe</string>
+    <string name="default_display_name">Umsebenzisi we-Roamly</string>
+    <string name="settings_saved">Iisetingi Zigciniwe</string>
+    <string name="settings_saved_device_cloud">Iisetingi zakho zigciniwe kwesi sixhobo nakwiakhawunti yakho ye-Roamly.</string>
+    <string name="settings_saved_device_only">Iisetingi zakho zigciniwe kwesi sixhobo. Akukwazekanga ukuhlaziya ikopi ekwilifu.</string>
+    <string name="sign_out">Phuma</string>
+    <string name="confirm_sign_out">Uqinisekile ukuba ufuna ukuphuma kwi-Roamly?</string>
+
+    <!-- Currency Names -->
+    <string name="currency_usd">USD - Idola yaseMelika</string>
+    <string name="currency_eur">EUR - I-Euro</string>
+    <string name="currency_gbp">GBP - Iponti yaseBritani</string>
+    <string name="currency_aed">AED - I-Dirham yase-UAE</string>
+    <string name="currency_jpy">JPY - I-Yen yaseJapan</string>
+    <string name="currency_aud">AUD - Idola yase-Australia</string>
+    <string name="currency_cad">CAD - Idola yaseKhanada</string>
+    <string name="currency_zar">ZAR - IRandi yaseMzantsi Afrika</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_label">IISETINGI</string>
+    <string name="settings_heading">Iisetingi</string>
+    <string name="settings_description">Lawula iprofayile yakho kunye nezinto ozikhethayo kwi-app</string>
+    <string name="profile_label">IPROFAYILE</string>
+    <string name="account_information">Ulwazi Lweakhawunti</string>
+    <string name="display_name">Igama Eliboniswayo</string>
+    <string name="google_account">Iakhawunti ye-Google</string>
+    <string name="language_label">ULWIMI</string>
+    <string name="home_language">Ulwimi Lwasekhaya</string>
+    <string name="preferred_language">Ulwimi Olukhethwayo</string>
+    <string name="currency_label">IMALI</string>
+    <string name="current_currency">Imali Yangoku</string>
+    <string name="notifications_label">IZAZISO</string>
+    <string name="travel_reminders">Izikhumbuzo Zohambo</string>
+    <string name="account_label">IAKHAWUNTI</string>
+    <string name="sign_out_label">Phuma</string>
+
+    <!-- Drawer Descriptions -->
+    <string name="currency_converter_description">Guqula iimali kuhambo lwakho</string>
+    <string name="notifications_reminders_description">Landela izikhumbuzo ezibalulekileyo zohambo</string>
+
+    <!-- Biometric Lock -->
+    <string name="biometric_unlock_title">Vula i-Roamly</string>
+    <string name="biometric_unlock_message">Qinisekisa ukuba nguwe ukuze uqhubeke.</string>
+    <string name="biometric_waiting">Ilinde ukuqinisekiswa...</string>
+    <string name="biometric_try_again">Zama Kwakhona</string>
+    <string name="biometric_use_google">Sebenzisa Ukungena Nge-Google</string>
+    <string name="biometric_failed">Ukuqinisekiswa akuphumelelanga. Nceda uzame kwakhona.</string>
+    <string name="biometric_unavailable">Ukuqinisekiswa ngebhayometriki akufumaneki.</string>
+
+    <!-- Reminders -->
+    <string name="reminders_section">IZIKHUMBUZO</string>
+    <string name="reminders_title">Izikhumbuzo</string>
+    <string name="reminders_subtitle">Landela imihla ebalulekileyo yohambo.</string>
+    <string name="reminders_add">Yongeza Isikhumbuzo</string>
+    <string name="reminders_empty_title">Akukho zikhumbuzo okwangoku</string>
+    <string name="reminders_empty_message">Yongeza isikhumbuzo ukuze ulandele imihla ebalulekileyo yohambo.</string>
+    <string name="reminders_edit">Hlela Isikhumbuzo</string>
+    <string name="reminders_name">Igama Lesikhumbuzo</string>
+    <string name="reminders_description">Inkcazelo</string>
+    <string name="reminders_select_holiday">Khetha Iholide</string>
+    <string name="reminders_date">Umhla</string>
+    <string name="reminders_time">Ixesha</string>
+    <string name="reminders_enable">Vula Isikhumbuzo</string>
+    <string name="reminders_save">Gcina Isikhumbuzo</string>
+    <string name="reminders_cancel">Rhoxisa</string>
+    <string name="reminders_invalid_title">Nceda ufake igama lesikhumbuzo.</string>
+    <string name="reminders_holiday_required">Nceda ukhethe iholide.</string>
+    <string name="reminders_invalid_date">Nceda ukhethe umhla wesikhumbuzo osebenzayo.</string>
+    <string name="reminders_delete">Cima Isikhumbuzo</string>
+    <string name="reminders_delete_confirmation">Uqinisekile ukuba ufuna ukucima esi sikhumbuzo?</string>
+    <string name="reminders_load_holidays_error">Akukwazekanga ukulayisha iiholide.</string>
+    <string name="reminders_saved_successfully">Isikhumbuzo sigcinwe ngempumelelo.</string>
+    <string name="reminders_updated_successfully">Isikhumbuzo sihlaziywe ngempumelelo.</string>
+    <string name="reminders_deleted_successfully">Isikhumbuzo sicinywe ngempumelelo.</string>
+    <string name="reminders_cannot_enable_past">Akunakwenzeka ukuvula isikhumbuzo somhla osele udlulile.</string>
+    <string name="reminders_holiday_label">Iholide: %1$s</string>
+
+    <!-- Documents -->
+    <string name="documents_title">Amaxwebhu Ohambo</string>
+    <string name="documents_subtitle">Gcina onke amaxwebhu akho abalulekileyo ohambo kwindawo enye.</string>
+    <string name="upload_document">Layisha Uxwebhu</string>
+    <string name="no_documents_title">Akukho maxwebhu okwangoku</string>
+    <string name="no_documents_message">Layisha amaxwebhu akho ohambo ukuze ugcine yonke into icwangciswe kakuhle.</string>
+
+    <!-- Holiday Details -->
+    <string name="returnbutton">BUYA</string>
+
+    <!-- Login -->
+    <string name="firebase_signing_in">Kuyangena...</string>
+
+    <!-- Settings -->
+    <string name="home_currency">Imali Yasekhaya</string>
+    <string name="_08_30_am"> </string>
+
+    <!-- Google Sign-In -->
+    <string name="firebase_google_cancelled">Ukungena nge-Google kurhoxisiwe.</string>
+    <string name="firebase_google_failed">Ukungena nge-Google akuphumelelanga. Nceda uzame kwakhona.</string>
+
+    <!-- Roamly Authentication -->
+    <string name="roamly_connecting_account">Idibanisa iakhawunti yakho...</string>
+    <string name="roamly_sign_in_successful">Ungene ngempumelelo!</string>
+    <string name="roamly_backend_failed">Akukwazekanga ukuqhagamshela kwi-Roamly. Nceda uzame kwakhona.</string>
+
+    <!-- Reminders -->
+    <string name="reminders_no_holidays">Kufuneka wongeze iholide ngaphambi kokwenza isikhumbuzo.</string>
+
+
+</resources>

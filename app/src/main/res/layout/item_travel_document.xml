@@ -3,6 +3,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
@@ -92,12 +93,13 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
-                android:text="Open"
+                android:text="@string/open"
                 android:textAllCaps="false"
                 android:textColor="#245F94"
                 android:textSize="11sp"
                 app:backgroundTint="#EEF6FD"
-                app:cornerRadius="10dp" />
+                app:cornerRadius="10dp"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/editDocumentButton"
@@ -106,12 +108,13 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
-                android:text="Edit"
+                android:text="@string/edit"
                 android:textAllCaps="false"
                 android:textColor="#245F94"
                 android:textSize="11sp"
                 app:backgroundTint="#EEF6FD"
-                app:cornerRadius="10dp" />
+                app:cornerRadius="10dp"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/deleteDocumentButton"
@@ -119,12 +122,13 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="4dp"
                 android:layout_weight="1"
-                android:text="Delete"
+                android:text="@string/delete"
                 android:textAllCaps="false"
                 android:textColor="#C65353"
                 android:textSize="11sp"
                 app:backgroundTint="#FFF2F2"
-                app:cornerRadius="10dp" />
+                app:cornerRadius="10dp"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
 

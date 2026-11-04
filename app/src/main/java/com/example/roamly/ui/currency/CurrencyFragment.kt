@@ -340,12 +340,9 @@ class CurrencyFragment :
                                 )
                             }
 
-                            if (
-                                state.errorMessage != null
-                            ) {
-
+                            if (state.errorMessageResId != null) {
                                 layoutAmount.error =
-                                    state.errorMessage
+                                    getString(state.errorMessageResId)
                             }
                         }
                     }

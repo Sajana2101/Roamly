@@ -238,7 +238,10 @@ class DocumentAdapter(
                 }
                 ?.let {
                     values.add(
-                        it
+                        DocumentTypeMapper.toDisplayName(
+                            itemView.context,
+                            it
+                        )
                     )
                 }
 

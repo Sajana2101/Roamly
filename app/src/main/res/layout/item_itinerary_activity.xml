@@ -104,7 +104,7 @@
                     android:layout_height="36dp"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
-                    android:text="@string/edit_activity"
+                    android:text="@string/edit_activity_button"
                     android:textAllCaps="false"
                     android:textColor="#2F8FD8"
                     android:textSize="11sp"

@@ -3,6 +3,7 @@
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true">
@@ -17,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:letterSpacing="0.14"
-            android:text="DOCUMENT DETAILS"
+            android:text="@string/document_details_label"
             android:textColor="#3277BA"
             android:textSize="9sp"
             android:textStyle="bold" />
@@ -26,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="Edit Document"
+            android:text="@string/edit_document_title"
             android:textColor="#102B46"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -35,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="Update this document's information."
+            android:text="@string/update_document_description"
             android:textColor="#8A98A9"
             android:textSize="11sp" />
 
@@ -45,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Document Name"
+            android:text="@string/document_name_label"
             android:textColor="#24384A"
             android:textSize="11sp"
             android:textStyle="bold" />
@@ -68,7 +69,8 @@
                 android:inputType="textCapWords"
                 android:maxLines="1"
                 android:textColor="#172B3A"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                tools:ignore="SpeakableTextPresentCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            android:text="Document Type"
+            android:text="@string/document_type_label"
             android:textColor="#24384A"
             android:textSize="11sp"
             android:textStyle="bold" />
@@ -99,11 +101,12 @@
                 android:id="@+id/editDocumentTypeAutoComplete"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:hint="Select document type"
+                android:hint="@string/select_document_type"
                 android:inputType="none"
                 android:textColor="#172B3A"
                 android:textColorHint="#A0ADBA"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                tools:ignore="SpeakableTextPresentCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            android:text="Current File"
+            android:text="@string/current_file_label"
             android:textColor="#24384A"
             android:textSize="11sp"
             android:textStyle="bold" />
@@ -138,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            android:text="Replace File"
+            android:text="@string/replace_file_label"
             android:textColor="#24384A"
             android:textSize="11sp"
             android:textStyle="bold" />
@@ -148,7 +151,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="7dp"
-            android:text="Choose File"
+            android:text="@string/choose_file"
             android:textAllCaps="false"
             android:textColor="#17466F"
             app:backgroundTint="#F5F8FB"
@@ -163,7 +166,7 @@
             android:layout_marginTop="6dp"
             android:ellipsize="middle"
             android:maxLines="1"
-            android:text="Optional — leave empty to keep the current file."
+            android:text="@string/optional_replace_file_help"
             android:textColor="#8A98A9"
             android:textSize="10sp" />
 
@@ -173,7 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            android:text="Notes"
+            android:text="@string/notes_label"
             android:textColor="#24384A"
             android:textSize="11sp"
             android:textStyle="bold" />
@@ -195,7 +198,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:gravity="top"
-                android:hint="Optional notes"
+                android:hint="@string/optional_notes"
                 android:inputType="textCapSentences|textMultiLine"
                 android:maxLines="3"
                 android:paddingTop="14dp"
@@ -219,7 +222,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:textAllCaps="false"
                 android:textColor="#334A5F"
                 app:backgroundTint="#F7F9FC"
@@ -233,7 +236,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1.3"
-                android:text="Save Changes"
+                android:text="@string/save_changes"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"

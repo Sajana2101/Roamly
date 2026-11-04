@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="trip_types">
+        <item>Ontspanning</item>
+        <item>Besigheid</item>
+        <item>Familie</item>
+        <item>Romanties</item>
+        <item>Avontuur</item>
+        <item>Padreis</item>
+        <item>Alleenreis</item>
+        <item>Ander</item>
+    </string-array>
+
+    <string-array name="document_types">
+        <item>Identifikasie</item>
+        <item>Visa</item>
+        <item>Vlug</item>
+        <item>Verblyf</item>
+        <item>Versekering</item>
+        <item>Bespreking</item>
+        <item>Ander</item>
+    </string-array>
+
+</resources>

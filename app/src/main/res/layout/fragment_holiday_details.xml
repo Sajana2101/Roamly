@@ -157,7 +157,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="✎  Edit Trip"
+                android:text="@string/edit_trip"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
@@ -169,7 +169,7 @@
                 android:layout_width="112dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:text="Delete"
+                android:text="@string/delete"
                 android:textAllCaps="false"
                 android:textColor="#C85252"
                 android:textStyle="bold"
@@ -208,7 +208,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:letterSpacing="0.12"
-                        android:text="STAY"
+                        android:text="@string/stay_section"
                         android:textColor="#8795A6"
                         android:textSize="10sp"
                         android:textStyle="bold" />
@@ -217,7 +217,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Accommodation"
+                        android:text="@string/holiday_accommodation_section"
                         android:textColor="#102B46"
                         android:textSize="19sp"
                         android:textStyle="bold" />
@@ -340,7 +340,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:letterSpacing="0.12"
-                        android:text="OUTBOUND"
+                        android:text="@string/outbound"
                         android:textColor="#6E8DB3"
                         android:textSize="10sp"
                         android:textStyle="bold" />
@@ -349,7 +349,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Departure Flight"
+                        android:text="@string/departure_flight"
                         android:textColor="#102B46"
                         android:textSize="19sp"
                         android:textStyle="bold" />
@@ -510,7 +510,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:letterSpacing="0.12"
-                        android:text="RETURN"
+                        android:text="@string/returnbutton"
                         android:textColor="#6E8DB3"
                         android:textSize="10sp"
                         android:textStyle="bold" />
@@ -519,7 +519,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Return Flight"
+                        android:text="@string/return_flight"
                         android:textColor="#102B46"
                         android:textSize="19sp"
                         android:textStyle="bold" />

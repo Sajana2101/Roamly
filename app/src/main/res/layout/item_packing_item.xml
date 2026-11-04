@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginStart="8dp"
-        android:text="Packing item"
+        android:text="@string/packing_item_placeholder"
         android:textSize="16sp" />
 
     <!-- Edit button -->
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="Edit"
+            android:text="@string/edit"
             android:textColor="#266FAD"
             android:textSize="12sp" />
 
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="Delete"
+            android:text="@string/delete"
             android:textColor="#D95C5C"
             android:textSize="12sp" />
 

@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="0.14"
-                android:text="OUTBOUND"
+                android:text="@string/outbound"
                 android:textColor="#4382D3"
                 android:textSize="9sp"
                 android:textStyle="bold" />
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Departure Flight"
+                android:text="@string/departure_flight"
                 android:textColor="#102B46"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -50,7 +50,7 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:contentDescription="Departure flight"
+            android:contentDescription="@string/departure_flight"
             android:src="@drawable/ic_nav_add"
             app:tint="#367EC9" />
 
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Airline"
+        android:text="@string/airline"
         android:textColor="#24384A"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -83,7 +83,7 @@
             android:id="@+id/outboundAirlineEditText"
             android:layout_width="match_parent"
             android:layout_height="54dp"
-            android:hint="e.g. Emirates"
+            android:hint="@string/example_airline"
             android:inputType="textCapWords"
             android:maxLines="1"
             android:textColor="#172B3A"
@@ -97,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
-        android:text="Airport Route"
+        android:text="@string/airport_route"
         android:textColor="#24384A"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -119,7 +119,7 @@
             android:id="@+id/outboundAirportRouteEditText"
             android:layout_width="match_parent"
             android:layout_height="54dp"
-            android:hint="e.g. JHB "
+            android:hint="@string/example_airport_code"
             android:inputType="textCapCharacters"
             android:maxLines="1"
             android:textColor="#172B3A"
@@ -133,7 +133,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
-        android:text="Flight Date"
+        android:text="@string/flight_date"
         android:textColor="#24384A"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -158,7 +158,7 @@
             android:clickable="true"
             android:cursorVisible="false"
             android:focusable="false"
-            android:hint="yyyy/mm/dd"
+            android:hint="@string/date_format_hint"
             android:inputType="none"
             android:textColor="#172B3A"
             android:textColorHint="#A0ADBA"
@@ -179,7 +179,7 @@
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
             android:gravity="start"
-            android:text="Boarding"
+            android:text="@string/boarding"
             android:textColor="#24384A"
             android:textSize="10sp"
             android:textStyle="bold" />
@@ -191,7 +191,7 @@
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
             android:gravity="start"
-            android:text="Departure"
+            android:text="@string/departure"
             android:textColor="#24384A"
             android:textSize="10sp"
             android:textStyle="bold" />
@@ -202,7 +202,7 @@
             android:layout_marginStart="4dp"
             android:layout_weight="1"
             android:gravity="start"
-            android:text="Arrival"
+            android:text="@string/arrival"
             android:textColor="#24384A"
             android:textSize="10sp"
             android:textStyle="bold" />
@@ -326,7 +326,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Terminal"
+                android:text="@string/terminal"
                 android:textColor="#24384A"
                 android:textSize="10sp"
                 android:textStyle="bold" />
@@ -367,7 +367,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gate"
+                android:text="@string/gate"
                 android:textColor="#24384A"
                 android:textSize="10sp"
                 android:textStyle="bold" />
@@ -388,7 +388,7 @@
                     android:id="@+id/outboundGateEditText"
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
-                    android:hint="Optional"
+                    android:hint="@string/optional"
                     android:maxLines="1"
                     android:textColor="#172B3A"
                     android:textColorHint="#A0ADBA"
@@ -431,7 +431,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="0.14"
-                android:text="RETURN"
+                android:text="@string/returnflight"
                 android:textColor="#7E63C9"
                 android:textSize="9sp"
                 android:textStyle="bold" />
@@ -440,7 +440,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Return Flight"
+                android:text="@string/return_flight"
                 android:textColor="#102B46"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -450,7 +450,7 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:contentDescription="Return flight"
+            android:contentDescription="@string/return_flight"
             android:rotation="180"
             android:src="@drawable/ic_nav_add"
             app:tint="#367EC9" />
@@ -462,7 +462,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Airline"
+        android:text="@string/airline"
         android:textColor="#24384A"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -484,7 +484,7 @@
             android:id="@+id/returnAirlineEditText"
             android:layout_width="match_parent"
             android:layout_height="54dp"
-            android:hint="e.g. Emirates"
+            android:hint="@string/example_airline"
             android:inputType="textCapWords"
             android:maxLines="1"
             android:textColor="#172B3A"
@@ -498,7 +498,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
-        android:text="Airport Route"
+        android:text="@string/airport_route"
         android:textColor="#24384A"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -520,7 +520,7 @@
             android:id="@+id/returnAirportRouteEditText"
             android:layout_width="match_parent"
             android:layout_height="54dp"
-            android:hint="e.g. JHB "
+            android:hint="@string/example_airport_code"
             android:inputType="textCapCharacters"
             android:maxLines="1"
             android:textColor="#172B3A"
@@ -534,7 +534,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
-        android:text="Return Date"
+        android:text="@string/return_date"
         android:textColor="#24384A"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -559,7 +559,7 @@
             android:clickable="true"
             android:cursorVisible="false"
             android:focusable="false"
-            android:hint="yyyy/mm/dd"
+            android:hint="@string/date_format_hint"
             android:inputType="none"
             android:textColor="#172B3A"
             android:textColorHint="#A0ADBA"
@@ -579,7 +579,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:text="Boarding"
+            android:text="@string/boarding"
             android:textColor="#24384A"
             android:textSize="10sp"
             android:textStyle="bold" />
@@ -590,7 +590,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:text="Departure"
+            android:text="@string/departure"
             android:textColor="#24384A"
             android:textSize="10sp"
             android:textStyle="bold" />
@@ -600,7 +600,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
-            android:text="Arrival"
+            android:text="@string/arrival"
             android:textColor="#24384A"
             android:textSize="10sp"
             android:textStyle="bold" />
@@ -724,7 +724,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Terminal"
+                android:text="@string/terminal"
                 android:textColor="#24384A"
                 android:textSize="10sp"
                 android:textStyle="bold" />
@@ -745,7 +745,7 @@
                     android:id="@+id/returnTerminalEditText"
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
-                    android:hint="Optional"
+                    android:hint="@string/optional"
                     android:maxLines="1"
                     android:textColor="#172B3A"
                     android:textColorHint="#A0ADBA"
@@ -765,7 +765,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gate"
+                android:text="@string/gate"
                 android:textColor="#24384A"
                 android:textSize="10sp"
                 android:textStyle="bold" />
@@ -786,7 +786,7 @@
                     android:id="@+id/returnGateEditText"
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
-                    android:hint="Optional"
+                    android:hint="@string/optional"
                     android:maxLines="1"
                     android:textColor="#172B3A"
                     android:textColorHint="#A0ADBA"

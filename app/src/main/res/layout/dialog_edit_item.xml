@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EDIT PACKING ITEM"
+        android:text="@string/edit_packing_item_label"
         android:textColor="#5E8FC2"
         android:textSize="10sp"
         android:textStyle="bold"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:text="Edit Item"
+        android:text="@string/edit_item"
         android:textColor="#172B3A"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:text="Update your packing item"
+        android:text="@string/edit_packing_item_description"
         android:textColor="#7B8794"
         android:textSize="12sp" />
 
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="ITEM NAME"
+        android:text="@string/item_name_label"
         android:textColor="#344554"
         android:textSize="12sp"
         android:textStyle="bold" />
@@ -65,7 +65,7 @@
             android:id="@+id/etItemName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="e.g. Sunglasses"
+            android:hint="@string/example_sunglasses"
             android:inputType="textCapSentences" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -82,7 +82,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:textAllCaps="false"
             android:textColor="#344554"
             app:backgroundTint="#F4F6F8"
@@ -97,7 +97,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Save Changes"
+            android:text="@string/save_changes"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textStyle="bold"

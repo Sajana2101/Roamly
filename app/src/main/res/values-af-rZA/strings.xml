@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App -->
+    <string name="app_name" translatable="false">Roamly</string>
+
+    <!-- Temporary fragment placeholder -->
+    <string name="hello_blank_fragment">Hallo leë fragment</string>
+
+    <!-- Shared Navigation -->
+    <string name="home">Tuis</string>
+    <string name="itinerary">Reisplan</string>
+    <string name="add_holiday">Voeg vakansie by</string>
+    <string name="packing">Inpak</string>
+    <string name="documents">Dokumente</string>
+    <string name="notifications_reminders">Kennisgewings en Herinneringe</string>
+    <string name="settings">Instellings</string>
+    <string name="drawer_open">Maak navigasiekieslys oop</string>
+    <string name="drawer_close">Maak navigasiekieslys toe</string>
+    <string name="app_drawer_heading">REIS-TOEPASSING</string>
+    <string name="menu">Kieslys</string>
+    <string name="open_menu_item">Maak kieslysitem oop</string>
+
+    <!-- General -->
+    <string name="ok">OK</string>
+    <string name="cancel">Kanselleer</string>
+    <string name="delete">Verwyder</string>
+    <string name="edit">Wysig</string>
+    <string name="save_changes">Stoor veranderinge</string>
+    <string name="description">Beskrywing</string>
+    <string name="error_title">Fout</string>
+    <string name="navigate_back">Gaan terug</string>
+
+    <!-- Itinerary -->
+    <string name="itinerary_day">REISPLANDAG</string>
+    <string name="add_day">Voeg dag by</string>
+    <string name="add_another_day_to_this_itinerary">Voeg nog n dag by hierdie reisplan.</string>
+    <string name="day_number">Dagnommer</string>
+    <string name="e_g_5">bv. 5</string>
+    <string name="date">Datum</string>
+    <string name="yyyy_mm_dd">jjjj/mm/dd</string>
+    <string name="add_day2">+ Voeg dag by</string>
+
+    <string name="your_plans">JOU PLANNE</string>
+    <string name="my_itineraries">My Reisplanne</string>
+    <string name="keep_every_day_of_your_trip_organised">Hou elke dag van jou reis georganiseerd.</string>
+
+    <!-- Itinerary sample content -->
+    <string name="honeymoon">Wittebrood</string>
+    <string name="greece">Griekeland</string>
+    <string name="business_trip">Besigheidsreis</string>
+    <string name="cape_town">Kaapstad</string>
+    <string name="family_vacation">Gesinsvakansie</string>
+    <string name="durban">Durban</string>
+
+    <string name="selected_trip">GESELEKTEERDE REIS</string>
+    <string name="honeymoon2">Wittebrood</string>
+    <string name="_12_sep_20_sep_2026">12 Sep – 20 Sep 2026</string>
+    <string name="delete_itinerary">Verwyder reisplan</string>
+    <string name="x">×</string>
+
+    <string name="daily_plan">DAAGLIKSE PLAN</string>
+    <string name="select_a_day">Kies ndag</string>
+    <string name="day">+ Dag</string>
+    <string name="dayitinerary">DAG</string>
+    <string name="delete_selected_day">Verwyder geselekteerde dag</string>
+    <string name="xx">×</string>
+    <string name="add_activity">Voeg aktiwiteit by</string>
+    <string name="plus">+</string>
+
+    <!-- Legacy itinerary sample content; retain until references are checked -->
+    <string name="day_1">Dag 1</string>
+    <string name="_12_sep">12 Sep</string>
+    <string name="sat">Sat</string>
+    <string name="day_2">Dag 2</string>
+    <string name="_13_sep">13 Sep</string>
+    <string name="sun">Son</string>
+    <string name="day_3">Dag 3</string>
+    <string name="_14_sep">14 Sep</string>
+    <string name="mon">Ma</string>
+    <string name="day_4">Dag 4</string>
+    <string name="_15_sep">15 Sep</string>
+    <string name="tue">Di</string>
+    <string name="saturday_12_september">Saterdag, 12 September</string>
+    <string name="_08_30">08:30</string>
+    <string name="planearrowlogo">✈</string>
+    <string name="flight_to_athens">Vlug na Athene</string>
+    <string name="jnb_ath">JNB → ATH</string>
+    <string name="edititenary">Wysig</string>
+    <string name="deleteflight">Verwyder</string>
+    <string name="_19_30">19:30</string>
+    <string name="timelinelogo">⌂</string>
+    <string name="hotel_check_in">Hotel-inboek</string>
+    <string name="andronis_boutique_hotel">Andronis Boutique Hotel</string>
+    <string name="_19_30_20_00">19:30 – 20:00</string>
+    <string name="editdestination">Wysig</string>
+    <string name="deletedestination">Verwyder</string>
+    <string name="day_1itemitinerary">Dag 1</string>
+    <string name="_12_sep_itemitinerary">12 Sep</string>
+    <string name="sat_itemitinerary">Sat</string>
+
+    <!-- Itinerary Dialogs -->
+    <string name="warningmark">!</string>
+    <string name="delete_day">Verwyder dag?</string>
+    <string name="are_you_sure_you_want_to_delete_this_day">Is jy seker jy wil hierdie dag verwyder?</string>
+    <string name="cancel_deleteday">Kanselleer</string>
+
+    <string name="new_activity">NUWE AKTIWITEIT</string>
+    <string name="add_itinerary_activity">Voeg aktiwiteit by</string>
+    <string name="add_an_activity_to_your_itinerary">Voeg naktiwiteit by jou reisplan.</string>
+    <string name="add_activity_task">+ Voeg aktiwiteit by</string>
+    <string name="cancel_activity">Kanselleer</string>
+    <string name="e_g_sunset_cruise">bv. Sonsondergangvaart</string>
+    <string name="time">Tyd</string>
+    <string name="select_itinerary_day">Dag</string>
+    <string name="select_time">Kies tyd</string>
+    <string name="activity_title">Aktiwiteit</string>
+    <string name="activity_title_label">Aktiwiteitstitel</string>
+    <string name="edit_activity_button">Wysig</string>
+
+    <!-- Itinerary Dynamic Labels -->
+    <string name="itinerary_day_number">Dag %1$d</string>
+    <string name="itinerary_day_date">%1$s - %2$s</string>
+
+    <!-- Itinerary Empty States -->
+    <string name="itinerary_load_error">Kon nie vakansies laai nie.</string>
+    <string name="itinerary_no_holidays">Nog geen vakansies nie. Skep eers nvakansie.</string>
+    <string name="itinerary_no_holidays_title">Nog geen vakansies nie</string>
+    <string name="itinerary_create_holiday_message">Skep eers nvakansie om nreisplan op te stel.</string>
+    <string name="itinerary_no_day_selected">Geen dag gekies nie</string>
+    <string name="itinerary_no_activities">Geen aktiwiteite is vir hierdie dag bygevoeg nie.</string>
+
+    <!-- Itinerary Day Validation -->
+    <string name="itinerary_invalid_day_number">Voer ngeldige dagnommer in.</string>
+    <string name="itinerary_duplicate_day_number">Daardie dagnommer bestaan reeds.</string>
+    <string name="itinerary_date_required">Kies asseblief ndatum.</string>
+    <string name="itinerary_date_outside_holiday">Die datum moet binne die gekose vakansietydperk val.</string>
+    <string name="itinerary_duplicate_date">Daardie datum bestaan reeds in die reisplan.</string>
+
+    <!-- Itinerary Activity Validation -->
+    <string name="itinerary_time_required">Kies asseblief ntyd vir die aktiwiteit.</string>
+    <string name="itinerary_activity_title_required">Voer asseblief naktiwiteitstitel in.</string>
+
+    <!-- Itinerary Edit Dialogs -->
+    <string name="edit_day">Wysig dag</string>
+    <string name="edit_day_description">Dateer die gekose reisplandag op.</string>
+    <string name="edit_activity">Wysig aktiwiteit</string>
+    <string name="edit_activity_description">Dateer hierdie aktiwiteit in jou reisplan op.</string>
+
+    <!-- Itinerary Delete Dialogs -->
+    <string name="delete_day_title">Verwyder dag %1$d?</string>
+    <string name="delete_day_confirmation">Dit sal dag %1$d en al die aktiwiteite wat vir hierdie dag bygevoeg is, verwyder.</string>
+    <string name="delete_activity_title">Verwyder aktiwiteit?</string>
+    <string name="delete_activity_confirmation">Is jy seker jy wil "%1$s" verwyder?</string>
+    <string name="delete_itinerary_title">Verwyder reisplan?</string>
+    <string name="delete_itinerary_confirmation">Is jy seker jy wil die reisplan vir %1$s verwyder? Alle dae en aktiwiteite in hierdie reisplan sal verwyder word.</string>
+
+    <!-- Itinerary Success Messages -->
+    <string name="itinerary_day_added">Dag %1$d is bygevoeg.</string>
+    <string name="itinerary_select_day_first">Kies asseblief eers ndag.</string>
+    <string name="itinerary_day_updated">Dag is suksesvol opgedateer.</string>
+    <string name="itinerary_day_deleted">Dag %1$d is verwyder.</string>
+    <string name="itinerary_select_day_before_activity">Kies asseblief eers ndag voordat jy naktiwiteit byvoeg.</string>
+    <string name="itinerary_activity_added">%1$s is bygevoeg.</string>
+    <string name="itinerary_activity_updated">Aktiwiteit is suksesvol opgedateer.</string>
+    <string name="itinerary_activity_deleted">%1$s is verwyder.</string>
+    <string name="itinerary_deleted">Reisplan vir %1$s is verwyder.</string>
+
+    <!-- Packing -->
+    <string name="packing_list">Paklys</string>
+    <string name="prepare_everything_you_need_for_your_trip">Berei alles voor wat jy vir jou reis nodig het.</string>
+    <string name="add_packing_list">Voeg paklys by</string>
+    <string name="your_packing_lists_will_appear_here">Jou paklyste sal hier verskyn.</string>
+    <string name="packing_list_name">Paklysnaam</string>
+    <string name="edit_packing_list">Wysig paklys</string>
+    <string name="packing_list_description">Paklysb beskrywing</string>
+    <string name="delete_packing_list">Verwyder paklys</string>
+    <string name="delete_itinerary_activity">Verwyder</string>
+
+    <string name="packing_get_ready">MAAK GEREED</string>
+    <string name="my_packing_lists">My Paklyste</string>
+    <string name="new_list">+ Nuwe lys</string>
+    <string name="packing_page_description">Organiseer alles wat jy vir jou reis nodig het</string>
+    <string name="packing_progress">%1$d / %2$d ingepak</string>
+    <string name="packing_progress_empty">0 / 0 ingepak</string>
+    <string name="no_description">Geen beskrywing</string>
+    <string name="packing_name_required">Voer asseblief nlysnaam in</string>
+    <string name="packing_create_error">Kon nie paklys skep nie.</string>
+    <string name="packing_list_not_found">Paklys kon nie gevind word nie.</string>
+    <string name="packing_update_error">Kon nie paklys opdateer nie.</string>
+    <string name="packing_delete_error">Kon nie paklys verwyder nie.</string>
+    <string name="packing_load_items_error">Kon nie paklysitems laai nie.</string>
+    <string name="packing_item_not_found">Paklysitem kon nie gevind word nie.</string>
+    <string name="packing_add_item_error">Kon nie paklysitem byvoeg nie.</string>
+    <string name="packing_update_item_error">Kon nie paklysitem opdateer nie.</string>
+    <string name="packing_delete_item_error">Kon nie paklysitem verwyder nie.</string>
+    <string name="packing_load_lists_error">Kon nie paklyste laai nie.</string>
+
+    <!-- Create Packing List -->
+    <string name="new_packing_list_label">NUWE PAKLYS</string>
+    <string name="create_list">Skep lys</string>
+    <string name="create_packing_list_description">Skep nnuwe paklys vir jou reis</string>
+    <string name="list_name_label">LYSNAAM</string>
+    <string name="example_electronics">bv. Elektronika</string>
+    <string name="description_label">BESKRYWING</string>
+    <string name="example_chargers_devices">bv. Laaiers en toestelle</string>
+    <string name="create_list_button">+ Skep lys</string>
+
+    <!-- Packing Items -->
+    <string name="packing_item_label">PAKITEM</string>
+    <string name="add_packing_item">Voeg pakitem by</string>
+    <string name="add_packing_item_description">Voeg nitem by jou paklys</string>
+    <string name="item_name_label">ITEMNAAM</string>
+    <string name="example_sunglasses">bv. Sonbril</string>
+    <string name="add_item_button">+ Voeg item by</string>
+    <string name="packing_list_default_title">Paklys</string>
+    <string name="packing_item_name_required">Voer asseblief nitemnaam in</string>
+    <string name="packing_item_placeholder">Pakitem</string>
+
+    <!-- Packing Delete Dialogs -->
+    <string name="delete_item_title">Verwyder item?</string>
+    <string name="delete_packing_list_title">Verwyder paklys?</string>
+    <string name="delete_packing_list_confirmation">Is jy seker jy wil "%1$s" verwyder?\n\nDit sal die lys en al die items daarin verwyder.</string>
+    <string name="delete_packing_item_confirmation">Is jy seker jy wil "%1$s" verwyder?</string>
+
+    <!-- Edit Packing -->
+    <string name="edit_packing_item_label">WYSIG PAKITEM</string>
+    <string name="edit_item">Wysig item</string>
+    <string name="edit_packing_item_description">Dateer jou pakitem op</string>
+    <string name="edit_packing_list_label">WYSIG PAKLYS</string>
+    <string name="edit_list">Wysig lys</string>
+    <string name="edit_packing_list_description">Dateer jou paklysbesonderhede op</string>
+    <string name="all_packing_lists">‹ Alle lyste</string>
+    <string name="packing_list_section_label">PAKLYS</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_travel_money">REISGELD</string>
+    <string name="currency_converter">Valuta-omskakelaar</string>
+    <string name="currency_subtitle">Skakel geld vinnig om terwyl jy beplan of reis.</string>
+    <string name="currency_convert_label">SKAKEL OM</string>
+    <string name="currency_calculator">Valutarekenaar</string>
+    <string name="currency_amount">Bedrag</string>
+    <string name="currency_amount_hint">1000</string>
+    <string name="currency_from">Van</string>
+    <string name="currency_to">Na</string>
+    <string name="currency_from_hint">Kies bronvaluta</string>
+    <string name="currency_to_hint">Kies bestemmingsvaluta</string>
+    <string name="currency_swap">Ruil geldeenhede om</string>
+    <string name="currency_convert_button">Skakel valuta om</string>
+    <string name="currency_converted_value">OMGESKAKELDE WAARDE</string>
+    <string name="currency_example_result">€50.00</string>
+    <string name="currency_example_summary">R1,000.00 ZAR = €50.00 EUR</string>
+    <string name="currency_example_rate">1 ZAR = 0.0500 EUR</string>
+    <string name="currency_mock_rates_note">Die prototipe se wisselkoerse is tydelik totdat die regstreekse Roamly-valuta-API gekoppel is.</string>
+    <string name="currency_invalid_amount">Voer nbedrag groter as 0 in.</string>
+    <string name="currency_invalid_selection">nGeldige bron- en bestemmingsvaluta word vereis.</string>
+    <string name="currency_conversion_failed">Valuta-omskakeling het misluk.</string>
+
+    <!-- Authentication -->
+    <string name="login_title">Aanmelding</string>
+    <string name="login_welcome_back">WELKOM TERUG</string>
+    <string name="login_subtitle">Meld aan om toegang tot jou vakansies, paklyste en reisdokumente te kry.</string>
+    <string name="email">E-posadres</string>
+    <string name="password">Wagwoord</string>
+    <string name="login_button">Meld aan</string>
+    <string name="no_account">Het jy nie nrekening nie?</string>
+    <string name="create_account">Skep rekening</string>
+    <string name="register_title">Skep jou rekening</string>
+    <string name="register_subtitle">Sluit by Roamly aan en begin jou volgende reis beplan</string>
+    <string name="full_name">Volle naam</string>
+    <string name="confirm_password">Bevestig wagwoord</string>
+    <string name="register_button">Skep rekening</string>
+    <string name="already_have_account">Het jy reeds nrekening?</string>
+    <string name="back_to_login">Meld aan</string>
+
+    <string name="field_required">Hierdie veld is verpligtend.</string>
+    <string name="invalid_email">Voer ngeldige e-posadres in.</string>
+    <string name="password_requirements">Die wagwoord moet minstens 8 karakters lank wees en nhoofletter, kleinletter en syfer bevat.</string>
+    <string name="passwords_do_not_match">Wagwoorde stem nie ooreen nie.</string>
+    <string name="name_too_short">Die naam moet minstens 2 karakters bevat.</string>
+    <string name="login_successful">Jy is suksesvol aangemeld.</string>
+    <string name="registration_successful">Rekening is suksesvol geskep.</string>
+    <string name="authentication_error">Iets het verkeerd geloop. Probeer asseblief weer.</string>
+    <string name="network_error">Kon nie aan Roamly koppel nie. Gaan jou internetverbinding na en probeer weer.</string>
+
+    <!-- Google Sign-in -->
+    <string name="roamly_logo_description">Roamly-logo</string>
+    <string name="continue_securely_with_google">Gaan veilig voort met Google</string>
+    <string name="continue_with_google">Gaan voort met Google</string>
+    <string name="first_google_signin_note">Jou eerste Google-aanmelding skep outomaties jou Roamly-rekening.</string>
+
+    <!-- Home Dashboard -->
+    <string name="my_holidays">My Vakansies</string>
+    <string name="holiday_dashboard_subtitle">Hou al jou komende reise op een plek.</string>
+    <string name="no_holidays_title">Nog geen vakansies nie</string>
+    <string name="no_holidays_message">Begin jou volgende avontuur beplan deur jou eerste vakansie te skep.</string>
+    <string name="plan_first_holiday">Beplan nvakansie</string>
+    <string name="unable_to_load_saved_holidays">Kon nie gestoorde vakansies laai nie</string>
+
+    <!-- Holiday Card -->
+    <string name="holiday_location_format">%1$s, %2$s</string>
+    <string name="holiday_date_format">%1$s - %2$s</string>
+    <string name="holiday_countdown_days">%1$d dae oor</string>
+    <string name="holiday_started">Reis is aan die gang</string>
+    <string name="holiday_finished">Reis voltooi</string>
+    <string name="holiday_upcoming">Komende</string>
+    <string name="holiday_in_progress">Aan die gang</string>
+    <string name="holiday_completed">Voltooi</string>
+    <string name="holiday_days_to_go">%1$d dae oor</string>
+
+    <!-- Add Holiday -->
+    <string name="add_holiday_title">Beplan nnuwe vakansie</string>
+    <string name="add_holiday_subtitle">Voeg die belangrikste besonderhede van jou komende reis by.</string>
+    <string name="holiday_name">Vakansietitel</string>
+    <string name="trip_type">Reistipe</string>
+    <string name="country">Land</string>
+    <string name="city">Stad</string>
+    <string name="start_date">Begindatum</string>
+    <string name="end_date">Einddatum</string>
+    <string name="choose_cover_image">Kies omslagprent</string>
+    <string name="change_cover_image">Verander omslagprent</string>
+    <string name="cover_image_optional">Omslagprent (opsioneel)</string>
+    <string name="create_holiday">Skep vakansie</string>
+    <string name="holiday_created">Vakansie is suksesvol geskep.</string>
+    <string name="could_not_save_holiday">Kon nie vakansie stoor nie</string>
+    <string name="end_date_before_start">Die einddatum kan nie voor die begindatum wees nie.</string>
+    <string name="select_trip_type">Kies reistipe</string>
+    <string name="select_start_date">Kies nbegindatum.</string>
+    <string name="select_end_date">Kies neinddatum.</string>
+
+    <!-- Holiday Image and Trip Cover -->
+    <string name="trip_image_description">Reis</string>
+    <string name="plan_your_next_trip">Beplan jou volgende reis</string>
+    <string name="add_trip_details_description">Voeg nou die belangrike besonderhede by en hou alles op een plek georganiseer.</string>
+    <string name="trip_cover">REISOMSLAG</string>
+    <string name="holiday_image">Vakansieprent</string>
+    <string name="upload_trip_image">Laai nreisprent op</string>
+    <string name="trip_image_help">Hierdie prent sal op jou vakansiekaart en reishoofskerm verskyn</string>
+
+    <!-- General Holiday Information -->
+    <string name="general_section">ALGEMEEN</string>
+    <string name="trip_information">Reisinligting</string>
+    <string name="holiday_title_label">Vakansietitel</string>
+    <string name="example_honeymoon">bv. Wittebrood</string>
+    <string name="trip_classification">Reisklassifikasie</string>
+    <string name="country_label">Land</string>
+    <string name="example_greece">bv. Griekeland</string>
+    <string name="city_label">Stad</string>
+    <string name="example_santorini">bv. Santorini</string>
+    <string name="date_format_hint">yyyy/mm/dd</string>
+    <string name="stay_section">VERBLYF</string>
+    <string name="flights_section">VLUGTE</string>
+    <string name="save_holiday">✓ Stoor vakansie</string>
+
+    <!-- Holiday Details -->
+    <string name="holiday_details">Vakansiebesonderhede</string>
+    <string name="trip_details">Reisbesonderhede</string>
+    <string name="edit_holiday">Wysig vakansie</string>
+    <string name="delete_holiday">Verwyder vakansie</string>
+    <string name="back_to_holidays">Terug na my vakansies</string>
+    <string name="delete_holiday_title">Verwyder vakansie?</string>
+    <string name="delete_holiday_message">Hierdie vakansie sal permanent verwyder word.</string>
+    <string name="holiday_deleted">Vakansie is suksesvol verwyder.</string>
+    <string name="holiday_updated">Vakansie is suksesvol opgedateer.</string>
+    <string name="edit_holiday_title">Wysig vakansie</string>
+    <string name="edit_holiday_subtitle">Dateer die besonderhede van hierdie reis op.</string>
+    <string name="update_trip">Dateer jou reis op</string>
+    <string name="update_trip_description">Hou jou vakansie-inligting akkuraat en op datum.</string>
+    <string name="edit_trip">✎ Wysig reis</string>
+    <string name="could_not_load_holiday">Kon nie vakansie laai nie.</string>
+    <string name="could_not_update_holiday">Kon nie vakansie opdateer nie.</string>
+    <string name="could_not_delete_holiday">Kon nie vakansie verwyder nie.</string>
+
+    <!-- Holiday Accommodation -->
+    <string name="holiday_accommodation_section">Verblyf</string>
+    <string name="holiday_accommodation_subtitle">Waar gaan jy tuisgaan?</string>
+    <string name="holiday_accommodation_name">Verblyfnaam</string>
+    <string name="holiday_accommodation_location">Verblyfligging</string>
+    <string name="holiday_accommodation_type">Verblyftipe</string>
+    <string name="holiday_check_in_date">Inboekdatum</string>
+    <string name="holiday_check_in_time">Inboektyd</string>
+    <string name="holiday_check_out_date">Uitboekdatum</string>
+    <string name="holiday_check_out_time">Uitboektyd</string>
+    <string name="holiday_invalid_accommodation_dates">Die uitboekdatum kan nie voor die inboekdatum wees nie.</string>
+
+    <!-- Accommodation Form Fields -->
+    <string name="accommodation_name_label">Verblyfnaam</string>
+    <string name="example_accommodation_name">bv. Andronis Boutique Hotel</string>
+    <string name="accommodation_type_label">Verblyftipe</string>
+    <string name="example_accommodation_type">bv. Hotel</string>
+    <string name="address_label">Adres</string>
+    <string name="example_accommodation_address">bv. Oia, Santorini, Griekeland</string>
+    <string name="check_in_date">Inboekdatum</string>
+    <string name="check_out_date">Uitboekdatum</string>
+    <string name="check_in_time">Inboektyd</string>
+    <string name="check_out_time">Uitboektyd</string>
+
+    <!-- Holiday Flights -->
+    <string name="holiday_flying_switch">Gaan jy vlieg?</string>
+    <string name="holiday_flying_help">Skakel dit aan om jou vluginligting by te voeg.</string>
+    <string name="holiday_flight_section">Vlugbesonderhede</string>
+    <string name="holiday_outbound_flight">Heenvlug</string>
+    <string name="holiday_return_flight">Terugvlug</string>
+    <string name="holiday_airline">Lugredery</string>
+    <string name="holiday_airport_route">Lughawens / roete</string>
+    <string name="holiday_airport_route_hint">bv. JNB → CPT</string>
+    <string name="holiday_flight_date">Vlugdatum</string>
+    <string name="holiday_boarding_time">Instaptyd</string>
+    <string name="holiday_departure_time">Vertrektyd</string>
+    <string name="holiday_arrival_time">Aankomstyd</string>
+    <string name="holiday_terminal_optional">Terminaal (opsioneel)</string>
+    <string name="holiday_gate_optional">Instaphek (opsioneel)</string>
+    <string name="holiday_return_flight_before_departure">Die terugvlug kan nie voor die heenvlug wees nie.</string>
+
+    <!-- Flight Form Fields -->
+    <string name="outbound">HEENVLUG</string>
+    <string name="departure_flight">Heenvlug</string>
+    <string name="airline">Lugredery</string>
+    <string name="example_airline">bv. Emirates</string>
+    <string name="airport_route">Lughawe-roete</string>
+    <string name="example_airport_code">bv. JHB</string>
+    <string name="flight_date">Vlugdatum</string>
+    <string name="boarding">Instap</string>
+    <string name="departure">Vertrek</string>
+    <string name="arrival">Aankoms</string>
+    <string name="terminal">Terminaal</string>
+    <string name="gate">Instaphek</string>
+    <string name="optional">Opsioneel</string>
+    <string name="returnflight">TERUGVLUG</string>
+    <string name="return_flight">Terugvlug</string>
+    <string name="return_date">Terugdatum</string>
+
+    <!-- Holiday Details Display -->
+    <string name="holiday_view_accommodation_type">Tipe: %1$s</string>
+    <string name="holiday_view_accommodation_location">Ligging: %1$s</string>
+    <string name="holiday_view_check_in">Inboek: %1$s om %2$s</string>
+    <string name="holiday_view_check_out">Uitboek: %1$s om %2$s</string>
+    <string name="holiday_view_route">Roete: %1$s</string>
+    <string name="holiday_view_flight_date">Datum: %1$s</string>
+    <string name="holiday_view_boarding_time">Instaptyd: %1$s</string>
+    <string name="holiday_view_departure_time">Vertrektyd: %1$s</string>
+    <string name="holiday_view_arrival_time">Aankomstyd: %1$s</string>
+    <string name="holiday_view_terminal">Terminaal: %1$s</string>
+    <string name="holiday_view_gate">Instaphek: %1$s</string>
+
+    <!-- Documents -->
+    <string name="new_document_label">NUWE DOKUMENT</string>
+    <string name="upload_document_title">Laai dokument op</string>
+    <string name="add_travel_document_description">Voeg nbelangrike reisdokument by.</string>
+    <string name="document_name_label">Dokumentnaam</string>
+    <string name="example_passport_copy">bv. Paspoortkopie</string>
+    <string name="document_type_label">Dokumenttipe</string>
+    <string name="select_document_type">Kies dokumenttipe</string>
+    <string name="file_label">Lêer</string>
+    <string name="choose_file">Kies lêer</string>
+    <string name="supported_document_formats">PDF, JPG, PNG, DOC en meer</string>
+    <string name="notes_label">Notas</string>
+    <string name="optional_notes">Opsionele notas</string>
+    <string name="upload_document_button">☁ Laai op</string>
+    <string name="document_details_label">DOKUMENTBESONDERHEDE</string>
+    <string name="edit_document_title">Wysig dokument</string>
+    <string name="update_document_description">Dateer hierdie dokument se inligting op.</string>
+    <string name="current_file_label">Huidige lêer</string>
+    <string name="replace_file_label">Vervang lêer</string>
+    <string name="optional_replace_file_help">Opsioneel — laat leeg om die huidige lêer te behou.</string>
+
+    <string name="new_file_selected">Nuwe lêer: %1$s</string>
+    <string name="document_name_required">Voer ndokumentnaam in</string>
+    <string name="document_type_required">Kies ndokumenttipe</string>
+    <string name="choose_file_to_upload">Kies nlêer om op te laai.</string>
+    <string name="document_uploaded">Dokument opgelaai.</string>
+    <string name="document_already_added">Hierdie lêer is reeds bygevoeg.</string>
+    <string name="document_upload_error">Kon nie die dokument oplaai nie.</string>
+    <string name="document_updated">Dokument opgedateer.</string>
+    <string name="document_update_error">Kon nie die dokument opdateer nie.</string>
+    <string name="open_document">Maak dokument oop</string>
+    <string name="no_compatible_document_app">Geen versoenbare toepassing is gevind om hierdie dokument oop te maak nie.</string>
+    <string name="document_access_permission_error">Roamly het nie meer toestemming om toegang tot hierdie dokument te verkry nie.</string>
+    <string name="delete_document">Verwyder dokument</string>
+    <string name="delete_document_confirmation">Is jy seker jy wil hierdie dokument uit Roamly verwyder?</string>
+    <string name="document_deleted">Dokument verwyder.</string>
+    <string name="open">Maak oop</string>
+    <string name="travel_document_default">Reisdokument</string>
+
+    <!-- Settings -->
+    <string name="select_language">Kies taal</string>
+    <string name="select_home_currency">Kies tuisvaluta</string>
+    <string name="please_enter_name">Voer asseblief jou naam in</string>
+    <string name="receive_travel_reminders">Ontvang reisherinneringe</string>
+    <string name="travel_reminders_off">Reisherinneringe is afgeskakel</string>
+    <string name="default_display_name">Roamly-gebruiker</string>
+    <string name="settings_saved">Instellings gestoor</string>
+    <string name="settings_saved_device_cloud">Jou instellings is op hierdie toestel en in jou Roamly-rekening gestoor.</string>
+    <string name="settings_saved_device_only">Jou instellings is op hierdie toestel gestoor. Die wolkkopie kon nie opgedateer word nie.</string>
+    <string name="sign_out">Meld af</string>
+    <string name="confirm_sign_out">Is jy seker jy wil by Roamly afmeld?</string>
+
+    <!-- Currency Names -->
+    <string name="currency_usd">USD - Amerikaanse dollar</string>
+    <string name="currency_eur">EUR - Euro</string>
+    <string name="currency_gbp">GBP - Britse pond</string>
+    <string name="currency_aed">AED - VAE-dirham</string>
+    <string name="currency_jpy">JPY - Japannese jen</string>
+    <string name="currency_aud">AUD - Australiese dollar</string>
+    <string name="currency_cad">CAD - Kanadese dollar</string>
+    <string name="currency_zar">ZAR - Suid-Afrikaanse rand</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_label">INSTELLINGS</string>
+    <string name="settings_heading">Instellings</string>
+    <string name="settings_description">Bestuur jou profiel en programvoorkeure</string>
+    <string name="profile_label">PROFIEL</string>
+    <string name="account_information">Rekeninginligting</string>
+    <string name="display_name">Vertoonnaam</string>
+    <string name="google_account">Google-rekening</string>
+    <string name="language_label">TAAL</string>
+    <string name="home_language">Tuis­taal</string>
+    <string name="preferred_language">Voorkeurstaal</string>
+    <string name="currency_label">VALUTA</string>
+    <string name="current_currency">Huidige valuta</string>
+    <string name="notifications_label">KENNISGEWINGS</string>
+    <string name="travel_reminders">Reisherinneringe</string>
+    <string name="account_label">REKENING</string>
+    <string name="sign_out_label">Meld af</string>
+
+    <!-- Drawer Descriptions -->
+    <string name="currency_converter_description">Skakel geldeenhede om vir jou reise</string>
+    <string name="notifications_reminders_description">Hou tred met belangrike reisherinneringe</string>
+
+    <!-- Biometric Lock -->
+    <string name="biometric_unlock_title">Ontsluit Roamly</string>
+    <string name="biometric_unlock_message">Bevestig jou identiteit om voort te gaan.</string>
+    <string name="biometric_waiting">Wag vir verifikasie...</string>
+    <string name="biometric_try_again">Probeer weer</string>
+    <string name="biometric_use_google">Gebruik Google-aanmelding</string>
+    <string name="biometric_failed">Verifikasie het misluk. Probeer asseblief weer.</string>
+    <string name="biometric_unavailable">Biometriese verifikasie is nie beskikbaar nie.</string>
+
+    <!-- Reminders -->
+    <string name="reminders_section">HERINNERINGE</string>
+    <string name="reminders_title">Herinneringe</string>
+    <string name="reminders_subtitle">Hou tred met belangrike reisdatums.</string>
+    <string name="reminders_add">Voeg herinnering by</string>
+    <string name="reminders_empty_title">Nog geen herinneringe nie</string>
+    <string name="reminders_empty_message">Voeg nherinnering by om belangrike reisdatums dop te hou.</string>
+    <string name="reminders_edit">Wysig herinnering</string>
+    <string name="reminders_name">Herinneringnaam</string>
+    <string name="reminders_description">Beskrywing</string>
+    <string name="reminders_select_holiday">Kies vakansie</string>
+    <string name="reminders_date">Datum</string>
+    <string name="reminders_time">Tyd</string>
+    <string name="reminders_enable">Aktiveer herinnering</string>
+    <string name="reminders_save">Stoor herinnering</string>
+    <string name="reminders_cancel">Kanselleer</string>
+    <string name="reminders_invalid_title">Voer asseblief nherinneringstitel in.</string>
+    <string name="reminders_holiday_required">Kies asseblief nvakansie.</string>
+    <string name="reminders_invalid_date">Kies asseblief ngeldige herinneringsdatum.</string>
+    <string name="reminders_delete">Verwyder herinnering</string>
+    <string name="reminders_delete_confirmation">Is jy seker jy wil hierdie herinnering verwyder?</string>
+    <string name="reminders_load_holidays_error">Kon nie vakansies laai nie.</string>
+    <string name="reminders_saved_successfully">Herinnering is suksesvol gestoor.</string>
+    <string name="reminders_updated_successfully">Herinnering is suksesvol opgedateer.</string>
+    <string name="reminders_deleted_successfully">Herinnering is suksesvol verwyder.</string>
+    <string name="reminders_cannot_enable_past">nHerinnering in die verlede kan nie geaktiveer word nie.</string>
+    <string name="reminders_holiday_label">Vakansie: %1$s</string>
+
+    <!-- Documents -->
+    <string name="documents_title">Reisdokumente</string>
+    <string name="documents_subtitle">Hou al jou belangrike reisdokumente op een plek.</string>
+    <string name="upload_document">Laai dokument op</string>
+    <string name="no_documents_title">Nog geen dokumente nie</string>
+    <string name="no_documents_message">Laai jou reisdokumente op om alles georganiseerd te hou.</string>
+
+    <!-- Holiday Details -->
+    <string name="returnbutton">TERUG</string>
+
+    <!-- Login -->
+    <string name="firebase_signing_in">Meld tans aan...</string>
+
+    <!-- Settings -->
+    <string name="home_currency">Tuisvaluta</string>
+    <string name="_08_30_am"> </string>
+
+    <!-- Google Sign-In -->
+    <string name="firebase_google_cancelled">Google-aanmelding is gekanselleer.</string>
+    <string name="firebase_google_failed">Google-aanmelding het misluk. Probeer asseblief weer.</string>
+
+    <!-- Roamly Authentication -->
+    <string name="roamly_connecting_account">Koppel tans jou rekening...</string>
+    <string name="roamly_sign_in_successful">Jy is suksesvol aangemeld!</string>
+    <string name="roamly_backend_failed">Kon nie aan Roamly koppel nie. Probeer asseblief weer.</string>
+
+    <!-- Reminders -->
+    <string name="reminders_no_holidays">Jy moet eers nvakansie byvoeg voordat jy nherinnering kan skep.</string>
+
+
+</resources>

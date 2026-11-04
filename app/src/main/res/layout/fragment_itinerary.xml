@@ -59,7 +59,8 @@
             android:layout_marginTop="18dp"
             android:clipToPadding="false"
             android:fillViewport="false"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            tools:ignore="SpeakableTextPresentCheck">
 
             <LinearLayout
                 android:id="@+id/holidaysContainer"
@@ -216,7 +217,8 @@
             android:layout_marginTop="12dp"
             android:clipToPadding="false"
             android:fillViewport="false"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            tools:ignore="SpeakableTextPresentCheck">
 
             <LinearLayout
                 android:id="@+id/daysContainer"
@@ -255,7 +257,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/saturday_12_september"
+                android:text="@string/itinerary_no_day_selected"
                 android:textColor="#172B3A"
                 android:textSize="17sp"
                 android:textStyle="bold" />
