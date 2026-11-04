@@ -1,3 +1,4 @@
+
 name: Android Tests
 
 on:
@@ -30,3 +31,6 @@ jobs:
 
       - name: Run Android unit tests
         run: ./gradlew testDebugUnitTest
+
+      - name: Build Android debug APK
+        run: ./gradlew assembleDebug
