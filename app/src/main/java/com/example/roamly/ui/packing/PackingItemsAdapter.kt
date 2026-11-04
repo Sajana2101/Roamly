@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roamly.R
@@ -45,13 +46,13 @@ class PackingItemAdapter(
             )
 
         val btnEditItem:
-                ImageButton =
+                LinearLayout =
             view.findViewById(
                 R.id.btnEditItem
             )
 
         val btnDeleteItem:
-                ImageButton =
+                LinearLayout =
             view.findViewById(
                 R.id.btnDeleteItem
             )

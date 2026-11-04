@@ -28,25 +28,63 @@
         android:textSize="16sp" />
 
     <!-- Edit button -->
-    <ImageButton
+    <!-- Edit button -->
+    <LinearLayout
         android:id="@+id/btnEditItem"
-        android:layout_width="40dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Edit item"
-        android:scaleType="centerInside"
-        android:src="@drawable/imgedit"
-        tools:ignore="TouchTargetSizeCheck" />
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="6dp">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_edit"
+            app:tint="#266FAD" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="Edit"
+            android:textColor="#266FAD"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
 
     <!-- Delete button -->
-    <ImageButton
+    <!-- Delete button -->
+    <LinearLayout
         android:id="@+id/btnDeleteItem"
-        android:layout_width="40dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Delete item"
-        android:scaleType="centerInside"
-        android:src="@drawable/imgdelete"
-        tools:ignore="TouchTargetSizeCheck" />
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="6dp">
 
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_delete"
+            app:tint="#D95C5C" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="Delete"
+            android:textColor="#D95C5C"
+            android:textSize="12sp" />
+
+    </LinearLayout>
 </LinearLayout>

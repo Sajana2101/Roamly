@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,15 +10,18 @@
 
     <!-- Back to all lists -->
     <TextView
+        android:id="@+id/allListsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="All Lists"
+        android:text=" ‹ All Lists"
+        android:textSize="15sp"
         android:textColor="#3F51B5"
-        android:textSize="10sp"
         android:textStyle="bold"
-        android:letterSpacing="0.1"
-        android:layout_marginBottom="9dp"
-        tools:ignore="HardcodedText,SmallSp" />
+        android:paddingVertical="10dp"
+        android:paddingEnd="12dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground" />
 
     <!-- Small page label -->
     <TextView
@@ -54,32 +58,38 @@
         <ImageButton
             android:id="@+id/btnEditPackingList"
             android:layout_width="40dp"
-            android:layout_height="35dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_height="40dp"
             android:contentDescription="@string/edit_packing_list"
             android:scaleType="centerInside"
-            android:src="@drawable/imgedit"
+            android:padding="10dp"
+            android:src="@drawable/ic_edit"
+            app:tint="#266FAD"
+            app:backgroundTint="#5C2F8FD8"
             tools:ignore="TouchTargetSizeCheck" />
 
         <!-- Delete packing list -->
         <ImageButton
             android:id="@+id/btnDeletePackingList"
             android:layout_width="40dp"
-            android:layout_height="35dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_height="40dp"
+            app:backgroundTint="#FDECEC"
             android:contentDescription="@string/delete_packing_list"
             android:scaleType="centerInside"
-            android:src="@drawable/imgdelete"
+            android:padding="10dp"
+            android:src="@drawable/ic_delete"
+            app:tint="#D95C5C"
             tools:ignore="TouchTargetSizeCheck" />
 
         <!-- Add packing item -->
         <ImageButton
             android:id="@+id/btnAddPackingItem"
-            android:layout_width="40dp"
-            android:layout_height="35dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:backgroundTint="#2F8FD8"
             android:scaleType="centerInside"
-            android:src="@drawable/imgplus"
+            android:padding="10dp"
+            android:src="@drawable/ic_add"
+            app:tint="#FFFFFF"
             tools:ignore="HardcodedText,TouchTargetSizeCheck" />
 
     </LinearLayout>
@@ -93,36 +103,47 @@
         android:text="@string/packing_list_description"
         android:textSize="16sp" />
 
-    <!-- Progress bar and progress text -->
-    <LinearLayout
+
+    <!-- Packing progress card -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#DADFE5"
+        app:strokeWidth="1dp">
 
-        <!-- Progress Bar -->
-        <ProgressBar
-            android:id="@+id/packingProgressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
-            android:progressDrawable="@drawable/packing_progress"
-            android:layout_height="12dp"
-            android:layout_weight="1"
-            android:max="100"
-            android:progress="0" />
-
-        <!-- Packing progress text -->
-        <TextView
-            android:id="@+id/txtPackingProgress"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="0 of 0 packed"
-            android:textSize="12sp"
-            tools:ignore="HardcodedText" />
+            android:orientation="vertical"
+            android:padding="14dp">
 
-    </LinearLayout>
+            <!-- Packing progress text -->
+            <TextView
+                android:id="@+id/txtPackingProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_marginBottom="8dp"
+                android:text="0 of 0 packed"
+                android:textSize="12sp"
+                tools:ignore="HardcodedText" />
+
+            <!-- Progress Bar -->
+            <ProgressBar
+                android:id="@+id/packingProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:progressDrawable="@drawable/packing_progress"
+                android:max="100"
+                android:progress="0" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 
 

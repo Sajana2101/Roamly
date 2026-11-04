@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="20dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="14dp"
+    android:paddingBottom="14dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Icon background -->
+    <FrameLayout
+        android:id="@+id/drawerIconBackground"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_drawer_icon"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/drawerIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:contentDescription="@null"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter" />
+
+    </FrameLayout>
+
+    <!-- Title and description -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp">
+
+        <TextView
+            android:id="@+id/drawerTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#263746"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/drawerDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textColor="#7A8792"
+            android:textSize="12sp"
+            android:maxLines="2" />
+    </LinearLayout>
+
+    <!-- Right-side button i.e > -->
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_forwardarrow"
+        app:tint="#9AA3AA"
+        android:contentDescription="Open menu item" />
+
+</LinearLayout>

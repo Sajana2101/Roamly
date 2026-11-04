@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/menu_currency"
-        android:icon="@android:drawable/ic_menu_compass"
+        android:icon="@drawable/ic_currency_exchange"
+        app:iconTint="#3F51B5"
         android:title="@string/currency_converter" />
 
     <item
         android:id="@+id/menu_reminders"
-        android:icon="@android:drawable/ic_popup_reminder"
+        android:icon="@drawable/ic_notificationbell"
+        app:iconTint="#9C27B0"
         android:title="@string/notifications_reminders" />
 
     <item
         android:id="@+id/menu_settings"
-        android:icon="@android:drawable/ic_menu_preferences"
+        android:icon="@drawable/ic_settings"
+        app:iconTint="#4CAF50"
         android:title="@string/settings" />
 
 </menu>

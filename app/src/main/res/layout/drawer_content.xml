@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/roamly_white"
+    android:paddingTop="32dp">
+
+    <!-- Drawer heading -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TRAVEL APP"
+        android:textColor="#3F51B5"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.1"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:layout_marginBottom="6dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Menu"
+        android:textColor="#263746"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EAEDEF" />
+
+    <!-- Currency Converter -->
+    <include
+        android:id="@+id/menuCurrencyRow"
+        layout="@layout/item_drawer_menu" />
+
+    <!-- Notifications & Reminders -->
+    <include
+        android:id="@+id/menuRemindersRow"
+        layout="@layout/item_drawer_menu" />
+
+    <!-- Settings -->
+    <include
+        android:id="@+id/menuSettingsRow"
+        layout="@layout/item_drawer_menu" />
+
+</LinearLayout>
