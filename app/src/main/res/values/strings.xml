@@ -395,4 +395,52 @@
     <string name="packing_load_lists_error">Could not load packing lists.</string>
 
 
+    <!-- Create Packing List -->
+    <string name="new_packing_list_label">NEW PACKING LIST</string>
+    <string name="create_list">Create List</string>
+    <string name="create_packing_list_description">Create a new packing list for your trip</string>
+    <string name="list_name_label">LIST NAME</string>
+    <string name="example_electronics">e.g. Electronics</string>
+    <string name="description_label">DESCRIPTION</string>
+    <string name="example_chargers_devices">e.g. Chargers and Devices</string>
+    <string name="create_list_button">+ Create List</string>
+
+    <!-- Packing Items -->
+    <string name="packing_item_label">PACKING ITEM</string>
+    <string name="add_packing_item">Add Packing Item</string>
+    <string name="add_packing_item_description">Add an item to your packing list</string>
+    <string name="item_name_label">ITEM NAME</string>
+    <string name="example_sunglasses">e.g. Sunglasses</string>
+    <string name="add_item_button">+ Add Item</string>
+
+    <!-- Delete Dialogs -->
+    <string name="delete_item_title">Delete Item?</string>
+    <string name="delete_packing_list_title">Delete Packing List?</string>
+
+    <!-- Edit Packing Item -->
+    <string name="edit_packing_item_label">EDIT PACKING ITEM</string>
+    <string name="edit_item">Edit Item</string>
+    <string name="edit_packing_item_description">Update your packing item</string>
+    <string name="save_changes">Save Changes</string>
+
+    <!-- Edit Packing List -->
+    <string name="edit_packing_list_label">EDIT PACKING LIST</string>
+    <string name="edit_list">Edit List</string>
+    <string name="edit_packing_list_description">Update your packing list details</string>
+
+    <!-- Packing List Details -->
+    <string name="all_packing_lists">‹ All Lists</string>
+    <string name="packing_list_section_label">PACKING LIST</string>
+    <string name="packing_item_placeholder">Packing item</string>
+
+    <!-- Packing Items -->
+    <string name="packing_list_default_title">Packing List</string>
+    <string name="packing_item_name_required">Please enter an item name</string>
+
+    <!-- Packing List Deletion -->
+    <string name="delete_packing_list_confirmation">Are you sure you want to delete "%1$s"?\n\nThis will delete the list and every item inside it.</string>
+
+    <!-- Packing Item Deletion -->
+    <string name="delete_packing_item_confirmation">Are you sure you want to delete "%1$s"?</string>
+
 </resources>

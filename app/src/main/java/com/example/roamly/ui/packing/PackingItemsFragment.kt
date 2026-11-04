@@ -49,7 +49,9 @@ class PackingItemsFragment : Fragment(R.layout.fragment_packing_items) {
 
         // Get the selected packing list information
         val packingListId = arguments?.getString("packingListId") ?: ""
-        val packingListName = arguments?.getString("packingListName") ?: "Packing List"
+
+        val packingListName = arguments?.getString("packingListName")
+            ?: getString(R.string.packing_list_default_title)
         val packingListDescription = arguments?.getString("packingListDescription") ?: " "
 
         // Display packing list name and description
@@ -141,7 +143,7 @@ class PackingItemsFragment : Fragment(R.layout.fragment_packing_items) {
                 // Make sure an item name was entered
                 if (itemName.isEmpty()) {
 
-                    itemInput.error = "Please enter an item name"
+                    itemInput.error = getString(R.string.packing_item_name_required)
                     return@setOnClickListener
                 }
 
@@ -185,7 +187,11 @@ class PackingItemsFragment : Fragment(R.layout.fragment_packing_items) {
                         }
 
                         progressBar.progress = progress
-                        packingProgress.text = "$packedItems of $totalItems packed"
+                        packingProgress.text = getString(
+                            R.string.packing_progress,
+                            packedItems,
+                            totalItems
+                        )
                     }
                 }
             }
@@ -238,7 +244,7 @@ class PackingItemsFragment : Fragment(R.layout.fragment_packing_items) {
 
             if (newName.isEmpty()) {
 
-                nameInput.error = "Please enter a list name"
+                nameInput.error = getString(R.string.packing_name_required)
                 return@setOnClickListener
             }
 
@@ -274,10 +280,12 @@ class PackingItemsFragment : Fragment(R.layout.fragment_packing_items) {
 
         val confirmButton = dialogView.findViewById<MaterialButton>(R.id.btnConfirmDelete)
 
-        deleteTitle.text = "Delete Packing List ?"
+        deleteTitle.text = getString(R.string.delete_packing_list_title)
 
-        deleteMessage.text = "Are you sure you want to delete \"$packingListName\"?\n\n" +
-                    "This will delete the list and every item inside it."
+        deleteMessage.text = getString(
+            R.string.delete_packing_list_confirmation,
+            packingListName
+        )
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
@@ -317,10 +325,12 @@ class PackingItemsFragment : Fragment(R.layout.fragment_packing_items) {
 
         val confirmButton =dialogView.findViewById<MaterialButton>(R.id.btnConfirmDelete )
 
-        deleteTitle.text = "Delete Item? "
+        deleteTitle.text = getString(R.string.delete_item_title)
 
-        deleteMessage.text = "Are you sure you want to delete \"${item.name}\"?"
-
+        deleteMessage.text = getString(
+            R.string.delete_packing_item_confirmation,
+            item.name
+        )
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .create()
