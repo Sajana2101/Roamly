@@ -22,6 +22,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.roamly.data.settings.SettingsPreferencesRepository
 import com.example.roamly.data.settings.settingsDataStore
 import kotlinx.coroutines.launch
+// part 3 imports for multi-language support
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
+import com.example.roamly.data.settings.SettingsLanguageMapper
 
 class SettingsFragment :
     Fragment(
@@ -214,7 +218,7 @@ class SettingsFragment :
                         requireContext()
                     )
                     .setTitle(
-                        "Select Language"
+                        getString(R.string.select_language)
                     )
                     .setSingleChoiceItems(
                         languages,
@@ -228,11 +232,25 @@ class SettingsFragment :
                     ) { dialog,
                         which ->
 
-                        language =
-                            languages[which]
+                        // update the selected language
+                        language = languages[which]
+                        languageText.text =language
 
-                        languageText.text =
-                            language
+                        // Convert the selected language into its locale code
+                        val languageCode =  SettingsLanguageMapper.toLanguageCode(language)
+
+                        // Save the selection locally and update the cloud settings
+                        settingsViewModel.saveSettings(
+                            language = language,
+                            homeCurrency = homeCurrency,
+                            notificationsEnabled = notificationsEnabled,
+                            accessToken = sessionManager.getAccessToken()
+                        ) { _ -> }
+
+                        // Apply the selected language to the app
+                        AppCompatDelegate.setApplicationLocales(
+                            LocaleListCompat.forLanguageTags(languageCode)
+                        )
 
                         dialog.dismiss()
                     }
@@ -272,7 +290,7 @@ class SettingsFragment :
                         requireContext()
                     )
                     .setTitle(
-                        "Select Home Currency"
+                        getString(R.string.select_home_currency)
                     )
                     .setSingleChoiceItems(
                         currencyNames,
@@ -325,7 +343,7 @@ class SettingsFragment :
                 ) {
 
                     nameInput.error =
-                        "Please enter your name"
+                        getString(R.string.please_enter_name)
 
                     return@setOnClickListener
                 }
@@ -386,7 +404,7 @@ class SettingsFragment :
                 ?: firebaseAuth
                     .currentUser
                     ?.displayName
-                        ?: "Roamly User"
+                        ?: getString(R.string.default_display_name)
 
         email =
             sessionManager
@@ -410,12 +428,12 @@ class SettingsFragment :
         ) {
 
             notificationStatus.text =
-                "Receive travel reminders"
+                getString(R.string.receive_travel_reminders)
 
         } else {
 
             notificationStatus.text =
-                "Travel reminders are turned off"
+                getString(R.string.travel_reminders_off)
         }
     }
 
@@ -426,30 +444,21 @@ class SettingsFragment :
         return when (
             currencyCode
         ) {
+            "USD" -> getString(R.string.currency_usd)
 
-            "USD" ->
-                "USD - US Dollar"
+            "EUR" -> getString(R.string.currency_eur)
 
-            "EUR" ->
-                "EUR - Euro"
+            "GBP" -> getString(R.string.currency_gbp)
 
-            "GBP" ->
-                "GBP - British Pound"
+            "AED" -> getString(R.string.currency_aed)
 
-            "AED" ->
-                "AED - UAE Dirham"
+            "JPY" -> getString(R.string.currency_jpy)
 
-            "JPY" ->
-                "JPY - Japanese Yen"
+            "AUD" -> getString(R.string.currency_aud)
 
-            "AUD" ->
-                "AUD - Australian Dollar"
+            "CAD" -> getString(R.string.currency_cad)
 
-            "CAD" ->
-                "CAD - Canadian Dollar"
-
-            else ->
-                "ZAR - South African Rand"
+            else -> getString(R.string.currency_zar)
         }
     }
 
@@ -463,23 +472,20 @@ class SettingsFragment :
                     requireContext()
                 )
                 .setTitle(
-                    "Settings Saved"
+                    getString(R.string.settings_saved)
                 )
                 .setMessage(
                     if (
                         cloudSaved
                     ) {
-
-                        "Your settings have been saved to this device and your Roamly account."
+                        getString(R.string.settings_saved_device_cloud)
 
                     } else {
-
-                        "Your settings have been saved on this device. " +
-                                "The cloud copy could not be updated."
+                        getString(R.string.settings_saved_device_only)
                     }
                 )
                 .setPositiveButton(
-                    "OK",
+                    getString(R.string.ok),
                     null
                 )
                 .create()
@@ -510,17 +516,17 @@ class SettingsFragment :
                     requireContext()
                 )
                 .setTitle(
-                    "Sign Out"
+                    getString(R.string.sign_out)
                 )
                 .setMessage(
-                    "Are you sure you want to sign out of Roamly?"
+                    getString(R.string.confirm_sign_out)
                 )
                 .setNegativeButton(
-                    "Cancel",
+                    getString(R.string.cancel),
                     null
                 )
                 .setPositiveButton(
-                    "Sign Out",
+                    getString(R.string.sign_out),
                     null
                 )
                 .create()

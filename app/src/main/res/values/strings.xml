@@ -299,4 +299,56 @@
     <string name="holiday_view_terminal">Terminal: %1$s</string>
     <string name="holiday_view_gate">Boarding gate: %1$s</string>
 
+    <!-- Settings  (settings fragment . kt)-->
+    <string name="select_language">Select Language</string>
+    <string name="select_home_currency">Select Home Currency</string>
+    <string name="please_enter_name">Please enter your name</string>
+    <string name="ok">OK</string>
+    <string name="receive_travel_reminders">Receive travel reminders</string>
+    <string name="travel_reminders_off">Travel reminders are turned off</string>
+    <string name="default_display_name">Roamly User</string>
+    <string name="settings_saved">Settings Saved</string>
+    <string name="settings_saved_device_cloud">Your settings have been saved to this device and your Roamly account.</string>
+    <string name="settings_saved_device_only">Your settings have been saved on this device. The cloud copy could not be updated.</string>
+
+    <string name="sign_out">Sign Out</string>
+    <string name="confirm_sign_out">Are you sure you want to sign out of Roamly?</string>
+
+    <!-- Currency Names (settings fragment.kt) -->
+    <string name="currency_usd">USD - US Dollar</string>
+    <string name="currency_eur">EUR - Euro</string>
+    <string name="currency_gbp">GBP - British Pound</string>
+    <string name="currency_aed">AED - UAE Dirham</string>
+    <string name="currency_jpy">JPY - Japanese Yen</string>
+    <string name="currency_aud">AUD - Australian Dollar</string>
+    <string name="currency_cad">CAD - Canadian Dollar</string>
+    <string name="currency_zar">ZAR - South African Rand</string>
+
+    <!-- Settings screen (Fragment Settings . xml) -->
+    <string name="settings_label">SETTINGS</string>
+    <string name="settings_heading">Settings</string>
+    <string name="settings_description">Manage your profile and app preferences</string>
+
+    <string name="profile_label">PROFILE</string>
+    <string name="account_information">Account Information</string>
+    <string name="display_name">Display Name</string>
+    <string name="google_account">Google Account</string>
+
+    <string name="language_label">LANGUAGE</string>
+    <string name="home_language">Home Language</string>
+    <string name="preferred_language">Preferred Language</string>
+
+    <string name="currency_label">CURRENCY</string>
+    <string name="home_currency">Home Currency</string>
+    <string name="current_currency">Current Currency</string>
+
+    <string name="notifications_label">NOTIFICATIONS</string>
+    <string name="travel_reminders">Travel Reminders</string>
+
+    <string name="save_changes2">Save Changes</string>
+
+    <string name="account_label">ACCOUNT</string>
+    <string name="sign_out_label">Sign out</string>
+
+
 </resources>
