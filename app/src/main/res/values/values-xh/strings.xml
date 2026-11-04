@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">Ikhaya</string>
+    <string name="itinerary">Isicwangciso sohambo</string>
+    <string name="add_holiday">Yongeza iholide</string>
+    <string name="packing">Uluhlu lwezinto zokupakisha</string>
+    <string name="documents">Amaxwebhu</string>
+    <string name="notifications_reminders">Izaziso nezikhumbuzo</string>
+    <string name="settings">Iisetingi</string>
+    <string name="drawer_open">Vula imenyu yokukhangela</string>
+    <string name="drawer_close">Vala imenyu yokukhangela</string>
+</resources>
