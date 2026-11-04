@@ -3,6 +3,7 @@ package com.example.roamly.ui.packing
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import com.example.roamly.R
 import com.example.roamly.data.model.PackingItem
 import com.example.roamly.data.model.PackingItemRequest
 import com.example.roamly.data.model.PackingList
@@ -135,7 +136,7 @@ class PackingViewModel(
         ) {
 
             handleError(
-                "Could not create packing list.",
+                getApplication<Application>().getString(R.string.packing_create_error),
                 exception
             )
         }
@@ -162,7 +163,7 @@ class PackingViewModel(
             if (index == -1) {
 
                 _errorMessage.value =
-                    "Packing list could not be found."
+                    getApplication<Application>().getString(R.string.packing_list_not_found)
 
                 return
             }
@@ -200,7 +201,7 @@ class PackingViewModel(
         ) {
 
             handleError(
-                "Could not update packing list.",
+                getApplication<Application>().getString(R.string.packing_update_error),
                 exception
             )
         }
@@ -259,7 +260,7 @@ class PackingViewModel(
         ) {
 
             handleError(
-                "Could not delete packing list.",
+                getApplication<Application>().getString(R.string.packing_delete_error),
                 exception
             )
         }
@@ -292,7 +293,7 @@ class PackingViewModel(
         ) {
 
             handleError(
-                "Could not load packing items.",
+                getApplication<Application>().getString(R.string.packing_load_items_error),
                 exception
             )
         }
@@ -353,7 +354,7 @@ class PackingViewModel(
         ) {
 
             handleError(
-                "Could not add packing item.",
+                getApplication<Application>().getString(R.string.packing_add_item_error),
                 exception
             )
         }
@@ -380,7 +381,7 @@ class PackingViewModel(
             if (index == -1) {
 
                 _errorMessage.value =
-                    "Packing item could not be found."
+                    getApplication<Application>().getString(R.string.packing_item_not_found)
 
                 return
             }
@@ -421,7 +422,7 @@ class PackingViewModel(
         ) {
 
             handleError(
-                "Could not update packing item.",
+                getApplication<Application>().getString(R.string.packing_update_item_error),
                 exception
             )
         }
@@ -462,7 +463,7 @@ class PackingViewModel(
         ) {
 
             handleError(
-                "Could not delete packing item.",
+                getApplication<Application>().getString(R.string.packing_delete_item_error),
                 exception
             )
         }
@@ -494,7 +495,7 @@ class PackingViewModel(
         ) {
 
             handleError(
-                "Could not load packing lists.",
+                getApplication<Application>().getString(R.string.packing_load_lists_error),
                 exception
             )
 

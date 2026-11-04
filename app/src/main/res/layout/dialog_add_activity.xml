@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:focusable="false"
             android:clickable="false"
-            android:hint="Day" />
+            android:hint="@string/select_itinerary_day" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:focusable="false"
             android:clickable="true"
-            android:hint="Select time" />
+            android:hint="@string/select_time" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        android:text="Activity Title"
+        android:text="@string/activity_title_label"
         android:textColor="#344554"
         android:textSize="12sp"
         android:textStyle="bold" />

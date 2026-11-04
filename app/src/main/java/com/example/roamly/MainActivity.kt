@@ -129,12 +129,11 @@ class MainActivity : AppCompatActivity() {
         currencyRow.findViewById<FrameLayout>(R.id.drawerIconBackground)
             .setBackgroundResource(R.drawable.bg_drawer_currency)
 
-        currencyRow.findViewById<TextView>(R.id.drawerTitle).text = "Currency Converter"
-        currencyRow.findViewById<TextView>(R.id.drawerDescription).text =
-            "Convert currencies for your travels"
+        currencyRow.findViewById<TextView>(R.id.drawerTitle).text = getString(R.string.currency_converter)
+        currencyRow.findViewById<TextView>(R.id.drawerDescription).text = getString(R.string.currency_converter_description)
 
         currencyRow.setOnClickListener {
-            openMainFragment(CurrencyFragment(), "Currency Converter")
+            openMainFragment(CurrencyFragment(),    getString(R.string.currency_converter))
             drawerLayout.closeDrawer(GravityCompat.START)
         }
 
@@ -152,13 +151,13 @@ class MainActivity : AppCompatActivity() {
             .setBackgroundResource(R.drawable.bg_drawer_reminders)
 
         remindersRow.findViewById<TextView>(R.id.drawerTitle).text =
-            "Notifications & Reminders"
+            getString(R.string.notifications_reminders)
 
         remindersRow.findViewById<TextView>(R.id.drawerDescription).text =
-            "Keep track of important travel reminders"
+            getString(R.string.notifications_reminders_description)
 
         remindersRow.setOnClickListener {
-            openMainFragment(RemindersFragment(), "Notifications & Reminders")
+            openMainFragment(RemindersFragment(),  getString(R.string.notifications_reminders))
             drawerLayout.closeDrawer(GravityCompat.START)
         }
 
@@ -175,12 +174,12 @@ class MainActivity : AppCompatActivity() {
         settingsRow.findViewById<FrameLayout>(R.id.drawerIconBackground)
             .setBackgroundResource(R.drawable.bg_drawer_settings)
 
-        settingsRow.findViewById<TextView>(R.id.drawerTitle).text = "Settings"
+        settingsRow.findViewById<TextView>(R.id.drawerTitle).text =  getString(R.string.settings)
         settingsRow.findViewById<TextView>(R.id.drawerDescription).text =
-            "Customise your Roamly experience"
+            getString(R.string.settings_description)
 
         settingsRow.setOnClickListener {
-            openMainFragment(SettingsFragment(), "Settings")
+            openMainFragment(SettingsFragment(),  getString(R.string.settings))
             drawerLayout.closeDrawer(GravityCompat.START)
         }
     }
@@ -398,7 +397,7 @@ class MainActivity : AppCompatActivity() {
 
             openMainFragment(
                 HomeFragment(),
-                "My Holidays"
+                getString(R.string.my_holidays)
             )
         }
 
@@ -410,7 +409,7 @@ class MainActivity : AppCompatActivity() {
 
             openMainFragment(
                 ItineraryFragment(),
-                "Itinerary"
+                getString(R.string.itinerary)
             )
         }
 
@@ -433,7 +432,7 @@ class MainActivity : AppCompatActivity() {
 
             openMainFragment(
                 PackingFragment(),
-                "Packing"
+                getString(R.string.packing)
             )
         }
 
@@ -445,7 +444,7 @@ class MainActivity : AppCompatActivity() {
 
             openMainFragment(
                 DocumentsFragment(),
-                "Documents"
+                getString(R.string.documents)
             )
         }
     }
@@ -492,7 +491,7 @@ class MainActivity : AppCompatActivity() {
 
         openMainFragment(
             AddHolidayFragment(),
-            "Add Holiday"
+            getString(R.string.add_holiday)
         )
     }
 
@@ -856,7 +855,7 @@ class MainActivity : AppCompatActivity() {
                 .newInstance(
                     holidayId
                 ),
-            "Holiday Details"
+            getString(R.string.holiday_details)
         )
     }
 
@@ -873,7 +872,7 @@ class MainActivity : AppCompatActivity() {
                 .newInstance(
                     holidayId
                 ),
-            "Edit Holiday"
+            getString(R.string.edit_holiday)
         )
     }
 

@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string-array name="trip_types">
+        <item>Ukuzijabulisa</item>
+        <item>Ibhizinisi</item>
+        <item>Umndeni</item>
+        <item>Ezothando</item>
+        <item>Uhambo lokuzijabulisa</item>
+        <item>Uhambo lomgwaqo</item>
+        <item>Uwedwa</item>
+        <item>Okunye</item>
+    </string-array>
+</resources>

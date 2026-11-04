@@ -55,7 +55,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Packing List Name"
+                    android:text="@string/packing_list_name"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
 
@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Description"
+                android:text="@string/description"
                 android:textSize="13sp"/>
 
             <!-- Progress bar and progress text -->
@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="0 / 0 packed"
+                    android:text="@string/packing_progress"
                     android:textSize="11sp"/>
 
             </LinearLayout>

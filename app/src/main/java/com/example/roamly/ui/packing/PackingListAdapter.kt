@@ -59,7 +59,9 @@ class PackingListAdapter(
 
         applyPackingListIconStyle( packingList.name, holder.icon,holder.iconCard)
 
-        holder.description.text = packingList.description ?: "No description"
+        holder.description.text = packingList.description
+            ?: holder.itemView.context.getString(R.string.no_description)
+
         // get progress for this specific packing list
         val progress =  progressMap[packingList.packingListId]
 
@@ -75,14 +77,19 @@ class PackingListAdapter(
 
             holder.progressBar.progress = percentage
 
-            holder.progressText.text =  "$packedItems / $totalItems packed"
+            holder.progressText.text =
+                holder.itemView.context.getString(
+                    R.string.packing_progress,
+                    packedItems,
+                    totalItems
+                )
 
         } else {
 
             holder.progressBar.progress = 0
 
             holder.progressText.text =
-                "0 / 0 packed"
+                holder.itemView.context.getString(R.string.packing_progress_empty)
         }
 
         // if u click on the card, takes u to the next screen --> can add items in that packing list

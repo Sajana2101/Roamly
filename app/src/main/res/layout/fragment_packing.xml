@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GET READY"
+        android:text="@string/packing_get_ready"
         android:textColor="#3F51B5"
         android:textSize="12sp"
         android:textStyle="bold"
@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="My Packing Lists"
+            android:text="@string/my_packing_lists"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -38,7 +38,7 @@
             android:id="@+id/btnAddPackingList"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:text="+ New List"
+            android:text="@string/new_list"
             android:backgroundTint="#3F51B5"
             android:layout_weight="1"
             android:textColor="#FFFFFF"
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Organise everything you need for your trip"
+        android:text="@string/packing_page_description"
         android:textSize="10sp" />
 
     <ProgressBar
