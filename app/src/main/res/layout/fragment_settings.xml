@@ -285,7 +285,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/save_changes2"
+            android:text="@string/save_changes"
             android:textColor="#FFFFFF"
             android:backgroundTint="#3F51B5" />
 

@@ -22,6 +22,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
+//multi-language support
+import com.example.roamly.data.settings.TripTypeMapper
 
 class HolidayDetailsFragment :
     Fragment(R.layout.fragment_holiday_details) {
@@ -220,8 +222,14 @@ class HolidayDetailsFragment :
         titleTextView.text =
             holiday.name
 
+        val translatedTripType =
+            TripTypeMapper.toDisplayName(
+                requireContext(),
+                holiday.tripType
+            )
+
         tripTypeTextView.text =
-            "✦ ${holiday.tripType}"
+            "✦ $translatedTripType"
 
         locationTextView.text =
             "📍 ${holiday.location}"

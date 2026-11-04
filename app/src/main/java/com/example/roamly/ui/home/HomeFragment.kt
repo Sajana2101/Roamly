@@ -122,7 +122,7 @@ class HomeFragment :
 
                     Toast.makeText(
                         requireContext(),
-                        "Unable to load saved holidays",
+                        getString(R.string.unable_to_load_saved_holidays),
                         Toast.LENGTH_SHORT
                     ).show()
                 }

@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
+// multi-language support
+import com.example.roamly.data.settings.TripTypeMapper
 
 class HolidayAdapter(
     private val onHolidayClick: (Holiday) -> Unit
@@ -110,8 +112,13 @@ class HolidayAdapter(
             titleTextView.text =
                 holiday.name
 
-            tripTypeTextView.text =
-                "✦ ${holiday.tripType}"
+            val translatedTripType =
+                TripTypeMapper.toDisplayName(
+                    context,
+                    holiday.tripType
+                )
+
+            tripTypeTextView.text = "✦ $translatedTripType"
 
             locationTextView.text =
                 "📍 ${holiday.location}"

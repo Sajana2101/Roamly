@@ -345,10 +345,13 @@
     <string name="notifications_label">NOTIFICATIONS</string>
     <string name="travel_reminders">Travel Reminders</string>
 
-    <string name="save_changes2">Save Changes</string>
-
     <string name="account_label">ACCOUNT</string>
     <string name="sign_out_label">Sign out</string>
 
+    <!-- Home Page - Home Fragments.kt  -->
+    <string name="unable_to_load_saved_holidays">Unable to load saved holidays</string>
+
+    <!-- Home Page - add holiday Fragments.kt  -->
+    <string name="could_not_save_holiday">Could not save holiday</string>
 
 </resources>
