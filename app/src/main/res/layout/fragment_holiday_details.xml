@@ -510,7 +510,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:letterSpacing="0.12"
-                        android:text="@string/return"
+                        android:text="@string/returnbutton"
                         android:textColor="#6E8DB3"
                         android:textSize="10sp"
                         android:textStyle="bold" />

@@ -70,7 +70,12 @@ class ReminderAdapter(
         )
 
         holidayNameForId(reminder.holidayId)?.let {
-            details.add("Holiday: $it")
+            details.add(
+                holder.itemView.context.getString(
+                    R.string.reminders_holiday_label,
+                    it
+                )
+            )
         }
 
         if (reminder.description.isNotBlank()) {

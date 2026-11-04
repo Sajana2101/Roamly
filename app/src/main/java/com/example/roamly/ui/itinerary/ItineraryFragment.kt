@@ -150,52 +150,57 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
 
-        val loadedHolidays =
-            holidayRepository
-                .getHolidays()
-                .sortedBy {
-                    it.startDate
+                val loadedHolidays =
+                    holidayRepository
+                        .getHolidays()
+                        .sortedBy {
+                            it.startDate
+                        }
+
+                holidays.clear()
+                holidays.addAll(
+                    loadedHolidays
+                )
+
+                renderHolidayCards()
+
+                if (holidays.isEmpty()) {
+                    showNoHolidayState()
+                    return@launch
                 }
 
-        holidays.clear()
-        holidays.addAll(
-            loadedHolidays
-        )
+                if (
+                    holidays.none {
+                        it.holidayId ==
+                                selectedHolidayId
+                    }
+                ) {
+                    selectedHolidayId =
+                        holidays.first()
+                            .holidayId
+                }
 
-        renderHolidayCards()
+                selectHoliday(
+                    selectedHolidayId
+                )
 
-        if (holidays.isEmpty()) {
-            showNoHolidayState()
-            return@launch
-        }
-
-        if (
-            holidays.none {
-                it.holidayId ==
-                        selectedHolidayId
-            }
-        ) {
-            selectedHolidayId =
-                holidays.first()
-                    .holidayId
-        }
-
-        selectHoliday(
-            selectedHolidayId
-        )
-    
             } catch (error: Exception) {
-                android.util.Log.e("RoamlyRoom", "Could not load holidays", error)
+                android.util.Log.e(
+                    "RoamlyRoom",
+                    "Could not load holidays",
+                    error
+                )
+
                 if (isAdded) {
-                    android.widget.Toast.makeText(
+                    Toast.makeText(
                         requireContext(),
-                        "Could not load holidays",
-                        android.widget.Toast.LENGTH_SHORT
+                        getString(R.string.itinerary_load_error),
+                        Toast.LENGTH_SHORT
                     ).show()
                 }
             }
         }
-}
+    }
 
     private fun renderHolidayCards() {
         holidaysContainer.removeAllViews()
@@ -207,14 +212,17 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                     requireContext()
                 ).apply {
                     text =
-                        "No holidays yet. Create a holiday first."
+                        getString(R.string.itinerary_no_holidays)
+
                     textSize =
                         13f
+
                     setTextColor(
                         Color.parseColor(
                             "#7B8794"
                         )
                     )
+
                     setPadding(
                         0,
                         dpToPx(14),
@@ -327,10 +335,10 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             -1
 
         tvSelectedTripName.text =
-            "No holidays yet"
+            getString(R.string.itinerary_no_holidays_title)
 
         tvSelectedTripDates.text =
-            "Create a holiday first to build an itinerary."
+            getString(R.string.itinerary_create_holiday_message)
 
         renderDayCards()
         renderActivities()
@@ -517,7 +525,11 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 val tvDayWeekday =
                     dayView.findViewById<TextView>(R.id.tvDayWeekday)
 
-                tvDayNumber.text = "Day ${day.dayNumber}"
+                tvDayNumber.text =
+                    getString(
+                        R.string.itinerary_day_number,
+                        day.dayNumber
+                    )
 
                 val parsedDate = parseDate(day.date)
 
@@ -553,7 +565,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
                     updateSelectedDayHeading(day)
 
-// Refreshes both the selected day styling and its activity list
                     renderDayCards()
                     renderActivities()
                 }
@@ -567,15 +578,14 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 updateSelectedDayHeading(it)
             }
 
-        // Shows an empty state when all itinerary days have been deleted
         if (itineraryDays.isEmpty()) {
-            tvSelectedDayDate.text = "No day selected"
+            tvSelectedDayDate.text =
+                getString(R.string.itinerary_no_day_selected)
         }
     }
 
     private fun renderActivities() {
 
-        // Clears the old activity views before displaying the selected day's data
         activitiesContainer.removeAllViews()
 
         val selectedActivities = itineraryActivities
@@ -584,11 +594,16 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
         if (selectedActivities.isEmpty()) {
 
-            // Shows a simple message when the selected day has no activities yet
             val emptyMessage = TextView(requireContext()).apply {
-                text = "No activities added for this day."
+                text =
+                    getString(R.string.itinerary_no_activities)
+
                 textSize = 13f
-                setTextColor(Color.parseColor("#7B8794"))
+
+                setTextColor(
+                    Color.parseColor("#7B8794")
+                )
+
                 setPadding(
                     0,
                     dpToPx(18),
@@ -631,7 +646,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                     R.id.btnDeleteActivityItem
                 )
 
-// References the timeline icon so each type of activity can use a suitable symbol
             val activityIcon =
                 activityView.findViewById<ImageView>(
                     R.id.imgActivityTypeIcon
@@ -645,23 +659,17 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             tvTime.text = activity.startTime
             tvTitle.text = activity.title
 
-            // Applies an icon and colour based on the activity being displayed
             applyActivityIconStyle(
                 activity.title,
                 activityIcon,
                 activityIconCard
             )
 
-            // Edit and delete behaviour will be connected in the next steps
             btnEdit.setOnClickListener {
-
-                // Opens the edit form for the selected activity
                 showEditActivityDialog(activity)
             }
 
             btnDelete.setOnClickListener {
-
-                // Opens a confirmation dialog before removing the selected activity
                 showDeleteActivityDialog(activity)
             }
 
@@ -675,7 +683,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         iconCard: MaterialCardView
     ) {
 
-        // Uses the activity name to choose a suitable visual icon for the timeline
         val activityTitle =
             title.lowercase(Locale.getDefault())
 
@@ -740,7 +747,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
             else -> {
 
-                // Uses a general location icon when no specific activity type is recognised
                 iconView.setImageResource(
                     R.drawable.ic_place
                 )
@@ -916,7 +922,7 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             if (dayNumber == null || dayNumber <= 0) {
 
                 layoutDayNumber.error =
-                    "Enter a valid day number."
+                    getString(R.string.itinerary_invalid_day_number)
 
                 isValid = false
 
@@ -927,7 +933,7 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             ) {
 
                 layoutDayNumber.error =
-                    "That day number already exists."
+                    getString(R.string.itinerary_duplicate_day_number)
 
                 isValid = false
             }
@@ -935,14 +941,14 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             if (dateText.isEmpty()) {
 
                 layoutDate.error =
-                    "Please select a date."
+                    getString(R.string.itinerary_date_required)
 
                 isValid = false
 
             } else if (!isDateWithinHoliday(dateText)) {
 
                 layoutDate.error =
-                    "Date must be within the selected holiday."
+                    getString(R.string.itinerary_date_outside_holiday)
 
                 isValid = false
 
@@ -953,7 +959,7 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             ) {
 
                 layoutDate.error =
-                    "That date already exists in the itinerary."
+                    getString(R.string.itinerary_duplicate_date)
 
                 isValid = false
             }
@@ -971,13 +977,15 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
                 selectedDayNumber = newDay.dayNumber
 
-// Refreshes the day cards and shows the empty activity state for the new day
                 renderDayCards()
                 renderActivities()
 
                 Toast.makeText(
                     requireContext(),
-                    "Day $dayNumber added.",
+                    getString(
+                        R.string.itinerary_day_added,
+                        dayNumber
+                    ),
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -997,7 +1005,7 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         if (selectedDay == null) {
             Toast.makeText(
                 requireContext(),
-                "Please select a day first.",
+                getString(R.string.itinerary_select_day_first),
                 Toast.LENGTH_SHORT
             ).show()
             return
@@ -1046,12 +1054,15 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 R.id.btnConfirmAddDay
             )
 
-        // changed the Add Day dialog into Edit Day mode.
-        tvTitle.text = "Edit Day"
-        tvSubtitle.text = "Update the selected itinerary day."
-        btnSave.text = "Save Changes"
+        tvTitle.text =
+            getString(R.string.edit_day)
 
-        // Pre-fill the current values.
+        tvSubtitle.text =
+            getString(R.string.edit_day_description)
+
+        btnSave.text =
+            getString(R.string.save_changes)
+
         etDayNumber.setText(
             selectedDay.dayNumber.toString()
         )
@@ -1122,7 +1133,7 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             if (newDayNumber == null || newDayNumber <= 0) {
 
                 layoutDayNumber.error =
-                    "Enter a valid day number."
+                    getString(R.string.itinerary_invalid_day_number)
 
                 isValid = false
 
@@ -1134,7 +1145,7 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             ) {
 
                 layoutDayNumber.error =
-                    "That day number already exists."
+                    getString(R.string.itinerary_duplicate_day_number)
 
                 isValid = false
             }
@@ -1142,14 +1153,14 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             if (dateText.isEmpty()) {
 
                 layoutDate.error =
-                    "Please select a date."
+                    getString(R.string.itinerary_date_required)
 
                 isValid = false
 
             } else if (!isDateWithinHoliday(dateText)) {
 
                 layoutDate.error =
-                    "Date must be within the selected holiday."
+                    getString(R.string.itinerary_date_outside_holiday)
 
                 isValid = false
 
@@ -1161,7 +1172,7 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             ) {
 
                 layoutDate.error =
-                    "That date already exists in the itinerary."
+                    getString(R.string.itinerary_duplicate_date)
 
                 isValid = false
             }
@@ -1175,7 +1186,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
                 if (index != -1) {
 
-                    // Keeps the old day number so linked activities can be updated as well
                     val oldDayNumber = selectedDay.dayNumber
 
                     itineraryDays[index] =
@@ -1184,7 +1194,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                             date = dateText
                         )
 
-                    // Moves existing activities to the updated day number
                     for (activityIndex in itineraryActivities.indices) {
 
                         val activity = itineraryActivities[activityIndex]
@@ -1202,13 +1211,12 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
                     selectedDayNumber = newDayNumber
 
-                    // Refreshes both the day selector and the activities linked to this day
                     renderDayCards()
                     renderActivities()
 
                     Toast.makeText(
                         requireContext(),
-                        "Day updated successfully.",
+                        getString(R.string.itinerary_day_updated),
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -1222,16 +1230,14 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
     private fun showDeleteDayDialog() {
 
-        // Finds the day that is currently selected on the itinerary
         val selectedDay = itineraryDays.find {
             it.dayNumber == selectedDayNumber
         }
 
-        // Prevents the delete dialog from opening if no day is selected
         if (selectedDay == null) {
             Toast.makeText(
                 requireContext(),
-                "Please select a day first.",
+                getString(R.string.itinerary_select_day_first),
                 Toast.LENGTH_SHORT
             ).show()
             return
@@ -1260,12 +1266,17 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 R.id.btnConfirmDelete
             )
 
-        // Updates the reusable dialog with details of the selected day
-        tvTitle.text = "Delete Day ${selectedDay.dayNumber}?"
+        tvTitle.text =
+            getString(
+                R.string.delete_day_title,
+                selectedDay.dayNumber
+            )
 
         tvMessage.text =
-            "This will delete Day ${selectedDay.dayNumber} " +
-                    "and all activities added to this day."
+            getString(
+                R.string.delete_day_confirmation,
+                selectedDay.dayNumber
+            )
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
@@ -1277,12 +1288,10 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
         btnDelete.setOnClickListener {
 
-            // Removes the selected day from the local itinerary list
             itineraryDays.removeAll {
                 it.dayNumber == selectedDay.dayNumber
             }
 
-            // Removes all activities that belonged to the deleted day
             itineraryActivities.removeAll {
                 it.dayNumber == selectedDay.dayNumber
             }
@@ -1291,7 +1300,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
             if (itineraryDays.isNotEmpty()) {
 
-                // Selects the first remaining day so the screen always has a valid selection
                 selectedDayNumber =
                     itineraryDays
                         .minByOrNull { it.dayNumber }
@@ -1299,20 +1307,21 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
             } else {
 
-                // Uses -1 when the itinerary no longer contains any days
                 selectedDayNumber = -1
 
                 tvSelectedDayDate.text =
-                    "No day selected"
+                    getString(R.string.itinerary_no_day_selected)
             }
 
-            // Redraws the remaining days and their activity list
             renderDayCards()
             renderActivities()
 
             Toast.makeText(
                 requireContext(),
-                "Day ${selectedDay.dayNumber} deleted.",
+                getString(
+                    R.string.itinerary_day_deleted,
+                    selectedDay.dayNumber
+                ),
                 Toast.LENGTH_SHORT
             ).show()
 
@@ -1324,16 +1333,14 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
     private fun showAddActivityDialog() {
 
-        // Finds the currently selected day so the activity can be linked to it
         val selectedDay = itineraryDays.find {
             it.dayNumber == selectedDayNumber
         }
 
-        // An activity cannot be added if the itinerary has no selected day
         if (selectedDay == null) {
             Toast.makeText(
                 requireContext(),
-                "Please select a day before adding an activity.",
+                getString(R.string.itinerary_select_day_before_activity),
                 Toast.LENGTH_SHORT
             ).show()
             return
@@ -1377,7 +1384,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 R.id.btnConfirmActivity
             )
 
-        // Displays the selected itinerary day without allowing it to be manually changed
         val parsedDayDate = parseDate(selectedDay.date)
 
         val formattedDay =
@@ -1393,7 +1399,14 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             }
 
         etDay.setText(
-            "Day ${selectedDay.dayNumber} - $formattedDay"
+            getString(
+                R.string.itinerary_day_date,
+                getString(
+                    R.string.itinerary_day_number,
+                    selectedDay.dayNumber
+                ),
+                formattedDay
+            )
         )
 
         val dialog = AlertDialog.Builder(requireContext())
@@ -1408,7 +1421,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 requireContext(),
                 { _, hourOfDay, minute ->
 
-                    // Stores the time in 24-hour format so activities can be sorted correctly later
                     val selectedTime = String.format(
                         Locale.getDefault(),
                         "%02d:%02d",
@@ -1433,7 +1445,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
         btnAdd.setOnClickListener {
 
-            // Clears old validation messages before checking the current values
             layoutTime.error = null
             layoutTitle.error = null
 
@@ -1453,19 +1464,20 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
             if (timeText.isEmpty()) {
                 layoutTime.error =
-                    "Please select an activity time."
+                    getString(R.string.itinerary_time_required)
+
                 isValid = false
             }
 
             if (titleText.isEmpty()) {
                 layoutTitle.error =
-                    "Please enter an activity title."
+                    getString(R.string.itinerary_activity_title_required)
+
                 isValid = false
             }
 
             if (isValid) {
 
-                // Generates a temporary local ID until activity IDs come from the backend
                 val nextActivityId =
                     (itineraryActivities.maxOfOrNull { it.activityId } ?: 0) + 1
 
@@ -1480,12 +1492,14 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
                 saveCurrentItinerary()
 
-                // Refreshes the list so the new activity appears in chronological order
                 renderActivities()
 
                 Toast.makeText(
                     requireContext(),
-                    "$titleText added.",
+                    getString(
+                        R.string.itinerary_activity_added,
+                        titleText
+                    ),
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -1498,7 +1512,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
     private fun showEditActivityDialog(activity: ItineraryActivity) {
 
-        // Opens the existing activity form with the selected activity's current values
         val dialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.dialog_add_activity, null)
 
@@ -1547,10 +1560,14 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 R.id.btnConfirmActivity
             )
 
-        // Changes the Add Activity dialog into Edit Activity mode
-        tvTitle.text = "Edit Activity"
-        tvSubtitle.text = "Update this activity in your itinerary."
-        btnSave.text = "Save Changes"
+        tvTitle.text =
+            getString(R.string.edit_activity)
+
+        tvSubtitle.text =
+            getString(R.string.edit_activity_description)
+
+        btnSave.text =
+            getString(R.string.save_changes)
 
         val selectedDay = itineraryDays.find {
             it.dayNumber == activity.dayNumber
@@ -1573,10 +1590,16 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
             } ?: ""
 
         etDay.setText(
-            "Day ${activity.dayNumber} - $formattedDay"
+            getString(
+                R.string.itinerary_day_date,
+                getString(
+                    R.string.itinerary_day_number,
+                    activity.dayNumber
+                ),
+                formattedDay
+            )
         )
 
-        // Pre-fills the activity information so the user can edit it
         etTime.setText(activity.startTime)
         etTitle.setText(activity.title)
 
@@ -1632,7 +1655,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
         btnSave.setOnClickListener {
 
-            // Clears previous validation errors before checking the edited values
             layoutTime.error = null
             layoutTitle.error = null
 
@@ -1652,13 +1674,15 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
             if (newTime.isEmpty()) {
                 layoutTime.error =
-                    "Please select an activity time."
+                    getString(R.string.itinerary_time_required)
+
                 isValid = false
             }
 
             if (newTitle.isEmpty()) {
                 layoutTitle.error =
-                    "Please enter an activity title."
+                    getString(R.string.itinerary_activity_title_required)
+
                 isValid = false
             }
 
@@ -1671,7 +1695,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
                 if (index != -1) {
 
-                    // Replaces the old activity with the user's updated values
                     itineraryActivities[index] =
                         activity.copy(
                             title = newTitle,
@@ -1680,12 +1703,11 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
                     saveCurrentItinerary()
 
-                    // Redraws the activities so any changed time is re-sorted correctly
                     renderActivities()
 
                     Toast.makeText(
                         requireContext(),
-                        "Activity updated successfully.",
+                        getString(R.string.itinerary_activity_updated),
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -1699,7 +1721,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
     private fun showDeleteActivityDialog(activity: ItineraryActivity) {
 
-        // Uses the same confirmation layout as Delete Day to keep dialogs consistent
         val dialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.dialog_confirm_delete, null)
 
@@ -1723,11 +1744,14 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 R.id.btnConfirmDelete
             )
 
-        // Shows the activity name so the user knows exactly what will be removed
-        tvTitle.text = "Delete Activity?"
+        tvTitle.text =
+            getString(R.string.delete_activity_title)
 
         tvMessage.text =
-            "Are you sure you want to delete \"${activity.title}\"?"
+            getString(
+                R.string.delete_activity_confirmation,
+                activity.title
+            )
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
@@ -1739,19 +1763,20 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
         btnDelete.setOnClickListener {
 
-            // Removes the activity using its unique local ID
             itineraryActivities.removeAll {
                 it.activityId == activity.activityId
             }
 
             saveCurrentItinerary()
 
-            // Refreshes the selected day's activities immediately after deletion
             renderActivities()
 
             Toast.makeText(
                 requireContext(),
-                "${activity.title} deleted.",
+                getString(
+                    R.string.itinerary_activity_deleted,
+                    activity.title
+                ),
                 Toast.LENGTH_SHORT
             ).show()
 
@@ -1763,7 +1788,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
     private fun showDeleteItineraryDialog() {
 
-        // Finds the selected holiday so its name can be shown in the confirmation message
         val selectedHoliday = holidays.find {
             it.holidayId == selectedHolidayId
         } ?: return
@@ -1791,11 +1815,14 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 R.id.btnConfirmDelete
             )
 
-        tvTitle.text = "Delete Itinerary?"
+        tvTitle.text =
+            getString(R.string.delete_itinerary_title)
 
         tvMessage.text =
-            "Are you sure you want to delete the ${selectedHoliday.name} itinerary? " +
-                    "All days and activities in this itinerary will be removed."
+            getString(
+                R.string.delete_itinerary_confirmation,
+                selectedHoliday.name
+            )
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
@@ -1807,7 +1834,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
 
         btnDelete.setOnClickListener {
 
-            // Clears only the itinerary data for the selected holiday
             itineraryDays.clear()
             itineraryActivities.clear()
 
@@ -1816,16 +1842,17 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                     selectedHolidayId
                 )
 
-            // No day remains selected once the itinerary has been cleared
             selectedDayNumber = -1
 
-            // Refreshes the screen to show the empty itinerary state
             renderDayCards()
             renderActivities()
 
             Toast.makeText(
                 requireContext(),
-                "${selectedHoliday.name} itinerary deleted.",
+                getString(
+                    R.string.itinerary_deleted,
+                    selectedHoliday.name
+                ),
                 Toast.LENGTH_SHORT
             ).show()
 
@@ -1858,7 +1885,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         dateText: String
     ): Boolean {
 
-        // Gets the start and end dates from the holiday currently selected
         val selectedHoliday = holidays.find {
             it.holidayId == selectedHolidayId
         } ?: return false
@@ -1872,7 +1898,6 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         val holidayEnd =
             parseDate(selectedHoliday.endDate) ?: return false
 
-        // A new itinerary day must fall inside the selected holiday's date range
         return !selectedDate.before(holidayStart) &&
                 !selectedDate.after(holidayEnd)
     }

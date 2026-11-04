@@ -104,9 +104,8 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
                 throw error
             } catch (error: Exception) {
                 if (isAdded) {
-                    showMessage(
-                        "Unable to load holidays: ${error.message ?: "Unknown error"}"
-                    )
+                        showMessage(getString(R.string.reminders_load_holidays_error))
+
                 }
             }
         }
@@ -432,11 +431,13 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
                 refreshReminderList()
 
                 showMessage(
-                    if (existingReminder == null) {
-                        "Reminder saved successfully"
-                    } else {
-                        "Reminder updated successfully"
-                    }
+                    getString(
+                        if (existingReminder == null) {
+                            R.string.reminders_saved_successfully
+                        } else {
+                            R.string.reminders_updated_successfully
+                        }
+                    )
                 )
 
                 dialog.dismiss()
@@ -466,7 +467,7 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
                 )
 
                 refreshReminderList()
-                showMessage("Reminder deleted successfully")
+                showMessage(getString(R.string.reminders_deleted_successfully))
             }
             .show()
     }
@@ -479,7 +480,7 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
             enabled &&
             reminder.scheduledAtMillis <= System.currentTimeMillis()
         ) {
-            showMessage("Cannot enable a reminder in the past")
+            showMessage(getString(R.string.reminders_cannot_enable_past))
             refreshReminderList()
             return
         }
