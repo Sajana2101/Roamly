@@ -497,7 +497,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.12"
-                    ndroid:text="@string/flights_section"
+                    android:text="@string/flights_section"
                     android:textColor="#8795A6"
                     android:textSize="10sp"
                     android:textStyle="bold" />

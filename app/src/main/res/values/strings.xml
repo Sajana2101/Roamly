@@ -510,4 +510,34 @@
     <string name="open">Open</string>
     <string name="travel_document_default">Travel Document</string>
 
+    <!-- Accommodation Fields -->
+    <string name="accommodation_name_label">Accommodation Name</string>
+    <string name="example_accommodation_name">e.g. Andronis Boutique Hotel</string>
+    <string name="accommodation_type_label">Accommodation Type</string>
+    <string name="example_accommodation_type">e.g. Hotel</string>
+    <string name="address_label">Address</string>
+    <string name="example_accommodation_address">e.g. Oia, Santorini, Greece</string>
+    <string name="check_in_date">Check-in Date</string>
+    <string name="check_out_date">Check-out Date</string>
+    <string name="check_in_time">Check-in Time</string>
+    <string name="check_out_time">Check-out Time</string>
+
+    <!-- Flight Fields -->
+    <string name="outbound">OUTBOUND</string>
+    <string name="departure_flight">Departure Flight</string>
+    <string name="airline">Airline</string>
+    <string name="example_airline">e.g. Emirates</string>
+    <string name="airport_route">Airport Route</string>
+    <string name="example_airport_code">e.g. JHB</string>
+    <string name="flight_date">Flight Date</string>
+    <string name="boarding">Boarding</string>
+    <string name="departure">Departure</string>
+    <string name="arrival">Arrival</string>
+    <string name="terminal">Terminal</string>
+    <string name="gate">Gate</string>
+    <string name="optional">Optional</string>
+    <string name="returnflight">RETURN</string>
+    <string name="return_flight">Return Flight</string>
+    <string name="return_date">Return Date</string>
+
 </resources>

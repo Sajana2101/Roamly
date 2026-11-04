@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:text="Accommodation Name"
+        android:text="@string/accommodation_name_label"
         android:textColor="#24384A"
         android:textSize="12sp"
         android:textStyle="bold" />
@@ -34,7 +34,7 @@
             android:id="@+id/accommodationNameEditText"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:hint="e.g. Andronis Boutique Hotel"
+            android:hint="@string/example_accommodation_name"
             android:inputType="textCapWords"
             android:maxLines="1"
             android:textColor="#172B3A"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        android:text="Accommodation Type"
+        android:text="@string/accommodation_type_label"
         android:textColor="#24384A"
         android:textSize="12sp"
         android:textStyle="bold" />
@@ -70,7 +70,7 @@
             android:id="@+id/accommodationTypeEditText"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:hint="e.g. Hotel"
+            android:hint="@string/example_accommodation_type"
             android:inputType="textCapWords"
             android:maxLines="1"
             android:textColor="#172B3A"
@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        android:text="Address"
+        android:text="@string/address_label"
         android:textColor="#24384A"
         android:textSize="12sp"
         android:textStyle="bold" />
@@ -106,7 +106,7 @@
             android:id="@+id/accommodationLocationEditText"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:hint="e.g. Oia, Santorini, Greece"
+            android:hint="@string/example_accommodation_address"
             android:inputType="textCapWords"
             android:maxLines="1"
             android:textColor="#172B3A"
@@ -132,7 +132,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Check-in Date"
+                android:text="@string/check_in_date"
                 android:textColor="#24384A"
                 android:textSize="11sp"
                 android:textStyle="bold" />
@@ -157,7 +157,7 @@
                     android:clickable="true"
                     android:cursorVisible="false"
                     android:focusable="false"
-                    android:hint="yyyy/mm/dd"
+                    android:hint="@string/date_format_hint"
                     android:inputType="none"
                     android:textColor="#172B3A"
                     android:textColorHint="#A0ADBA"
@@ -177,7 +177,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Check-out Date"
+                android:text="@string/check_out_date"
                 android:textColor="#24384A"
                 android:textSize="11sp"
                 android:textStyle="bold" />
@@ -202,7 +202,7 @@
                     android:clickable="true"
                     android:cursorVisible="false"
                     android:focusable="false"
-                    android:hint="yyyy/mm/dd"
+                    android:hint="@string/date_format_hint"
                     android:inputType="none"
                     android:textColor="#172B3A"
                     android:textColorHint="#A0ADBA"
@@ -231,7 +231,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Check-in Time"
+                android:text="@string/check_in_time"
                 android:textColor="#24384A"
                 android:textSize="11sp"
                 android:textStyle="bold" />
@@ -276,7 +276,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Check-out Time"
+                android:text="@string/check_out_time"
                 android:textColor="#24384A"
                 android:textSize="11sp"
                 android:textStyle="bold" />
