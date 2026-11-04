@@ -460,7 +460,7 @@ class EditHolidayFragment :
                 if (isAdded) {
                     android.widget.Toast.makeText(
                         requireContext(),
-                        "Could not load holiday",
+                        getString(R.string.could_not_load_holiday),
                         android.widget.Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -990,7 +990,7 @@ holidayRepository
                 if (isAdded) {
                     android.widget.Toast.makeText(
                         requireContext(),
-                        "Could not update holiday",
+                        getString(R.string.could_not_update_holiday),
                         android.widget.Toast.LENGTH_SHORT
                     ).show()
                 }

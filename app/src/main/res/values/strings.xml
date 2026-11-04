@@ -540,4 +540,13 @@
     <string name="return_flight">Return Flight</string>
     <string name="return_date">Return Date</string>
 
+    <!-- Edit Holiday -->
+    <string name="update_trip">Update your trip</string>
+    <string name="update_trip_description">Keep your holiday information accurate and up to date.</string>
+    <string name="stay_section">STAY</string>
+    <string name="could_not_load_holiday">Could not load holiday.</string>
+    <string name="could_not_update_holiday">Could not update holiday.</string>
+    <string name="edit_trip">✎ Edit Trip</string>
+    <string name="could_not_delete_holiday">Could not delete holiday.</string>
+
 </resources>

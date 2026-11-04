@@ -172,7 +172,7 @@ class HolidayDetailsFragment :
                 if (isAdded) {
                     android.widget.Toast.makeText(
                         requireContext(),
-                        "Could not load holiday",
+                        getString(R.string.could_not_load_holiday),
                         android.widget.Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -825,7 +825,7 @@ class HolidayDetailsFragment :
                 if (isAdded) {
                     android.widget.Toast.makeText(
                         requireContext(),
-                        "Could not delete holiday",
+                        getString(R.string.could_not_delete_holiday),
                         android.widget.Toast.LENGTH_SHORT
                     ).show()
                 }
