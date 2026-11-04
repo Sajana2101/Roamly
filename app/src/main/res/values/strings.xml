@@ -443,4 +443,71 @@
     <!-- Packing Item Deletion -->
     <string name="delete_packing_item_confirmation">Are you sure you want to delete "%1$s"?</string>
 
+    <!-- Add Holiday -->
+    <string name="trip_image_description">Trip</string>
+    <string name="plan_your_next_trip">Plan your next trip</string>
+    <string name="add_trip_details_description">Add the important details now and keep everything organised in one place.</string>
+    <string name="trip_cover">TRIP COVER</string>
+    <string name="holiday_image">Holiday Image</string>
+    <string name="upload_trip_image">Upload a trip image</string>
+    <string name="trip_image_help">This image will appear on your holiday card and trip header</string>
+    <string name="general_section">GENERAL</string>
+    <string name="trip_information">Trip Information</string>
+    <string name="holiday_title_label">Holiday Title</string>
+    <string name="example_honeymoon">e.g. Honeymoon</string>
+    <string name="trip_classification">Trip Classification</string>
+    <string name="select_trip_type">Select trip type</string>
+    <string name="country_label">Country</string>
+    <string name="example_greece">e.g. Greece</string>
+    <string name="city_label">City</string>
+    <string name="example_santorini">e.g. Santorini</string>
+    <string name="start_date">Start Date</string>
+    <string name="date_format_hint">yyyy/mm/dd</string>
+    <string name="end_date">End Date</string>
+    <string name="stay_section">STAY</string>
+    <string name="flights_section">FLIGHTS</string>
+    <string name="save_holiday">✓ Save Holiday</string>
+
+    <!-- Add Document -->
+    <string name="new_document_label">NEW DOCUMENT</string>
+    <string name="upload_document_title">Upload Document</string>
+    <string name="add_travel_document_description">Add an important travel file.</string>
+    <string name="document_name_label">Document Name</string>
+    <string name="example_passport_copy">e.g. Passport Copy</string>
+    <string name="document_type_label">Document Type</string>
+    <string name="select_document_type">Select document type</string>
+    <string name="file_label">File</string>
+    <string name="choose_file">Choose File</string>
+    <string name="supported_document_formats">PDF, JPG, PNG, DOC and more</string>
+    <string name="notes_label">Notes</string>
+    <string name="optional_notes">Optional notes</string>
+    <string name="upload_document_button">☁ Upload</string>
+
+    <!-- Edit Document -->
+    <string name="document_details_label">DOCUMENT DETAILS</string>
+    <string name="edit_document_title">Edit Document</string>
+    <string name="update_document_description">Update this documents information.</string>
+    <string name="current_file_label">Current File</string>
+    <string name="replace_file_label">Replace File</string>
+    <string name="optional_replace_file_help">Optional — leave empty to keep the current file.</string>
+
+    <!-- Documents -->
+    <string name="new_file_selected">New file: %1$s</string>
+    <string name="document_name_required">Enter a document name</string>
+    <string name="document_type_required">Select a document type</string>
+    <string name="choose_file_to_upload">Choose a file to upload.</string>
+    <string name="document_uploaded">Document uploaded.</string>
+    <string name="document_already_added">This file has already been added.</string>
+    <string name="document_upload_error">Could not upload the document.</string>
+    <string name="document_updated">Document updated.</string>
+    <string name="document_update_error">Could not update the document.</string>
+    <string name="open_document">Open Document</string>
+    <string name="no_compatible_document_app">No compatible app was found to open this document.</string>
+    <string name="document_access_permission_error">Roamly no longer has permission to access this document.</string>
+    <string name="delete_document">Delete Document</string>
+    <string name="delete_document_confirmation">Are you sure you want to remove this document from Roamly?</string>
+    <string name="document_deleted">Document deleted.</string>
+    <string name="open">Open</string>
+    <string name="travel_document_default">Travel Document</string>
+
 </resources>

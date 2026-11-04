@@ -3,6 +3,7 @@
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F7F9FC"
@@ -38,7 +39,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:contentDescription="Trip"
+                    android:contentDescription="@string/trip_image_description"
                     android:src="@drawable/ic_nav_itinerary"
                     app:tint="#2F80D1" />
 
@@ -54,7 +55,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Plan your next trip"
+                    android:text="@string/plan_your_next_trip"
                     android:textColor="#102B46"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -63,8 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="Add the important details now and keep everything organised in one place."
-                    android:textColor="#8492A3"
+                    android:text="@string/add_trip_details_description" android:textColor="#8492A3"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.12"
-                    android:text="TRIP COVER"
+                    android:text="@string/trip_cover"
                     android:textColor="#8795A6"
                     android:textSize="10sp"
                     android:textStyle="bold" />
@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="Holiday Image"
+                    android:text="@string/holiday_image"
                     android:textColor="#102B46"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -136,7 +136,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="Upload a trip image"
+                        android:text="@string/upload_trip_image"
                         android:textColor="#102B46"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -146,14 +146,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
-                        android:text="This image will appear on your holiday card and trip header"
-                        android:textColor="#8A98A9"
+                        android:text="@string/trip_image_help" android:textColor="#8A98A9"
                         android:textSize="10sp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/selectCoverImageButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="48dp"
                         android:layout_marginTop="10dp"
                         android:text="@string/choose_cover_image"
                         android:textAllCaps="false"
@@ -189,7 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.12"
-                    android:text="GENERAL"
+                    android:text="@string/general_section"
                     android:textColor="#8795A6"
                     android:textSize="10sp"
                     android:textStyle="bold" />
@@ -198,7 +197,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="Trip Information"
+                    android:text="@string/trip_information"
                     android:textColor="#102B46"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -208,7 +207,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Holiday Title"
+                    android:text="@string/holiday_title_label"
                     android:textColor="#24384A"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -230,7 +229,7 @@
                         android:id="@+id/holidayNameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        android:hint="e.g. Honeymoon"
+                        android:hint="@string/example_honeymoon"
                         android:inputType="textCapWords"
                         android:maxLines="1"
                         android:textColor="#172B3A"
@@ -244,7 +243,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="Trip Classification"
+                    android:text="@string/trip_classification"
                     android:textColor="#24384A"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -266,11 +265,12 @@
                         android:id="@+id/tripTypeAutoComplete"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        android:hint="Select trip type"
+                        android:hint="@string/select_trip_type"
                         android:inputType="none"
                         android:textColor="#172B3A"
                         android:textColorHint="#A0ADBA"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -279,7 +279,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="Country"
+                    android:text="@string/country_label"
                     android:textColor="#24384A"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -301,7 +301,7 @@
                         android:id="@+id/countryEditText"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        android:hint="e.g. Greece"
+                        android:hint="@string/example_greece"
                         android:inputType="textCapWords"
                         android:maxLines="1"
                         android:textColor="#172B3A"
@@ -315,7 +315,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="City"
+                    android:text="@string/city_label"
                     android:textColor="#24384A"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -337,7 +337,7 @@
                         android:id="@+id/cityEditText"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        android:hint="e.g. Santorini"
+                        android:hint="@string/example_santorini"
                         android:inputType="textCapWords"
                         android:maxLines="1"
                         android:textColor="#172B3A"
@@ -351,7 +351,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="Start Date"
+                    android:text="@string/start_date"
                     android:textColor="#24384A"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -376,7 +376,7 @@
                         android:clickable="true"
                         android:cursorVisible="false"
                         android:focusable="false"
-                        android:hint="yyyy/mm/dd"
+                        android:hint="@string/date_format_hint"
                         android:inputType="none"
                         android:textColor="#172B3A"
                         android:textColorHint="#A0ADBA"
@@ -389,7 +389,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="End Date"
+                    android:text="@string/end_date"
                     android:textColor="#24384A"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -414,7 +414,7 @@
                         android:clickable="true"
                         android:cursorVisible="false"
                         android:focusable="false"
-                        android:hint="yyyy/mm/dd"
+                        android:hint="@string/date_format_hint"
                         android:inputType="none"
                         android:textColor="#172B3A"
                         android:textColorHint="#A0ADBA"
@@ -447,7 +447,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.12"
-                    android:text="STAY"
+                    android:text="@string/stay_section"
                     android:textColor="#8795A6"
                     android:textSize="10sp"
                     android:textStyle="bold" />
@@ -497,7 +497,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.12"
-                    android:text="FLIGHTS"
+                    ndroid:text="@string/flights_section"
                     android:textColor="#8795A6"
                     android:textSize="10sp"
                     android:textStyle="bold" />
@@ -542,7 +542,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="18dp"
-            android:text="✓  Save Holiday"
+            android:text="@string/save_holiday"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="14sp"

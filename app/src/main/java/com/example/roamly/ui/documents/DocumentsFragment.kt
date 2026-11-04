@@ -114,9 +114,8 @@ class DocumentsFragment :
                     uri
                 )
 
-            editReplacementFileText
-                ?.text =
-                "New file: ${metadata.first}"
+            editReplacementFileText?.text =
+                getString(R.string.new_file_selected, metadata.first)
         }
 
     override fun onViewCreated(
@@ -211,18 +210,8 @@ class DocumentsFragment :
         }
     }
 
-    private fun documentTypes():
-            List<String> {
-
-        return listOf(
-            "Identification",
-            "Visa",
-            "Flight",
-            "Accommodation",
-            "Insurance",
-            "Booking",
-            "Other"
-        )
+    private fun documentTypes(): List<String> {
+        return resources.getStringArray(R.array.document_types).toList()
     }
 
     private fun supportedDocumentTypes():
@@ -385,8 +374,7 @@ class DocumentsFragment :
                     documentName.isBlank()
                 ) {
 
-                    nameEditText.error =
-                        "Enter a document name"
+                    nameEditText.error = getString(R.string.document_name_required)
 
                     return@setOnClickListener
                 }
@@ -395,8 +383,7 @@ class DocumentsFragment :
                     documentType.isBlank()
                 ) {
 
-                    typeAutoComplete.error =
-                        "Select a document type"
+                    typeAutoComplete.error = getString(R.string.document_type_required)
 
                     return@setOnClickListener
                 }
@@ -407,7 +394,7 @@ class DocumentsFragment :
 
                     Toast.makeText(
                         requireContext(),
-                        "Choose a file to upload.",
+                        getString(R.string.choose_file_to_upload),
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -418,8 +405,10 @@ class DocumentsFragment :
                     createDocument(
                         documentName =
                             documentName,
-                        documentType =
-                            documentType,
+                        documentType = DocumentTypeMapper.toStoredValue(
+                            requireContext(),
+                            documentType
+                        ),
                         notes =
                             notes,
                         uri =
@@ -433,7 +422,7 @@ class DocumentsFragment :
 
                     Toast.makeText(
                         requireContext(),
-                        "Document uploaded.",
+                        getString(R.string.document_uploaded),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -478,7 +467,7 @@ class DocumentsFragment :
 
                 Toast.makeText(
                     requireContext(),
-                    "This file has already been added.",
+                    getString(R.string.document_already_added),
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -549,7 +538,7 @@ class DocumentsFragment :
 
             Toast.makeText(
                 requireContext(),
-                "Could not upload the document.",
+                getString(R.string.document_upload_error),
                 Toast.LENGTH_LONG
             ).show()
 
@@ -651,7 +640,10 @@ class DocumentsFragment :
                 ?: "Other"
 
         typeAutoComplete.setText(
-            existingType,
+            DocumentTypeMapper.toDisplayName(
+                requireContext(),
+                existingType
+            ),
             false
         )
 
@@ -740,7 +732,7 @@ class DocumentsFragment :
                 ) {
 
                     nameEditText.error =
-                        "Enter a document name"
+                        getString(R.string.document_name_required)
 
                     return@setOnClickListener
                 }
@@ -750,7 +742,7 @@ class DocumentsFragment :
                 ) {
 
                     typeAutoComplete.error =
-                        "Select a document type"
+                        getString(R.string.document_type_required)
 
                     return@setOnClickListener
                 }
@@ -762,7 +754,10 @@ class DocumentsFragment :
                         documentName =
                             documentName,
                         documentType =
-                            documentType,
+                            DocumentTypeMapper.toStoredValue(
+                                requireContext(),
+                                documentType
+                            ),
                         notes =
                             notes,
                         replacementUri =
@@ -776,7 +771,7 @@ class DocumentsFragment :
 
                     Toast.makeText(
                         requireContext(),
-                        "Document updated.",
+                        getString(R.string.document_updated),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -911,7 +906,7 @@ class DocumentsFragment :
 
             Toast.makeText(
                 requireContext(),
-                "Could not update the document.",
+                getString(R.string.document_update_error),
                 Toast.LENGTH_LONG
             ).show()
 
@@ -978,7 +973,7 @@ class DocumentsFragment :
     ): Pair<String, Long> {
 
         var displayName =
-            "Travel Document"
+            getString(R.string.travel_document_default)
 
         var sizeBytes =
             0L
@@ -1120,7 +1115,7 @@ class DocumentsFragment :
             startActivity(
                 Intent.createChooser(
                     intent,
-                    "Open Document"
+                    getString(R.string.open_document)
                 )
             )
 
@@ -1131,7 +1126,7 @@ class DocumentsFragment :
 
             Toast.makeText(
                 requireContext(),
-                "No compatible app was found to open this document.",
+                getString(R.string.no_compatible_document_app),
                 Toast.LENGTH_LONG
             ).show()
 
@@ -1148,7 +1143,7 @@ class DocumentsFragment :
 
             Toast.makeText(
                 requireContext(),
-                "Roamly no longer has permission to access this document.",
+                getString(R.string.document_access_permission_error),
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -1162,18 +1157,14 @@ class DocumentsFragment :
         MaterialAlertDialogBuilder(
             requireContext()
         )
-            .setTitle(
-                "Delete Document"
-            )
-            .setMessage(
-                "Are you sure you want to remove this document from Roamly?"
-            )
+            .setTitle(getString(R.string.delete_document))
+            .setMessage(getString(R.string.delete_document_confirmation))
             .setNegativeButton(
-                "Cancel",
+                getString(R.string.cancel),
                 null
             )
             .setPositiveButton(
-                "Delete"
+                getString(R.string.delete)
             ) {
                     _,
                     _ ->
@@ -1203,7 +1194,7 @@ class DocumentsFragment :
 
         Toast.makeText(
             requireContext(),
-            "Document deleted.",
+            getString(R.string.document_deleted),
             Toast.LENGTH_SHORT
         ).show()
 
