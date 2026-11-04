@@ -339,7 +339,6 @@
     <string name="preferred_language">Preferred Language</string>
 
     <string name="currency_label">CURRENCY</string>
-    <string name="home_currency">Home Currency</string>
     <string name="current_currency">Current Currency</string>
 
     <string name="notifications_label">NOTIFICATIONS</string>
@@ -358,7 +357,6 @@
     <string name="app_drawer_heading">TRAVEL APP</string>
     <string name="menu">Menu</string>
     <string name="open_menu_item">Open menu item</string>
-    <string name="home">Home</string>
 
     <!-- Drawer items -->
     <string name="currency_converter_description">Convert currencies for your travels</string>
@@ -421,7 +419,6 @@
     <string name="edit_packing_item_label">EDIT PACKING ITEM</string>
     <string name="edit_item">Edit Item</string>
     <string name="edit_packing_item_description">Update your packing item</string>
-    <string name="save_changes">Save Changes</string>
 
     <!-- Edit Packing List -->
     <string name="edit_packing_list_label">EDIT PACKING LIST</string>
@@ -548,5 +545,8 @@
     <string name="could_not_update_holiday">Could not update holiday.</string>
     <string name="edit_trip">✎ Edit Trip</string>
     <string name="could_not_delete_holiday">Could not delete holiday.</string>
+
+    <string name="currency_invalid_selection">A valid source and destination currency are required.</string>
+    <string name="currency_conversion_failed">Currency conversion failed.</string>
 
 </resources>

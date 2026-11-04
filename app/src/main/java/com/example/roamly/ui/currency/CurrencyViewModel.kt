@@ -8,6 +8,7 @@ import com.example.roamly.data.model.CurrencyResponse
 import com.example.roamly.data.util.CurrencyConverter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import com.example.roamly.R
 
 
 // This groups the values that the Currency screen needs to display at any point in time.
@@ -16,7 +17,8 @@ data class CurrencyUiState(
     val fromCurrency: CurrencyOption,
     val toCurrency: CurrencyOption,
     val result: CurrencyResponse? = null,
-    val errorMessage: String? = null
+    val errorMessageResId: Int? = null
+   // val errorMessage: String? = null
 )
 
 class CurrencyViewModel : ViewModel() {
@@ -116,7 +118,7 @@ class CurrencyViewModel : ViewModel() {
             _uiState.value.copy(
                 fromCurrency = currency,
                 result = null,
-                errorMessage = null
+                errorMessageResId = null
             )
 
         Log.d(
@@ -134,7 +136,7 @@ class CurrencyViewModel : ViewModel() {
             _uiState.value.copy(
                 toCurrency = currency,
                 result = null,
-                errorMessage = null
+                errorMessageResId = null
             )
 
         Log.d(
@@ -191,7 +193,7 @@ class CurrencyViewModel : ViewModel() {
                     destinationCurrency,
                 result =
                     null,
-                errorMessage =
+                errorMessageResId =
                     null
             )
 
@@ -214,7 +216,7 @@ class CurrencyViewModel : ViewModel() {
                 toCurrency =
                     currentState.fromCurrency,
                 result = null,
-                errorMessage = null
+                errorMessageResId = null
             )
 
         Log.d(
@@ -247,12 +249,10 @@ class CurrencyViewModel : ViewModel() {
             request.amount <= 0.0
         ) {
 
-            _uiState.value =
-                _uiState.value.copy(
-                    result = null,
-                    errorMessage =
-                        "Enter an amount greater than 0."
-                )
+                _uiState.value = _uiState.value.copy(
+                result = null,
+                errorMessageResId = R.string.currency_invalid_amount
+            )
 
             Log.w(
                 TAG,
@@ -267,12 +267,10 @@ class CurrencyViewModel : ViewModel() {
             toCurrency == null
         ) {
 
-            _uiState.value =
-                _uiState.value.copy(
-                    result = null,
-                    errorMessage =
-                        "A valid source and destination currency are required."
-                )
+            _uiState.value = _uiState.value.copy(
+                result = null,
+                errorMessageResId = R.string.currency_invalid_selection
+            )
 
             Log.w(
                 TAG,
@@ -319,7 +317,7 @@ class CurrencyViewModel : ViewModel() {
             _uiState.value =
                 _uiState.value.copy(
                     result = response,
-                    errorMessage = null
+                    errorMessageResId = null
                 )
 
             Log.d(
@@ -327,18 +325,12 @@ class CurrencyViewModel : ViewModel() {
                 "Conversion completed successfully."
             )
 
-        } catch (
-            exception:
-            IllegalArgumentException
-        ) {
+        } catch (exception: IllegalArgumentException) {
 
-            _uiState.value =
-                _uiState.value.copy(
-                    result = null,
-                    errorMessage =
-                        exception.message
-                            ?: "Currency conversion failed."
-                )
+            _uiState.value = _uiState.value.copy(
+                result = null,
+                errorMessageResId = R.string.currency_conversion_failed
+            )
 
             Log.e(
                 TAG,
@@ -365,12 +357,12 @@ class CurrencyViewModel : ViewModel() {
     fun clearError() {
 
         if (
-            _uiState.value.errorMessage != null
+            _uiState.value.errorMessageResId != null
         ) {
 
             _uiState.value =
                 _uiState.value.copy(
-                    errorMessage = null
+                    errorMessageResId = null
                 )
         }
     }
