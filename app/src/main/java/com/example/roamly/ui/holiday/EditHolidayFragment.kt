@@ -20,6 +20,7 @@ import com.example.roamly.R
 import com.example.roamly.data.model.AccommodationDetails
 import com.example.roamly.data.model.FlightDetails
 import com.example.roamly.data.model.Holiday
+import com.example.roamly.data.sync.HolidayCoverImage
 import com.example.roamly.data.repository.RoomHolidayRepository
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -620,43 +621,16 @@ class EditHolidayFragment :
             }
     }
 
+
     private fun loadCoverImage(
         holiday: Holiday
     ) {
-        if (
-            holiday.coverImageUri
-                .isNullOrBlank()
-        ) {
-            coverImageView
-                .setImageResource(
-                    R.drawable.ic_holiday_placeholder
-                )
-
-            return
-        }
-
-        try {
-            coverImageView
-                .setImageURI(
-                    Uri.parse(
-                        holiday.coverImageUri
-                    )
-                )
-        } catch (
-            exception: Exception
-        ) {
-            Log.e(
-                "RoamlyHoliday",
-                "Could not load holiday cover image",
-                exception
-            )
-
-            coverImageView
-                .setImageResource(
-                    R.drawable.ic_holiday_placeholder
-                )
-        }
+        HolidayCoverImage.load(
+            coverImageView,
+            holiday
+        )
     }
+
 
     private fun saveChanges() {
         clearErrors()

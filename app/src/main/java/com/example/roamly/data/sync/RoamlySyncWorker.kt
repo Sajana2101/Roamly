@@ -70,6 +70,22 @@ class RoamlySyncWorker(
             }
 
             try {
+                if (!HolidayCoverSync(applicationContext).uploadPending()) {
+                    failed = true
+                }
+            } catch (error: CancellationException) {
+                throw error
+            } catch (error: Exception) {
+                failed = true
+                Log.e(
+                    TAG,
+                    "Holiday cover synchronization failed",
+                    error
+                )
+            }
+
+
+            try {
                 val travel =
                     TravelSyncUploader(applicationContext).uploadPending()
 
@@ -495,8 +511,32 @@ class RoamlySyncWorker(
                     )
                 )
 
+
                 Log.i(TAG, "Restored holiday $localId")
+            } else {
+                val imageUrl = text(remote, "imageUrl")
+
+                if (!imageUrl.isNullOrBlank()) {
+                    val currentHoliday = gson.fromJson(
+                        current.holidayJson,
+                        Holiday::class.java
+                    )
+
+                    if (currentHoliday.coverImageUri.isNullOrBlank()) {
+                        holidays.saveHoliday(
+                            current.copy(
+                                holidayJson = gson.toJson(
+                                    currentHoliday.copy(
+                                        coverImageUri = imageUrl
+                                    )
+                                ),
+                                needsSync = false
+                            )
+                        )
+                    }
+                }
             }
+
         }
 
         val itineraries = readArray(

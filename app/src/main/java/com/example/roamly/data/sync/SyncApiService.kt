@@ -2,13 +2,16 @@
 package com.example.roamly.data.sync
 
 import com.google.gson.JsonObject
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface SyncApiService {
@@ -32,6 +35,14 @@ interface SyncApiService {
         @Header("Authorization") authorization: String,
         @Path("holidayId") holidayId: String,
         @Body holiday: JsonObject
+    ): Response<JsonObject>
+
+    @Multipart
+    @POST("api/holidays/{holidayId}/cover")
+    suspend fun uploadHolidayCover(
+        @Header("Authorization") authorization: String,
+        @Path("holidayId") holidayId: String,
+        @Part file: MultipartBody.Part
     ): Response<JsonObject>
 
     @DELETE("api/holidays/{holidayId}")
