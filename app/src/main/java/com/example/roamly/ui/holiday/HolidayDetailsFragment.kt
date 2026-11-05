@@ -15,6 +15,7 @@ import com.example.roamly.MainActivity
 import com.example.roamly.R
 import com.example.roamly.data.model.FlightDetails
 import com.example.roamly.data.model.Holiday
+import com.example.roamly.data.sync.HolidayCoverImage
 import com.example.roamly.data.repository.RoomHolidayRepository
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -541,44 +542,15 @@ class HolidayDetailsFragment :
             )
     }
 
+
     private fun loadCoverImage(
         imageView: ImageView,
         holiday: Holiday
     ) {
-        val imageUri =
-            holiday.coverImageUri
-
-        if (imageUri.isNullOrBlank()) {
-
-            imageView.setImageResource(
-                R.drawable.ic_holiday_placeholder
-            )
-
-            return
-        }
-
-        try {
-
-            imageView.setImageURI(
-                Uri.parse(
-                    imageUri
-                )
-            )
-
-        } catch (
-            exception: Exception
-        ) {
-
-            Log.e(
-                "RoamlyHoliday",
-                "Could not load holiday cover image",
-                exception
-            )
-
-            imageView.setImageResource(
-                R.drawable.ic_holiday_placeholder
-            )
-        }
+        HolidayCoverImage.load(
+            imageView,
+            holiday
+        )
     }
 
     private fun updateStatus(

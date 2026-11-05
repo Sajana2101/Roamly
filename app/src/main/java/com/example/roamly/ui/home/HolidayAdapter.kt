@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roamly.R
 import com.example.roamly.data.model.Holiday
+import com.example.roamly.data.sync.HolidayCoverImage
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -138,30 +139,16 @@ class HolidayAdapter(
             }
         }
 
+
         private fun loadCoverImage(
             holiday: Holiday
         ) {
-            val imageUri =
-                holiday.coverImageUri
-
-            if (imageUri.isNullOrBlank()) {
-                coverImageView.setImageResource(
-                    R.drawable.ic_holiday_placeholder
-                )
-
-                return
-            }
-
-            try {
-                coverImageView.setImageURI(
-                    Uri.parse(imageUri)
-                )
-            } catch (_: Exception) {
-                coverImageView.setImageResource(
-                    R.drawable.ic_holiday_placeholder
-                )
-            }
+            HolidayCoverImage.load(
+                coverImageView,
+                holiday
+            )
         }
+
 
         private fun updateStatusAndCountdown(
             holiday: Holiday

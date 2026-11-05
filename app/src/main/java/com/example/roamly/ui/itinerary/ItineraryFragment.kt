@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import com.example.roamly.R
 import com.example.roamly.data.model.Holiday
+import com.example.roamly.data.sync.HolidayCoverImage
 import com.example.roamly.data.model.ItineraryActivity
 import com.example.roamly.data.model.ItineraryDay
 import com.example.roamly.data.repository.RoomHolidayRepository
@@ -292,34 +293,17 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
         }
     }
 
+
     private fun loadHolidayImage(
         imageView: ImageView,
         holiday: Holiday
     ) {
-        val imageUri =
-            holiday.coverImageUri
-
-        if (imageUri.isNullOrBlank()) {
-            imageView.setImageResource(
-                R.drawable.ic_holiday_placeholder
-            )
-            return
-        }
-
-        try {
-            imageView.setImageURI(
-                Uri.parse(
-                    imageUri
-                )
-            )
-        } catch (
-            exception: Exception
-        ) {
-            imageView.setImageResource(
-                R.drawable.ic_holiday_placeholder
-            )
-        }
+        HolidayCoverImage.load(
+            imageView,
+            holiday
+        )
     }
+
 
     private fun showNoHolidayState() {
         selectedHolidayId =
