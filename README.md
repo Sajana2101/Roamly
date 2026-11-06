@@ -227,9 +227,10 @@ Advanced Final POE functionality includes:
 
 Roamly continues to function as a centralised travel-management platform where authenticated users can organise holidays, manage itinerary information, prepare packing lists, store travel documents, configure application preferences and use travel-specific reminders and utilities from one mobile interface.
 
-![Roamly authenticated Home screen](docs/evidence/mainpage-after-login-01.png)
-
-*Figure 1: Roamly running on the physical Android test device after successful Google authentication. The screenshot provides the starting point for the final physical-device evidence and confirms access to the authenticated application interface.*
+<p align="center">
+  <img src="docs/evidence/mainpage-after-login-01.png" alt="Roamly authenticated Home screen" width="320">
+</p>
+<p align="center"><em>Figure 1: Roamly running on the physical Android test device after successful Google authentication. The screenshot provides the starting point for the final physical-device evidence and confirms access to the authenticated application interface.</em></p>
 
 ________________________________________
 
@@ -287,44 +288,20 @@ ________________________________________
 
 The Part 2 prototype primarily followed a three-tier client-server structure:
 
-```text
-Android Application
-        |
-        v
-Custom REST API
-        |
-        v
-Azure SQL Database
-```
+Android Application  
+--> Custom REST API  
+--> Azure SQL Database
 
-That structure remains important, but the Final POE expands it because not all data now follows the same path.
+That structure remains the foundation of Roamly, but the Final POE expands the overall implementation through local persistence, background synchronisation, cloud file storage, NoSQL storage, secure authentication, biometric verification and notification services.
 
-Local Settings use DataStore, offline structured data uses Room, reconnection tasks use WorkManager, file content is stored in Azure Blob Storage and NoSQL travel notes are stored in Azure Table Storage.
+The completed architecture uses the Android application as the client layer, Retrofit for communication with the custom REST API, Room for supported offline data and WorkManager for synchronisation after connectivity returns. The REST API remains the central cloud-facing application layer and communicates with the Azure services used by the final implementation.
 
-```mermaid
-flowchart TD
-    A[Android UI<br/>Fragments + XML Layouts] --> B[ViewModels / Repositories]
+<p align="center">
+  <img src="docs/evidence/architecture-overview.png" alt="Final Roamly architecture overview" width="900">
+</p>
+<p align="center"><em>Figure 2: Final Roamly architecture overview showing the Android application, Retrofit communication, Room local storage, WorkManager synchronisation, the custom REST API, Azure SQL Database and Azure Blob Storage. The supporting sections below further document DataStore preferences, Azure Table Storage, authentication, biometric verification and Firebase Cloud Messaging as part of the completed architecture.</em></p>
 
-    B --> C[DataStore<br/>User Preferences]
-    B --> D[Room Database<br/>Offline Data]
-    B --> E[Retrofit / WorkManager<br/>Networking + Synchronisation]
-
-    E --> F[Custom REST API<br/>Node.js + TypeScript + Express]
-
-    F --> G[Azure SQL Database<br/>Relational Data]
-    F --> H[Azure Blob Storage<br/>Travel Documents]
-    F --> I[Azure Table Storage<br/>Travel Notes / NoSQL]
-
-    J[Google / Firebase Authentication] --> A
-    K[Android Biometric Framework] --> A
-    L[Firebase Cloud Messaging] --> A
-```
-
-The team also created a simplified architecture diagram for the demonstration video. It focuses specifically on the main online/offline data path:
-
-![Roamly architecture overview](docs/evidence/architecture-overview.png)
-
-*Figure 2: Simplified Roamly architecture overview showing the Android client, Retrofit communication, Room local storage, WorkManager synchronisation, the custom REST API, Azure SQL and Azure Blob Storage. The Mermaid diagram above expands this view by also showing DataStore, Azure Table Storage, Firebase services and Android biometrics.*
+The architecture reflects the different responsibilities required by the Final POE rather than forcing every feature through a single storage path. Preferences, structured offline data, relational cloud data, uploaded files and NoSQL information are therefore handled by technologies suited to their individual purposes.
 
 ### Android Presentation Layer
 
@@ -393,9 +370,10 @@ The Final POE also adds native Android biometric authentication.
 
 Biometric verification is handled by Android's protected biometric framework rather than by Roamly itself. The application therefore does not receive or store the user's fingerprint template.
 
-![Native biometric prompt](docs/evidence/biometric-native-prompt-photo.png)
-
-*Figure 3: External photograph of the physical test phone showing Android's protected fingerprint prompt over the Roamly Unlock screen. Android blocks normal screenshots of this system dialog, so an external photograph was used to provide direct evidence that Roamly invokes the native biometric framework.*
+<p align="center">
+  <img src="docs/evidence/biometric-native-prompt-photo.png" alt="Native biometric prompt" width="320">
+</p>
+<p align="center"><em>Figure 3: External photograph of the physical test phone showing Android's protected fingerprint prompt over the Roamly Unlock screen. Android blocks normal screenshots of this system dialog, so an external photograph was used to provide direct evidence that Roamly invokes the native biometric framework.</em></p>
 
 ________________________________________
 
@@ -415,9 +393,10 @@ The repository also supports migration from the earlier Part 2 preference file, 
 
 Settings are also synchronised through the authenticated `/api/settings` endpoint. This connects the device preference layer with the user's Roamly account while still keeping local persistence available.
 
-![Settings persistence](docs/evidence/settings-persistence.png)
-
-*Figure 4: Settings persistence evidence showing the saved preference values remaining available after the application was reopened. This verifies that the preference state is not limited to the current screen session.*
+<p align="center">
+  <img src="docs/evidence/settings-persistence.png" alt="Settings persistence" width="320">
+</p>
+<p align="center"><em>Figure 4: Settings persistence evidence showing the saved preference values remaining available after the application was reopened. This verifies that the preference state is not limited to the current screen session.</em></p>
 
 ________________________________________
 
@@ -427,9 +406,10 @@ The Home Currency preference is not stored only for display inside Settings.
 
 When the Currency Converter opens, the saved Home Currency is automatically applied as the source currency. This creates a direct connection between two separate areas of the application and reduces repeated configuration for the user.
 
-![Saved home currency](docs/evidence/currency-home-preference.png)
-
-*Figure 5: Currency Converter using the Home Currency previously saved in Settings. The screenshot demonstrates cross-feature use of the persisted preference rather than an isolated Settings value.*
+<p align="center">
+  <img src="docs/evidence/currency-home-preference.png" alt="Saved home currency" width="320">
+</p>
+<p align="center"><em>Figure 5: Currency Converter using the Home Currency previously saved in Settings. The screenshot demonstrates cross-feature use of the persisted preference rather than an isolated Settings value.</em></p>
 
 ________________________________________
 
@@ -441,21 +421,24 @@ The final offline test used Packing because it provides a clear way to verify cr
 
 A list named `Offline Test Packing` was created while offline together with the items `Offline Test Passport` and `Offline Test Hotel Accommodation`. One item was marked as packed and the local interface continued to display the list and its `1 of 2 packed` state.
 
-![Offline Packing test](docs/evidence/offline-action.png)
-
-*Figure 6: Packing data created and retained while the physical Android device had no network connectivity. The visible items and packing progress demonstrate that the supported feature remained usable from local Room storage.*
+<p align="center">
+  <img src="docs/evidence/offline-action.png" alt="Offline Packing test" width="320">
+</p>
+<p align="center"><em>Figure 6: Packing data created and retained while the physical Android device had no network connectivity. The visible items and packing progress demonstrate that the supported feature remained usable from local Room storage.</em></p>
 
 After connectivity was restored, the same data remained visible in the application.
 
-![Packing after reconnection](docs/evidence/sync-after-reconnect-app.png)
-
-*Figure 7: The offline-created Packing list still available after reconnection, showing that the locally stored state was retained rather than replaced or lost.*
+<p align="center">
+  <img src="docs/evidence/sync-after-reconnect-app.png" alt="Packing after reconnection" width="320">
+</p>
+<p align="center"><em>Figure 7: The offline-created Packing list still available after reconnection, showing that the locally stored state was retained rather than replaced or lost.</em></p>
 
 The cloud-side verification then confirmed that the same list and items had reached Azure SQL with the expected packed states.
 
-![Packing synchronised to Azure SQL](docs/evidence/sync-after-reconnect-cloud.png)
-
-*Figure 8: Azure SQL query results showing `Offline Test Packing`, `Offline Test Passport` and `Offline Test Hotel Accommodation` after reconnection. The stored packed-state values match the earlier physical-device test, providing direct evidence of offline-to-cloud synchronisation.*
+<p align="center">
+  <img src="docs/evidence/sync-after-reconnect-cloud.png" alt="Packing synchronised to Azure SQL" width="900">
+</p>
+<p align="center"><em>Figure 8: Azure SQL query results showing `Offline Test Packing`, `Offline Test Passport` and `Offline Test Hotel Accommodation` after reconnection. The stored packed-state values match the earlier physical-device test, providing direct evidence of offline-to-cloud synchronisation.</em></p>
 
 ________________________________________
 
@@ -480,15 +463,17 @@ The backend is responsible for areas including:
 
 A final API round-trip test created the Final POE Cape Town holiday in the Android application.
 
-![Final POE API test record](docs/evidence/api-round-trip-app.png)
-
-*Figure 9: The Final POE holiday displayed in Roamly after creation. This screenshot provides the Android-side record that is compared with the matching cloud data.*
+<p align="center">
+  <img src="docs/evidence/api-round-trip-app.png" alt="Final POE API test record" width="320">
+</p>
+<p align="center"><em>Figure 9: The Final POE holiday displayed in Roamly after creation. This screenshot provides the Android-side record that is compared with the matching cloud data.</em></p>
 
 Azure SQL returned the corresponding record with the expected Cape Town / South Africa destination and 13–20 November 2026 dates.
 
-![Final POE Azure SQL record](docs/evidence/api-round-trip-cloud-01.png)
-
-*Figure 10: Azure SQL query result showing the matching Final POE holiday record, including Leisure trip type, South Africa country, Cape Town city and the expected start date.*
+<p align="center">
+  <img src="docs/evidence/api-round-trip-cloud-01.png" alt="Final POE Azure SQL record" width="900">
+</p>
+<p align="center"><em>Figure 10: Azure SQL query result showing the matching Final POE holiday record, including Leisure trip type, South Africa country, Cape Town city and the expected start date.</em></p>
 
 The detailed testing report includes the second Azure screenshot showing the matching end date.
 
@@ -502,9 +487,10 @@ The final Android project includes `RoamlyMessagingService`, which receives Fire
 
 Final physical-device testing confirmed successful delivery.
 
-![Roamly FCM notification](docs/evidence/fcm-notification.png)
-
-*Figure 11: Android notification shade showing the delivered `Roamly - Test Notification` message. The notification appears with the Roamly icon and confirms that the Firebase message reached the physical device.*
+<p align="center">
+  <img src="docs/evidence/fcm-notification.png" alt="Roamly FCM notification" width="320">
+</p>
+<p align="center"><em>Figure 11: Android notification shade showing the delivered `Roamly - Test Notification` message. The notification appears with the Roamly icon and confirms that the Firebase message reached the physical device.</em></p>
 
 ________________________________________
 
@@ -532,13 +518,15 @@ The selected locale is applied using `AppCompatDelegate.setApplicationLocales(..
 
 The final evidence uses Afrikaans because it provides a clear visual example of the localisation result across multiple interface elements.
 
-![Afrikaans language switching](docs/evidence/language-switch.png)
+<p align="center">
+  <img src="docs/evidence/language-switch.png" alt="Afrikaans language switching" width="320">
+</p>
+<p align="center"><em>Figure 12: Add Holiday interface displayed in Afrikaans. The translated heading, explanatory text, field labels, action button and bottom-navigation items show that the locale change affects the broader screen rather than a single isolated label.</em></p>
 
-*Figure 12: Add Holiday interface displayed in Afrikaans. The translated heading, explanatory text, field labels, action button and bottom-navigation items show that the locale change affects the broader screen rather than a single isolated label.*
-
-![Afrikaans language persistence](docs/evidence/language-persistence.png)
-
-*Figure 13: Itinerary interface still displayed in Afrikaans after the application was reopened. The translated headings, controls and navigation provide evidence that the selected language preference persisted across restart.*
+<p align="center">
+  <img src="docs/evidence/language-persistence.png" alt="Afrikaans language persistence" width="320">
+</p>
+<p align="center"><em>Figure 13: Itinerary interface still displayed in Afrikaans after the application was reopened. The translated headings, controls and navigation provide evidence that the selected language preference persisted across restart.</em></p>
 
 ________________________________________
 
@@ -553,21 +541,24 @@ The final test uploaded:
 - File: `Morocco Trip - Boarding Pass.pdf`
 - Notes: `Boarding Pass for outbound flight`
 
-![Travel document upload](docs/evidence/blob-document-app.png)
-
-*Figure 14: Travel Documents interface showing the Boarding Pass upload and the successfully created document record inside Roamly.*
+<p align="center">
+  <img src="docs/evidence/blob-document-app.png" alt="Travel document upload" width="320">
+</p>
+<p align="center"><em>Figure 14: Travel Documents interface showing the Boarding Pass upload and the successfully created document record inside Roamly.</em></p>
 
 The final implementation separates the actual file from its structured metadata.
 
 TravelDocument metadata is stored through the backend and Azure SQL, while the PDF content is stored in Azure Blob Storage.
 
-![Travel-document metadata](docs/evidence/blob-metadata-cloud.png)
+<p align="center">
+  <img src="docs/evidence/blob-metadata-cloud.png" alt="Travel-document metadata" width="900">
+</p>
+<p align="center"><em>Figure 15: Azure SQL query result for the Boarding Pass metadata, including the document type, PDF file information, stored file URL and upload timestamp.</em></p>
 
-*Figure 15: Azure SQL query result for the Boarding Pass metadata, including the document type, PDF file information, stored file URL and upload timestamp.*
-
-![Azure Blob object](docs/evidence/blob-storage-cloud.png)
-
-*Figure 16: Matching PDF object in the Azure Blob Storage `travel-documents` container. The Blob properties identify the object as a PDF block blob and show the stored size and server-encrypted state.*
+<p align="center">
+  <img src="docs/evidence/blob-storage-cloud.png" alt="Azure Blob object" width="900">
+</p>
+<p align="center"><em>Figure 16: Matching PDF object in the Azure Blob Storage `travel-documents` container. The Blob properties identify the object as a PDF block blob and show the stored size and server-encrypted state.</em></p>
 
 ________________________________________
 
@@ -588,9 +579,10 @@ Stored note data includes:
 
 The final evidence uses a record named `POE NoSQL Test`.
 
-![Azure Table Storage travel note](docs/evidence/nosql-read-write.png)
-
-*Figure 17: Azure Storage Browser showing the `POE NoSQL Test` entity in the `RoamlyTravelNotes` table. The visible key fields, title and content provide direct evidence that the final NoSQL record was stored successfully.*
+<p align="center">
+  <img src="docs/evidence/nosql-read-write.png" alt="Azure Table Storage travel note" width="900">
+</p>
+<p align="center"><em>Figure 17: Azure Storage Browser showing the `POE NoSQL Test` entity in the `RoamlyTravelNotes` table. The visible key fields, title and content provide direct evidence that the final NoSQL record was stored successfully.</em></p>
 
 Additional property evidence is included in the detailed testing report.
 
@@ -624,9 +616,10 @@ The toolkit includes:
 
 This feature supports the original Roamly goal of reducing the number of separate tools a traveller needs while preparing for a trip.
 
-![Travel Management Toolkit](docs/evidence/user-defined-feature-4.png)
-
-*Figure 18: Final Travel Management Toolkit evidence showing creation of a realistic packing list, multiple packing items and the calculated packed-item progress. The sequence demonstrates that the feature supports more than a static checklist.*
+<p align="center">
+  <img src="docs/evidence/user-defined-feature-4.png" alt="Travel Management Toolkit" width="320">
+</p>
+<p align="center"><em>Figure 18: Final Travel Management Toolkit evidence showing creation of a realistic packing list, multiple packing items and the calculated packed-item progress. The sequence demonstrates that the feature supports more than a static checklist.</em></p>
 
 ## User-Defined Feature 5 - Automated Travel Reminders and Countdowns
 
@@ -643,15 +636,17 @@ Users can work with reminder information such as:
 - Description
 - Enabled/disabled state
 
-![Travel reminder](docs/evidence/reminder-feature.png)
-
-*Figure 19: `Online Flight Check-in` reminder displayed with its date/time, associated holiday, description and enabled state.*
+<p align="center">
+  <img src="docs/evidence/reminder-feature.png" alt="Travel reminder" width="320">
+</p>
+<p align="center"><em>Figure 19: `Online Flight Check-in` reminder displayed with its date/time, associated holiday, description and enabled state.</em></p>
 
 Holiday cards also calculate countdown information from future travel dates.
 
-![Holiday countdown](docs/evidence/holiday-countdown.png)
-
-*Figure 20: Upcoming Backpacking holiday displaying its calculated `31 days to go` value, providing the countdown component of User-Defined Feature 5.*
+<p align="center">
+  <img src="docs/evidence/holiday-countdown.png" alt="Holiday countdown" width="320">
+</p>
+<p align="center"><em>Figure 20: Upcoming Backpacking holiday displaying its calculated `31 days to go` value, providing the countdown component of User-Defined Feature 5.</em></p>
 
 ________________________________________
 
@@ -734,9 +729,10 @@ The workflow:
 
 This means the repository no longer relies only on manual local `BUILD SUCCESSFUL` results. The same configured test/build tasks are repeated in GitHub's hosted CI environment.
 
-![Successful GitHub Actions workflow](docs/evidence/github-actions-success.png)
-
-*Figure 21: Final Android Tests workflow on `main` showing the successful `Run Android unit tests` and `Build Android debug APK` steps in the same GitHub Actions job. This confirms automated verification of both testing and compilation.*
+<p align="center">
+  <img src="docs/evidence/github-actions-success.png" alt="Successful GitHub Actions workflow" width="900">
+</p>
+<p align="center"><em>Figure 21: Final Android Tests workflow on `main` showing the successful `Run Android unit tests` and `Build Android debug APK` steps in the same GitHub Actions job. This confirms automated verification of both testing and compilation.</em></p>
 
 ________________________________________
 
@@ -770,9 +766,10 @@ The final report recorded:
 - 0 ignored tests
 - 100% success
 
-![Settings automated test report](docs/evidence/settings-unit-tests.png)
-
-*Figure 22: Gradle test report confirming that all eight Settings-specific tests completed successfully with no failures or ignored tests.*
+<p align="center">
+  <img src="docs/evidence/settings-unit-tests.png" alt="Settings automated test report" width="900">
+</p>
+<p align="center"><em>Figure 22: Gradle test report confirming that all eight Settings-specific tests completed successfully with no failures or ignored tests.</em></p>
 
 ________________________________________
 
@@ -922,11 +919,11 @@ Bernard, N. B., 2025 . Understanding the 3-tier architecture. [Online]
 Available at: https://code-garage.com/en/blog/understanding-3-tier-architecture
 [Accessed 21 September 2026 ].
 
-Gillis, A. S., 2024. What is a 3-tier application architecture?. [Online] 
+Gillis, A. S., 2024. What is a 3-tier application architecture->. [Online] 
 Available at: https://www.techtarget.com/it-infrastructure/definition/What-is-a-3-tier-application-architecture
 [Accessed 21 September 2026 ].
 
-IBM, 2021. What is three-tier architecture?. [Online] 
+IBM, 2021. What is three-tier architecture->. [Online] 
 Available at: https://www.ibm.com/think/topics/three-tier-architecture
 [Accessed 21 September 2026 ].
 
@@ -935,8 +932,6 @@ Available at: https://github.blog/developer-skills/github/github-for-beginners-g
 [Accessed 21 September 2026 ].
 
 Microsoft, 2026. Configure an App Service app. [Online] 
-Available at: https://learn.microsoft.com/en-us/azure/app-service/configure-common?tabs=portal
+Available at: https://learn.microsoft.com/en-us/azure/app-service/configure-common->tabs=portal
 [Accessed 21 September 2026 ].
-
-
 
