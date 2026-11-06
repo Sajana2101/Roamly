@@ -888,7 +888,7 @@ The supporting files below separate detailed evidence from the main technical RE
 | [Testing Report PDF](docs/TESTING.pdf) | PDF version of the final testing report |
 | [Formal Release Notes](RELEASE_NOTES.md) | Functional and technical changes introduced after Part 2 |
 | [Play Store Assets](docs/play-store/) | Promotional screenshots prepared for publication readiness |
-| `app-release.apk` | Signed production APK supplied as a final release artefact |
+| [Download the final signed Roamly APK](release/app-release.apk) | Signed production APK supplied as a final release artefact |
 | [AI Usage Report](docs/AI_USAGE.pdf) | Final AI-use declaration and supporting evidence |
 
 ________________________________________
