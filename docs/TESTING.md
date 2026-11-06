@@ -149,21 +149,25 @@ The Google SSO flow opened correctly, displayed the Android Google account choos
 
 **Evidence Screenshots:**
 
-![Roamly Google login screen](evidence/google-sso-01.png)
+<p align="center">
+  <img src="evidence/google-sso-01.png" alt="Roamly Google login screen" width="320">
+</p>
+<p align="center"><em>Figure 1: Roamly Login screen showing the Continue with Google authentication option.</em></p>
 
-*Figure 1: Roamly Login screen showing the Continue with Google authentication option.*
+<p align="center">
+  <img src="evidence/google-sso-03.png" alt="Google account selection" width="320">
+</p>
+<p align="center"><em>Figure 2: Android Google account chooser displayed for Roamly authentication.</em></p>
 
-![Google account selection](evidence/google-sso-03.png)
+<p align="center">
+  <img src="evidence/google-sso-02.png" alt="Roamly secure sign-in" width="320">
+</p>
+<p align="center"><em>Figure 3: Roamly processing the selected Google account through the secure sign-in flow.</em></p>
 
-*Figure 2: Android Google account chooser displayed for Roamly authentication.*
-
-![Roamly secure sign-in](evidence/google-sso-02.png)
-
-*Figure 3: Roamly processing the selected Google account through the secure sign-in flow.*
-
-![Roamly after successful login](evidence/mainpage-after-login-01.png)
-
-*Figure 4: The authenticated Roamly Home screen displayed after Google Single Sign-On.*
+<p align="center">
+  <img src="evidence/mainpage-after-login-01.png" alt="Roamly after successful login" width="320">
+</p>
+<p align="center"><em>Figure 4: The authenticated Roamly Home screen displayed after Google Single Sign-On.</em></p>
 
 ________________________________________
 
@@ -205,9 +209,10 @@ Because Android protects this system dialog from normal screenshots, the final e
 
 **Evidence Screenshot:**
 
-![Native Android biometric prompt](evidence/biometric-native-prompt-photo.png)
-
-*Figure 5: External photograph of the physical Roamly test device showing Android's protected fingerprint prompt over the Unlock Roamly screen. The image demonstrates that the application invokes the native biometric framework while still exposing Google Sign-In as the alternative authentication method.*
+<p align="center">
+  <img src="evidence/biometric-native-prompt-photo.png" alt="Native Android biometric prompt" width="320">
+</p>
+<p align="center"><em>Figure 5: External photograph of the physical Roamly test device showing Android's protected fingerprint prompt over the Unlock Roamly screen. The image demonstrates that the application invokes the native biometric framework while still exposing Google Sign-In as the alternative authentication method.</em></p>
 
 ________________________________________
 
@@ -250,9 +255,10 @@ Roamly saved the selected Settings successfully and displayed the message confir
 
 **Evidence Screenshot:**
 
-![Settings saved successfully](evidence/settings-save-success.png)
-
-*Figure 6: Roamly confirming that the modified Settings were saved to the device and the authenticated Roamly account.*
+<p align="center">
+  <img src="evidence/settings-save-success.png" alt="Settings saved successfully" width="320">
+</p>
+<p align="center"><em>Figure 6: Roamly confirming that the modified Settings were saved to the device and the authenticated Roamly account.</em></p>
 
 ________________________________________
 
@@ -290,9 +296,10 @@ The display name, Afrikaans language preference, ZAR home currency and disabled 
 
 **Evidence Screenshot:**
 
-![Settings persistence after restart](evidence/settings-persistence.png)
-
-*Figure 7: Settings persistence evidence showing the saved values, the successful-save confirmation and the same stored preferences remaining available afterwards.*
+<p align="center">
+  <img src="evidence/settings-persistence.png" alt="Settings persistence after restart" width="320">
+</p>
+<p align="center"><em>Figure 7: Settings persistence evidence showing the saved values, the successful-save confirmation and the same stored preferences remaining available afterwards.</em></p>
 
 ________________________________________
 
@@ -324,9 +331,10 @@ The Currency Converter opened with `ZAR - South African Rand` as the source curr
 
 **Evidence Screenshot:**
 
-![Saved home currency used by Currency Converter](evidence/currency-home-preference.png)
-
-*Figure 8: Currency Converter automatically using the ZAR Home Currency saved in Settings.*
+<p align="center">
+  <img src="evidence/currency-home-preference.png" alt="Saved home currency used by Currency Converter" width="320">
+</p>
+<p align="center"><em>Figure 8: Currency Converter automatically using the ZAR Home Currency saved in Settings.</em></p>
 
 ________________________________________
 
@@ -353,9 +361,10 @@ The Settings-specific automated test suite completed successfully with 8 tests, 
 
 **Evidence Screenshot:**
 
-![Settings automated tests](evidence/settings-unit-tests.png)
-
-*Figure 9: Gradle test report confirming 8 Settings tests completed with 0 failures, 0 ignored tests and a 100% success rate.*
+<p align="center">
+  <img src="evidence/settings-unit-tests.png" alt="Settings automated tests" width="900">
+</p>
+<p align="center"><em>Figure 9: Gradle test report confirming 8 Settings tests completed with 0 failures, 0 ignored tests and a 100% success rate.</em></p>
 
 ________________________________________
 
@@ -400,17 +409,20 @@ The combined Android and Azure screenshots therefore provide evidence of the app
 
 **Evidence Screenshots:**
 
-![Final POE API test record in Android](evidence/api-round-trip-app.png)
+<p align="center">
+  <img src="evidence/api-round-trip-app.png" alt="Final POE API test record in Android" width="320">
+</p>
+<p align="center"><em>Figure 10: The Final POE Cape Town holiday displayed in Roamly after creation. This provides the Android-side record used for the API round-trip verification.</em></p>
 
-*Figure 10: The Final POE Cape Town holiday displayed in Roamly after creation. This provides the Android-side record used for the API round-trip verification.*
+<p align="center">
+  <img src="evidence/api-round-trip-cloud-01.png" alt="Matching Azure SQL holiday record" width="900">
+</p>
+<p align="center"><em>Figure 11: Azure SQL query results showing the matching Final POE holiday record with Leisure trip type, South Africa country, Cape Town city and the expected start date.</em></p>
 
-![Matching Azure SQL holiday record](evidence/api-round-trip-cloud-01.png)
-
-*Figure 11: Azure SQL query results showing the matching Final POE holiday record with Leisure trip type, South Africa country, Cape Town city and the expected start date.*
-
-![Matching Azure SQL holiday dates](evidence/api-round-trip-cloud-02.png)
-
-*Figure 12: The same Azure SQL record showing the expected 13 November 2026 start date and 20 November 2026 end date, completing the cloud-side comparison.*
+<p align="center">
+  <img src="evidence/api-round-trip-cloud-02.png" alt="Matching Azure SQL holiday dates" width="900">
+</p>
+<p align="center"><em>Figure 12: The same Azure SQL record showing the expected 13 November 2026 start date and 20 November 2026 end date, completing the cloud-side comparison.</em></p>
 
 ________________________________________
 
@@ -447,9 +459,10 @@ The supported packing data should be created locally and remain visible while th
 
 **Evidence Screenshot:**
 
-![Offline packing action](evidence/offline-action.png)
-
-*Figure 11: Packing-list creation and item state successfully retained in Roamly while the physical device was offline.*
+<p align="center">
+  <img src="evidence/offline-action.png" alt="Offline packing action" width="320">
+</p>
+<p align="center"><em>Figure 11: Packing-list creation and item state successfully retained in Roamly while the physical device was offline.</em></p>
 
 ________________________________________
 
@@ -493,13 +506,15 @@ This confirms both local retention after reconnection and successful offline-to-
 
 **Evidence Screenshots:**
 
-![Offline data after reconnection](evidence/sync-after-reconnect-app.png)
+<p align="center">
+  <img src="evidence/sync-after-reconnect-app.png" alt="Offline data after reconnection" width="320">
+</p>
+<p align="center"><em>Figure 14: The offline-created Packing list remaining available in Roamly after mobile connectivity was restored, with the original packing progress still visible.</em></p>
 
-*Figure 14: The offline-created Packing list remaining available in Roamly after mobile connectivity was restored, with the original packing progress still visible.*
-
-![Azure SQL synchronisation evidence](evidence/sync-after-reconnect-cloud.png)
-
-*Figure 15: Azure SQL results showing the synchronised Offline Test Packing list and both test items, including their matching packed and unpacked states.*
+<p align="center">
+  <img src="evidence/sync-after-reconnect-cloud.png" alt="Azure SQL synchronisation evidence" width="900">
+</p>
+<p align="center"><em>Figure 15: Azure SQL results showing the synchronised Offline Test Packing list and both test items, including their matching packed and unpacked states.</em></p>
 
 ________________________________________
 
@@ -534,9 +549,10 @@ The notification was displayed using the Roamly application icon inside Android'
 
 **Evidence Screenshot:**
 
-![Roamly FCM notification](evidence/fcm-notification.png)
-
-*Figure 16: Android notification shade showing the Roamly Firebase Cloud Messaging test notification received on the physical device. The visible Roamly title, icon and test message provide direct delivery evidence.*
+<p align="center">
+  <img src="evidence/fcm-notification.png" alt="Roamly FCM notification" width="320">
+</p>
+<p align="center"><em>Figure 16: Android notification shade showing the Roamly Firebase Cloud Messaging test notification received on the physical device. The visible Roamly title, icon and test message provide direct delivery evidence.</em></p>
 
 ________________________________________
 
@@ -580,9 +596,10 @@ The screenshot contains several independent interface elements, providing strong
 
 **Evidence Screenshot:**
 
-![Afrikaans Roamly interface](evidence/language-switch.png)
-
-*Figure 17: Final Add Holiday interface displayed in Afrikaans. The translated page heading, explanatory text, field labels, action button and bottom-navigation labels demonstrate that the selected locale is being applied across the screen.*
+<p align="center">
+  <img src="evidence/language-switch.png" alt="Afrikaans Roamly interface" width="320">
+</p>
+<p align="center"><em>Figure 17: Final Add Holiday interface displayed in Afrikaans. The translated page heading, explanatory text, field labels, action button and bottom-navigation labels demonstrate that the selected locale is being applied across the screen.</em></p>
 
 ________________________________________
 
@@ -618,9 +635,10 @@ This confirms that the language selection was not limited to the original screen
 
 **Evidence Screenshot:**
 
-![Afrikaans language persistence](evidence/language-persistence.png)
-
-*Figure 18: Roamly Itinerary interface still displayed in Afrikaans after the application was reopened, demonstrating persistence of the selected language across an application restart.*
+<p align="center">
+  <img src="evidence/language-persistence.png" alt="Afrikaans language persistence" width="320">
+</p>
+<p align="center"><em>Figure 18: Roamly Itinerary interface still displayed in Afrikaans after the application was reopened, demonstrating persistence of the selected language across an application restart.</em></p>
 
 ________________________________________
 
@@ -670,17 +688,20 @@ Together, these results verify the complete application → backend metadata →
 
 **Evidence Screenshots:**
 
-![Travel document uploaded in Roamly](evidence/blob-document-app.png)
+<p align="center">
+  <img src="evidence/blob-document-app.png" alt="Travel document uploaded in Roamly" width="320">
+</p>
+<p align="center"><em>Figure 19: Roamly Travel Documents showing the Boarding Pass upload form and the successfully uploaded document record in the Android interface.</em></p>
 
-*Figure 19: Roamly Travel Documents showing the Boarding Pass upload form and the successfully uploaded document record in the Android interface.*
+<p align="center">
+  <img src="evidence/blob-metadata-cloud.png" alt="Travel document metadata in Azure SQL" width="900">
+</p>
+<p align="center"><em>Figure 20: Azure SQL result showing the matching Boarding Pass TravelDocument metadata, including document type, file name, file size, stored URL and upload timestamp.</em></p>
 
-![Travel document metadata in Azure SQL](evidence/blob-metadata-cloud.png)
-
-*Figure 20: Azure SQL result showing the matching Boarding Pass TravelDocument metadata, including document type, file name, file size, stored URL and upload timestamp.*
-
-![Travel document in Azure Blob Storage](evidence/blob-storage-cloud.png)
-
-*Figure 21: Matching PDF object in the Azure Blob Storage travel-documents container. The properties show the stored block blob, PDF content type, file size and server-encrypted status.*
+<p align="center">
+  <img src="evidence/blob-storage-cloud.png" alt="Travel document in Azure Blob Storage" width="900">
+</p>
+<p align="center"><em>Figure 21: Matching PDF object in the Azure Blob Storage travel-documents container. The properties show the stored block blob, PDF content type, file size and server-encrypted status.</em></p>
 
 ________________________________________
 
@@ -728,13 +749,15 @@ The result confirms successful NoSQL persistence and retrieval of the implemente
 
 **Evidence Screenshots:**
 
-![Azure Table Storage travel note](evidence/nosql-read-write.png)
+<p align="center">
+  <img src="evidence/nosql-read-write.png" alt="Azure Table Storage travel note" width="900">
+</p>
+<p align="center"><em>Figure 22: Azure Storage Browser showing the POE NoSQL Test entity in the RoamlyTravelNotes table, including its key fields, title and stored content.</em></p>
 
-*Figure 22: Azure Storage Browser showing the POE NoSQL Test entity in the RoamlyTravelNotes table, including its key fields, title and stored content.*
-
-![Azure Table Storage travel note properties](evidence/nosql-read-write-details.png)
-
-*Figure 23: Additional fields from the same Azure Table Storage entity, including category, tags and created/updated timestamps used by the Roamly travel-note implementation.*
+<p align="center">
+  <img src="evidence/nosql-read-write-details.png" alt="Azure Table Storage travel note properties" width="900">
+</p>
+<p align="center"><em>Figure 23: Additional fields from the same Azure Table Storage entity, including category, tags and created/updated timestamps used by the Roamly travel-note implementation.</em></p>
 
 ________________________________________
 
@@ -778,9 +801,10 @@ The packing list was created successfully, multiple items were added, packed/unp
 
 **Evidence Screenshot:**
 
-![Travel Management Toolkit](evidence/user-defined-feature-4.png)
-
-*Figure 14: Four-stage evidence showing creation of the Greece Holiday Essentials packing list, addition of items and calculated packing progress.*
+<p align="center">
+  <img src="evidence/user-defined-feature-4.png" alt="Travel Management Toolkit" width="320">
+</p>
+<p align="center"><em>Figure 14: Four-stage evidence showing creation of the Greece Holiday Essentials packing list, addition of items and calculated packing progress.</em></p>
 
 ________________________________________
 
@@ -819,13 +843,15 @@ The `Online Flight Check-in` reminder was created and displayed with its date/ti
 
 **Evidence Screenshots:**
 
-![Travel reminder](evidence/reminder-feature.png)
+<p align="center">
+  <img src="evidence/reminder-feature.png" alt="Travel reminder" width="320">
+</p>
+<p align="center"><em>Figure 15: Creation and saved display of the Online Flight Check-in travel reminder.</em></p>
 
-*Figure 15: Creation and saved display of the Online Flight Check-in travel reminder.*
-
-![Holiday countdown](evidence/holiday-countdown.png)
-
-*Figure 16: Backpacking holiday card displaying the calculated 31-day countdown.*
+<p align="center">
+  <img src="evidence/holiday-countdown.png" alt="Holiday countdown" width="320">
+</p>
+<p align="center"><em>Figure 16: Backpacking holiday card displaying the calculated 31-day countdown.</em></p>
 
 ________________________________________
 
@@ -882,9 +908,10 @@ This provides repository-level evidence that the final committed project can exe
 
 **Evidence Screenshot:**
 
-![Successful GitHub Actions workflow](evidence/github-actions-success.png)
-
-*Figure 27: Final Android Tests workflow on `main` showing the complete successful job. Both Run Android unit tests and Build Android debug APK are visible with successful status, confirming automated test and build verification.*
+<p align="center">
+  <img src="evidence/github-actions-success.png" alt="Successful GitHub Actions workflow" width="900">
+</p>
+<p align="center"><em>Figure 27: Final Android Tests workflow on `main` showing the complete successful job. Both Run Android unit tests and Build Android debug APK are visible with successful status, confirming automated test and build verification.</em></p>
 
 ________________________________________
 
@@ -936,9 +963,10 @@ Roamly installed and ran successfully on the physical Android test device. Googl
 
 **Supporting Screenshot:**
 
-![Roamly running after authentication](evidence/mainpage-after-login-01.png)
-
-*Figure 17: Roamly Home displayed on the physical Android test installation after authentication. The final demonstration video provides the primary visual proof that the application is running live on a physical mobile phone.*
+<p align="center">
+  <img src="evidence/mainpage-after-login-01.png" alt="Roamly running after authentication" width="320">
+</p>
+<p align="center"><em>Figure 17: Roamly Home displayed on the physical Android test installation after authentication. The final demonstration video provides the primary visual proof that the application is running live on a physical mobile phone.</em></p>
 
 ________________________________________
 
@@ -1090,3 +1118,4 @@ The final evidence verifies the complete authentication flow, native biometric i
 Where a feature depended on a cloud service, the report deliberately includes both the app-side result and the corresponding Azure evidence. This is particularly visible in the API round-trip, offline synchronisation and Travel Documents tests.
 
 The final integrated review did not identify a critical regression in the verified Final POE areas. The completed report therefore provides a consolidated record of the application's final functional, integration and DevOps verification.
+ 
